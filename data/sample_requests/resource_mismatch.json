@@ -1,0 +1,14 @@
+{
+  "incident": {
+    "ip_address": "10.20.30.17",
+    "symptom": "无法确认实际接入端口。",
+    "fault_type": "access_unknown",
+    "target_mac": "00:11:22:33:44:17"
+  },
+  "evidence": {
+    "interface_output": "GigabitEthernet0/0/18 current state : UP\nLine protocol current state : UP",
+    "mac_output": "300 0011-2233-4417 dynamic GE0/0/18",
+    "vlan_output": "interface GigabitEthernet0/0/18\n port link-type access\n port default vlan 300\n undo shutdown",
+    "observed_device": "SW-SIM-04"
+  }
+}

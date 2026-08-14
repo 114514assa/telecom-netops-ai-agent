@@ -1,0 +1,6 @@
+ip_address,access_id,user_area,device_name,device_role,device_location,registered_port,expected_vlan,network_domain,expected_gateway,expected_dns,registered_mac
+10.60.10.21,ACC-SIM-001,办公楼A区,SW-SIM-01,SW,模拟机房A,GE0/0/10,160,DCN-SIM,10.60.10.1,10.60.0.53,00:11:22:33:44:21
+10.60.10.22,ACC-SIM-002,办公楼A区,SW-SIM-01,SW,模拟机房A,GE0/0/11,160,DCN-SIM,10.60.10.1,10.60.0.53,00:11:22:33:44:22
+10.20.30.15,ACC-SIM-003,办公楼B区,SW-SIM-03,SW,模拟机房B,GE0/0/15,200,OA-SIM,10.20.30.1,10.20.0.53,00:11:22:33:44:15
+10.20.30.16,ACC-SIM-004,办公楼B区,SW-SIM-03,SW,模拟机房B,GE0/0/16,200,OA-SIM,10.20.30.1,10.20.0.53,00:11:22:33:44:16
+10.20.30.17,ACC-SIM-005,办公楼C区,SW-SIM-04,SW,模拟机房C,GE0/0/17,300,OA-SIM,10.20.30.1,10.20.0.53,00:11:22:33:44:17

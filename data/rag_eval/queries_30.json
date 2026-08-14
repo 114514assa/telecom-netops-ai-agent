@@ -1,0 +1,502 @@
+[
+  {
+    "case_id": "no_mac_01",
+    "query": "接口UP但没有学习到目标MAC，下一步应该核查什么？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "MAC 地址表"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "no_mac_02",
+    "query": "端口状态正常，但是MAC表里找不到这台终端，怎么继续定位？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "MAC 地址表"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "no_mac_03",
+    "query": "交换机接口是UP的却没有终端MAC学习记录，需要检查哪些方向？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "MAC 地址表"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "vlan_01",
+    "query": "资源登记VLAN和当前交换机VLAN不一致怎么办？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "VLAN 证据"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断",
+          "资源记录"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "vlan_02",
+    "query": "台账目标VLAN是200，但是MAC学习在210，应该如何判断？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "VLAN 证据"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "vlan_03",
+    "query": "发现终端实际VLAN与资源登记不一致，排障时应如何处理？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "VLAN 证据"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断",
+          "资源记录"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "down_01",
+    "query": "目标交换机端口DOWN时应该优先排查什么？",
+    "relevant": [
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      },
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "Interface 状态"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "down_02",
+    "query": "接口物理状态不通，能不能直接判断交换机故障？",
+    "relevant": [
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      },
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "Interface 状态"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "down_03",
+    "query": "端口DOWN且没有MAC，终端、网卡和线缆该怎么排查？",
+    "relevant": [
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      },
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "Interface 状态"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "port_01",
+    "query": "资源登记端口和实际MAC学习端口不同，应该怎么核对？",
+    "relevant": [
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "资源记录",
+          "常见故障判断"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "port_02",
+    "query": "台账写的是GE0/0/15，但MAC出现在GE0/0/18，可能是什么情况？",
+    "relevant": [
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断",
+          "资源记录"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "port_03",
+    "query": "终端可能迁移过位置，怎么通过资源记录和MAC端口交叉核验？",
+    "relevant": [
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "资源记录",
+          "常见故障判断"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "upstream_01",
+    "query": "接入侧正常但是业务还是访问不了应该继续检查什么？",
+    "relevant": [
+      {
+        "source": "07_endpoint_connectivity_checks.md",
+        "sections": [
+          "典型场景"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "upstream_02",
+    "query": "接口、MAC和VLAN都正常，网页仍打不开，排障范围应该往哪里移动？",
+    "relevant": [
+      {
+        "source": "07_endpoint_connectivity_checks.md",
+        "sections": [
+          "典型场景"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "upstream_03",
+    "query": "二层接入没有明显异常，但业务不可达，需要检查DNS、路由还是业务系统？",
+    "relevant": [
+      {
+        "source": "07_endpoint_connectivity_checks.md",
+        "sections": [
+          "典型场景"
+        ]
+      },
+      {
+        "source": "06_dedicated_line_business_basics.md",
+        "sections": [
+          "常见问题"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "gateway_01",
+    "query": "终端IP调整以后默认网关还是旧网络，会造成什么问题？",
+    "relevant": [
+      {
+        "source": "07_endpoint_connectivity_checks.md",
+        "sections": [
+          "典型场景",
+          "地址调整"
+        ]
+      },
+      {
+        "source": "03_dcn_oa_network_basics.md",
+        "sections": [
+          "地址与 VLAN 一致性",
+          "终端地址整改"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "gateway_02",
+    "query": "地址迁移后网络不通，应该怎么核对IP、网关和DNS？",
+    "relevant": [
+      {
+        "source": "03_dcn_oa_network_basics.md",
+        "sections": [
+          "终端地址整改",
+          "地址与 VLAN 一致性"
+        ]
+      },
+      {
+        "source": "07_endpoint_connectivity_checks.md",
+        "sections": [
+          "地址调整"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "gateway_03",
+    "query": "终端地址与网关不在同一目标网络时应该如何定位？",
+    "relevant": [
+      {
+        "source": "07_endpoint_connectivity_checks.md",
+        "sections": [
+          "典型场景"
+        ]
+      },
+      {
+        "source": "03_dcn_oa_network_basics.md",
+        "sections": [
+          "地址与 VLAN 一致性"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "link_01",
+    "query": "接口UP但错误包持续增加，应该检查哪些链路质量问题？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "Interface 状态"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "时延和丢包"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "link_02",
+    "query": "交换机端口CRC或错误计数不断增长说明什么？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "Interface 状态"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "时延和丢包"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "link_03",
+    "query": "网络间歇性丢包并且接口错误计数升高，下一步如何核查？",
+    "relevant": [
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "时延和丢包"
+        ]
+      },
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "Interface 状态"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "arp_01",
+    "query": "MAC已经学习但是没有目标ARP记录，这能直接判断故障吗？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "ARP 表"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "arp_02",
+    "query": "二层MAC存在而ARP表项缺失，应该如何理解这个证据？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "ARP 表"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "arp_03",
+    "query": "为什么MAC正常但ARP可能还查不到，下一步需要核查什么？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "ARP 表"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "device_01",
+    "query": "资源台账登记设备与当前核查设备不一致应该怎么处理？",
+    "relevant": [
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "资源记录"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "device_02",
+    "query": "设备侧实时信息和资源系统登记关系冲突，应该相信哪一个？",
+    "relevant": [
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "资源记录"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "故障升级"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "device_03",
+    "query": "资源关系可能过期时，如何用设备和端口证据进行交叉验证？",
+    "relevant": [
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "资源记录"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "normal_01",
+    "query": "接口、MAC、VLAN和网关都正常时，接入侧能否先排除明显异常？",
+    "relevant": [
+      {
+        "source": "07_endpoint_connectivity_checks.md",
+        "sections": [
+          "典型场景"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "normal_02",
+    "query": "接入证据全部一致但用户仍报障，应该如何继续分层排查？",
+    "relevant": [
+      {
+        "source": "07_endpoint_connectivity_checks.md",
+        "sections": [
+          "典型场景"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "normal_03",
+    "query": "物理链路和二层证据正常时，为什么还要继续看DNS和业务系统？",
+    "relevant": [
+      {
+        "source": "07_endpoint_connectivity_checks.md",
+        "sections": [
+          "典型场景"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      }
+    ]
+  }
+]

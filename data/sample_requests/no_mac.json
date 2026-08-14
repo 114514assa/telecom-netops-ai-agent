@@ -1,0 +1,14 @@
+{
+  "incident": {
+    "ip_address": "10.60.10.22",
+    "symptom": "接口显示 UP，但终端仍无法通信。",
+    "fault_type": "network_down",
+    "target_mac": "00:11:22:33:44:22"
+  },
+  "evidence": {
+    "interface_output": "GigabitEthernet0/0/11 current state : UP\nLine protocol current state : UP",
+    "mac_output": "132 0011-2233-9999 dynamic GE0/0/11",
+    "vlan_output": "interface GigabitEthernet0/0/11\n port link-type access\n port default vlan 160\n undo shutdown",
+    "observed_device": "SW-SIM-01"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "incident": {
+    "ip_address": "10.20.30.15",
+    "symptom": "OA 地址调整后无法访问办公系统，请核查 VLAN。",
+    "fault_type": "address_migration",
+    "target_mac": "00:11:22:33:44:15",
+    "oa_address_changed": true,
+    "oa_accessible": false,
+    "internet_accessible": false
+  },
+  "evidence": {
+    "terminal_output": "IPv4 Address : 10.20.30.15\nSubnet Mask : 255.255.255.0\nDefault Gateway : 10.20.30.1\nDNS Servers : 10.20.0.53\nPhysical Address : 00-11-22-33-44-15\nRequest timed out.",
+    "interface_output": "GigabitEthernet0/0/15 current state : UP\nLine protocol current state : UP\nInput errors: 0\nOutput errors: 0",
+    "mac_output": "210 0011-2233-4415 dynamic GE0/0/15",
+    "vlan_output": "interface GigabitEthernet0/0/15\n description USER-OA-DEMO\n port link-type access\n port default vlan 210\n undo shutdown",
+    "observed_device": "SW-SIM-03"
+  }
+}

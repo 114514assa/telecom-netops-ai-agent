@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "telecom-netops-readonly": {
+      "command": "python",
+      "args": ["-m", "app.mcp_server"],
+      "cwd": "/absolute/path/to/telecom-netops-agent",
+      "env": {
+        "DATA_DIR": "data",
+        "RUNTIME_DIR": "runtime"
+      }
+    }
+  }
+}

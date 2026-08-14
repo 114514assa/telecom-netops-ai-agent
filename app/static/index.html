@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>接入网故障辅助诊断</title>
+  <style>
+    body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;margin:0;background:#f5f7fb;color:#172033}
+    main{max-width:1100px;margin:32px auto;padding:0 18px}
+    .card{background:#fff;border:1px solid #dfe5ef;border-radius:14px;padding:20px;margin-bottom:18px;box-shadow:0 8px 24px rgba(27,45,82,.06)}
+    h1{margin:0 0 8px}.muted{color:#667085}.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    label{display:block;font-weight:600;margin-bottom:6px}input,select,textarea{width:100%;box-sizing:border-box;padding:10px;border:1px solid #cdd5df;border-radius:8px;font:inherit}
+    textarea{min-height:120px}button{border:0;border-radius:8px;padding:10px 16px;font-weight:700;cursor:pointer;background:#2457d6;color:white;margin-right:8px}
+    button.secondary{background:#eef2ff;color:#2457d6}.warn{background:#fff7ed;border-color:#fed7aa}.status{font-weight:700}.full{grid-column:1/-1}
+    pre{white-space:pre-wrap;word-break:break-word;background:#101828;color:#e6edf7;padding:16px;border-radius:10px;max-height:520px;overflow:auto}
+    @media(max-width:760px){.grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<main>
+  <div class="card">
+    <h1>接入网故障辅助诊断 Agent</h1>
+    <p class="muted">仅使用模拟数据与脱敏命令输出；不连接真实设备，不执行任何配置修改。</p>
+    <p class="muted" id="modelInfo">模型配置：读取中……</p>
+  </div>
+  <div class="card warn">
+    <strong>推荐演示：</strong>选择 <code>10.20.30.15</code>，再加载 VLAN 不一致样例。
+  </div>
+  <div class="card">
+    <div class="grid">
+      <div><label>终端 IP</label><select id="ip"></select></div>
+      <div><label>故障类型</label><select id="fault"><option value="address_migration">地址调整异常</option><option value="network_down">网络完全不通</option><option value="intermittent">间歇性故障</option><option value="other">其他</option></select></div>
+      <div class="full"><label>故障现象</label><input id="symptom" value="OA 地址调整后无法访问办公系统，请核查接入关系、接口、MAC 和 VLAN。" /></div>
+      <div><label>目标 MAC</label><input id="mac" value="00:11:22:33:44:15" /></div>
+      <div><label>观察设备</label><input id="device" value="SW-SIM-03" /></div>
+      <div class="full"><label>接口输出</label><textarea id="interface"></textarea></div>
+      <div class="full"><label>MAC 表输出</label><textarea id="macout"></textarea></div>
+      <div class="full"><label>ARP 输出</label><textarea id="arpout"></textarea></div>
+      <div class="full"><label>接口配置/VLAN 输出</label><textarea id="vlan"></textarea></div>
+      <div class="full"><label>终端测试输出</label><textarea id="terminal"></textarea></div>
+    </div>
+    <p><button onclick="loadSample()" class="secondary">加载 VLAN 不一致样例</button><button onclick="start()">开始诊断</button></p>
+  </div>
+  <div class="card">
+    <div>状态：<span id="status" class="status">未开始</span></div>
+    <p><button id="approve" onclick="resume(true)" style="display:none">批准归档</button><button id="reject" onclick="resume(false)" class="secondary" style="display:none">拒绝归档</button></p>
+    <pre id="output">等待运行……</pre>
+  </div>
+</main>
+<script>
+let threadId = null;
+async function init(){const r=await fetch('/api/v1/inventory');const rows=await r.json();document.getElementById('ip').innerHTML=rows.map(x=>`<option>${x.ip_address}</option>`).join('');const mr=await fetch('/api/v1/system/model');const m=await mr.json();document.getElementById('modelInfo').textContent=`报告后端：${m.llm_enabled ? m.llm_backend : 'template'}${m.llm_backend==='local_hf'&&m.llm_enabled ? ' / '+m.quantization : ''}；诊断：规则与证据解析`;loadSample()}
+function loadSample(){
+ document.getElementById('ip').value='10.20.30.15';
+ document.getElementById('interface').value='GigabitEthernet0/0/15 current state : UP\nLine protocol current state : UP\nInput errors: 0\nOutput errors: 0';
+ document.getElementById('macout').value='210 0011-2233-4415 dynamic GE0/0/15';
+ document.getElementById('arpout').value='10.20.30.15 0011-2233-4415 dynamic Vlanif210';
+ document.getElementById('vlan').value='interface GigabitEthernet0/0/15\n description USER-OA-DEMO\n port link-type access\n port default vlan 210\n undo shutdown';
+ document.getElementById('terminal').value='IPv4 Address : 10.20.30.15\nSubnet Mask : 255.255.255.0\nDefault Gateway : 10.20.30.1\nDNS Servers : 10.20.0.53\nPhysical Address : 00-11-22-33-44-15\nRequest timed out.';
+}
+async function start(){
+ const payload={incident:{ip_address:ip.value,symptom:symptom.value,fault_type:fault.value,target_mac:mac.value,oa_address_changed:true,oa_accessible:false,internet_accessible:false},evidence:{interface_output:interface.value,mac_output:macout.value,arp_output:arpout.value,vlan_output:vlan.value,terminal_output:terminal.value,observed_device:device.value}};
+ status.textContent='运行中';const r=await fetch('/api/v1/incidents',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});const data=await r.json();render(data)
+}
+async function resume(approved){status.textContent='恢复中';const r=await fetch(`/api/v1/incidents/${threadId}/resume`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({approved,comment:approved?'人工确认：仅归档辅助诊断报告':'证据不足，暂不归档'})});render(await r.json())}
+function render(data){threadId=data.thread_id;status.textContent=data.status;output.textContent=JSON.stringify(data,null,2);const waiting=data.status==='awaiting_approval';approve.style.display=waiting?'inline-block':'none';reject.style.display=waiting?'inline-block':'none'}
+init();
+</script>
+</body>
+</html>

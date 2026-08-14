@@ -1,0 +1,4 @@
+model,mode,mean_latency_ms,mean_tokens_per_second,memory_footprint_mb,peak_gpu_memory_mb
+Qwen/Qwen2.5-0.5B-Instruct,fp16,7822.74,16.383,942.29,964.68
+Qwen/Qwen2.5-0.5B-Instruct,int8,43894.83,2.968,601.04,627.60
+Qwen/Qwen2.5-0.5B-Instruct,int4,9375.55,13.708,430.42,462.46

@@ -1,0 +1,14 @@
+{
+  "incident": {
+    "ip_address": "10.60.10.21",
+    "symptom": "终端无法访问 OA 和互联网，接口疑似无链路。",
+    "fault_type": "network_down",
+    "target_mac": "00:11:22:33:44:21"
+  },
+  "evidence": {
+    "interface_output": "GigabitEthernet0/0/10 current state : DOWN\nLine protocol current state : DOWN",
+    "mac_output": "",
+    "vlan_output": "interface GigabitEthernet0/0/10\n port link-type access\n port default vlan 160\n undo shutdown",
+    "observed_device": "SW-SIM-01"
+  }
+}

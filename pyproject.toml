@@ -1,0 +1,22 @@
+[project]
+name = "telecom-netops-ai-agent"
+version = "0.2.0"
+description = "Read-only LangGraph/MCP access-network troubleshooting Agent with RAG and optional quantized local LLM inference"
+requires-python = ">=3.10"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [{name = "Personal Portfolio Project"}]
+keywords = ["langgraph", "mcp", "rag", "network-operations", "llm", "quantization", "fastapi"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+addopts = "-ra"
+
+[tool.ruff]
+line-length = 110
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B"]
+ignore = ["E501"]
