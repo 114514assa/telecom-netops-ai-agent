@@ -85,7 +85,7 @@ def diagnose_access_issue(
 
 @mcp.tool()
 def search_netops_runbook(query: str, top_k: int = 3) -> list[dict]:
-    """检索本地脱敏运维知识文档；后端由 RAG_BACKEND 配置。"""
+    """通过 LangChain + Ollama Embedding + FAISS 检索本地脱敏运维知识。"""
     return [item.model_dump(mode="json") for item in knowledge_base.search(query, top_k=top_k)]
 
 

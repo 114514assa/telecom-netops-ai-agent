@@ -23,16 +23,15 @@ class Settings(BaseSettings):
 
     require_approval: bool = True
 
-    # RAG backend. Both backends use the same sanitized knowledge directory
-    # so TF-IDF and vector retrieval can be compared fairly.
-    rag_backend: Literal["tfidf", "vector"] = "tfidf"
+    # LangChain RAG: OllamaEmbeddings + FAISS. RAG is supporting evidence only;
+    # deterministic diagnosis must still work when the local vector service is unavailable.
+    rag_enabled: bool = True
     rag_knowledge_dir: Path = Path("knowledge/demo")
     rag_top_k: int = Field(default=3, ge=1, le=10)
-    rag_vector_fallback_to_tfidf: bool = True
+    rag_fail_open: bool = True
 
     ollama_base_url: str = "http://localhost:11434"
     ollama_embed_model: str = "qwen3-embedding:0.6b"
-    ollama_timeout_seconds: int = Field(default=120, ge=5, le=300)
 
     vector_index_path: Path = Path("runtime/vector_index/knowledge.faiss")
     vector_metadata_path: Path = Path("runtime/vector_index/metadata.json")
@@ -77,10 +76,11 @@ class Settings(BaseSettings):
             "device_map": self.local_llm_device_map if self.llm_backend == "local_hf" else None,
             "max_new_tokens": self.local_llm_max_new_tokens if self.llm_backend == "local_hf" else None,
             "diagnosis_mode": "deterministic-parsers-and-rules",
-            "llm_usage": "report-language-organization-only",
-            "rag_backend": self.rag_backend,
+            "llm_usage": "langchain-prompted-report-language-organization-only",
+            "rag_enabled": self.rag_enabled,
+            "rag_backend": "langchain-ollama-faiss" if self.rag_enabled else "disabled",
             "rag_top_k": self.rag_top_k,
-            "rag_embedding_model": self.ollama_embed_model if self.rag_backend == "vector" else None,
+            "rag_embedding_model": self.ollama_embed_model if self.rag_enabled else None,
             "rag_knowledge_dir": str(self.rag_knowledge_dir),
         }
 

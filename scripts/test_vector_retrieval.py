@@ -1,15 +1,14 @@
 from app.core.config import get_settings
-from app.rag.faiss_retriever import FaissRetriever
+from app.rag.langchain_faiss import LangChainFaissRetriever
 
 
-def main():
+def main() -> None:
     settings = get_settings()
-    retriever = FaissRetriever(
+    retriever = LangChainFaissRetriever(
         index_path=settings.vector_index_path,
         metadata_path=settings.vector_metadata_path,
         embed_model=settings.ollama_embed_model,
         ollama_base_url=settings.ollama_base_url,
-        ollama_timeout=settings.ollama_timeout_seconds,
         top_k=settings.rag_top_k,
     )
 

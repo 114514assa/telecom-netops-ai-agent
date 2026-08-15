@@ -12,7 +12,7 @@
 - 本地模拟资源台账；
 - 命令输出解析器；
 - 规则诊断引擎；
-- TF-IDF 本地知识检索；
+- LangChain + Ollama Embedding + FAISS 本地知识检索；
 - 只读 MCP Server；
 - FastAPI、Web UI、Checkpoint、审计和报告归档；
 - OpenAI-compatible / 本地 Hugging Face 报告整理后端；
@@ -33,4 +33,4 @@
 
 ## 4. 面试推荐回答
 
-> 项目没有接入运营商生产环境。它基于我实习中真实接触的 IP—资源设备—交换机端口—MAC/VLAN 核查流程，使用脱敏和模拟数据复现。我把关键网络状态写成确定性解析与规则，用 LangGraph 管理流程、人工审批和失败恢复，用 MCP 暴露只读工具；RAG 和大模型只负责知识检索和已有证据的报告整理。另外我增加了本地 Hugging Face 模型后端，用 FP16、INT8、INT4 做推理资源对比，量化结果以实际 benchmark 为准。
+> 项目没有接入运营商生产环境。它基于我实习中真实接触的 IP—资源设备—交换机端口—MAC/VLAN 核查流程，使用脱敏和模拟数据复现。我把关键网络状态写成确定性解析与规则，用 LangGraph 管理流程、人工审批和失败恢复，用 MCP 暴露只读工具，并通过 langchain-mcp-adapters 验证 MCP 工具可转换为 LangChain Tools；RAG 和大模型只负责知识检索和已有证据的报告整理。另外我增加了本地 Hugging Face 模型后端，用 FP16、INT8、INT4 做推理资源对比，量化结果以实际 benchmark 为准。

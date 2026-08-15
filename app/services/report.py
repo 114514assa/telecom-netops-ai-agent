@@ -8,7 +8,8 @@ from app.domain.models import (
     ReportResult,
 )
 from app.llm.factory import build_report_backend
-from app.llm.report_guardrails import build_auxiliary_request, validate_auxiliary_output
+from app.llm.langchain_report_chain import LangChainReportAssistant
+from app.llm.report_guardrails import validate_auxiliary_output
 
 
 DISCLAIMER = (
@@ -27,6 +28,7 @@ class ReportComposer:
     def __init__(self, settings: Settings):
         self.settings = settings
         self.backend = build_report_backend(settings)
+        self.assistant = LangChainReportAssistant(self.backend) if self.backend is not None else None
 
     def compose(
         self,
@@ -47,9 +49,8 @@ class ReportComposer:
                 generation_meta={"backend": "template", "quantization": "none"},
             )
 
-        request = build_auxiliary_request(base)
         try:
-            generation = self.backend.generate(request)
+            generation = self.assistant.generate(base)
         except (RuntimeError, ValueError, OSError) as exc:
             return ReportResult(
                 title=title,

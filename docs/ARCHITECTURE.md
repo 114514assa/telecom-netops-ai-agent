@@ -2,40 +2,36 @@
 
 ## Design principle
 
-The project separates **network-state judgement** from **language generation**. Interface/MAC/ARP/VLAN/resource consistency is parsed and diagnosed deterministically. RAG and LLM components are downstream aids for evidence retrieval and report organization.
+The project separates **network-state judgement** from **language generation**. Interface/MAC/ARP/VLAN/resource consistency is parsed and diagnosed deterministically. LangChain RAG and optional LLM generation are downstream aids only.
 
 ## Workflow
 
-1. Normalize incident input.
+1. Normalize incident input with Pydantic models.
 2. Query the simulated access-resource inventory by terminal IP.
 3. Parse terminal/switch evidence.
 4. Run deterministic diagnosis rules.
-5. Retrieve relevant local runbook chunks with TF-IDF.
-6. Compose a complete deterministic Markdown report.
-7. Optionally reorganize the report using either an OpenAI-compatible LLM or a local Hugging Face model.
-8. Pause for human approval with LangGraph `interrupt`.
-9. Resume by `thread_id`, archive the report, and append audit events.
+5. Build a semantic retrieval query from structured evidence.
+6. Retrieve local runbook chunks through LangChain `OllamaEmbeddings` + FAISS.
+7. Compose a complete deterministic Markdown report.
+8. If LLM is enabled, use LangChain `ChatPromptTemplate` to create a constrained auxiliary prompt and pass it to the configured backend.
+9. Validate the auxiliary sentence with application guardrails; reject it on any safety/consistency failure.
+10. Pause for human approval with LangGraph `interrupt`, then resume by `thread_id` and archive the report.
 
-## Local model path
+## LangChain / LangGraph / MCP separation
 
-The local Hugging Face backend is lazy-loaded only when `LLM_ENABLED=true` and `LLM_BACKEND=local_hf`. It supports:
-
-- default precision;
-- CUDA FP16;
-- bitsandbytes INT8;
-- bitsandbytes INT4/NF4 with double quantization.
-
-A backend load/generation failure is non-fatal: the system falls back to the deterministic report template and preserves the diagnostic result.
+- **LangGraph** owns workflow state, node ordering, conditional routing, interrupt/resume and checkpointing.
+- **LangChain** owns prompt composition, Document/vector-store abstractions and Ollama embedding integration.
+- **MCP/FastMCP** exposes the read-only domain capabilities as protocol tools.
+- **langchain-mcp-adapters** provides an interoperability path that loads those MCP tools as LangChain tools.
+- The primary troubleshooting graph intentionally calls deterministic Python domain services directly instead of using an unconstrained ReAct loop.
 
 ## Safety controls
 
 - simulated/RFC1918 data only;
-- input size validation;
-- no production credentials;
-- no SSH/Telnet device connector;
+- no production credentials or device connector;
 - no network write commands;
-- deterministic diagnosis before LLM;
-- constrained report prompt;
+- deterministic diagnosis before RAG/LLM;
+- RAG fail-open: retrieval failure does not change diagnosis;
+- constrained LangChain prompt + post-generation guardrail;
 - human approval before archive;
-- JSONL audit trail;
-- model configuration endpoint exposes no API key.
+- SQLite checkpoint + JSONL audit trail.

@@ -1,4 +1,4 @@
-.PHONY: install install-dev install-llm seed run test lint demo mcp model-info benchmark-quant clean
+.PHONY: install install-dev install-llm seed run test lint demo mcp mcp-bridge model-info benchmark-quant clean
 
 install:
 	python -m pip install -r requirements.txt
@@ -26,6 +26,9 @@ demo:
 
 mcp:
 	python -m app.mcp_server
+
+mcp-bridge:
+	python -m scripts.test_langchain_mcp_bridge
 
 model-info:
 	curl http://127.0.0.1:8000/api/v1/system/model

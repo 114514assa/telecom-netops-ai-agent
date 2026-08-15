@@ -85,15 +85,26 @@ def build_graph(
         query = build_retrieval_query(incident, inventory, parsed, diagnosis)
         try:
             hits = knowledge_base.search(query, top_k=settings.rag_top_k)
-            audit.write(
-                "knowledge_retrieved",
-                state["thread_id"],
-                {
-                    "count": len(hits),
-                    "backend": settings.rag_backend,
-                    "query_preview": query[:300],
-                },
-            )
+            retrieval_error = getattr(knowledge_base, "last_error", None)
+            if retrieval_error:
+                audit.write(
+                    "knowledge_retrieval_failed",
+                    state["thread_id"],
+                    {
+                        "backend": "langchain-ollama-faiss",
+                        "error": retrieval_error[:500],
+                    },
+                )
+            else:
+                audit.write(
+                    "knowledge_retrieved",
+                    state["thread_id"],
+                    {
+                        "count": len(hits),
+                        "backend": "langchain-ollama-faiss" if settings.rag_enabled else "disabled",
+                        "query_preview": query[:300],
+                    },
+                )
         except (RuntimeError, OSError, ValueError) as exc:
             # RAG is supporting evidence only. A retrieval outage must not
             # override or block deterministic diagnosis.
@@ -102,7 +113,7 @@ def build_graph(
                 "knowledge_retrieval_failed",
                 state["thread_id"],
                 {
-                    "backend": settings.rag_backend,
+                    "backend": "langchain-ollama-faiss" if settings.rag_enabled else "disabled",
                     "error": type(exc).__name__,
                 },
             )

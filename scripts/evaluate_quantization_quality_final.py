@@ -11,7 +11,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from app.llm.backends import LocalHFBackend
-from app.llm.report_guardrails import build_auxiliary_request, validate_auxiliary_output
+from app.llm.langchain_report_chain import LangChainReportAssistant
+from app.llm.report_guardrails import validate_auxiliary_output
 
 
 def release_backend(backend: LocalHFBackend) -> None:
@@ -140,11 +141,11 @@ def run_mode(
         load_started = time.perf_counter()
         backend._load()
         print(f"[{mode}] model loaded in {time.perf_counter() - load_started:.2f}s", flush=True)
+        assistant = LangChainReportAssistant(backend)
         for idx, case in enumerate(cases, start=1):
             print(f"[{mode}] {idx}/{len(cases)} {case['case_id']} ...", flush=True)
-            request = build_auxiliary_request(case["input_report"])
             started = time.perf_counter()
-            result = backend.generate(request)
+            result = assistant.generate(case["input_report"])
             wall = time.perf_counter() - started
             raw_output = result.text or ""
             scores = score_case(case, raw_output, max_new_tokens, result.output_tokens)
@@ -227,7 +228,7 @@ def main() -> None:
 
     payload = {
         "created_at": datetime.now(timezone.utc).isoformat(),
-        "evaluator_version": "v4.2-negation-aware-hardening-30",
+        "evaluator_version": "v5-langchain-prompt-30",
         "model": args.model,
         "seed": args.seed,
         "max_new_tokens": args.max_new_tokens,

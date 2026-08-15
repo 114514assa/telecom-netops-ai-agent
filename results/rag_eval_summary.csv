@@ -1,3 +1,0 @@
-backend,cases,hit_at_1,hit_at_3,avg_latency_ms
-tfidf,30,0.6000,0.9667,1.740
-vector,30,0.7333,0.9333,219.322

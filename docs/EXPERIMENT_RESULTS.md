@@ -2,18 +2,18 @@
 
 公开仓库仅保留聚合结果，不提交本地运行日志、原始模型输出、FAISS 索引或源资料。
 
-## RAG 检索对比
+## RAG 检索
 
-在 30 条模拟查询上：
+当前 v0.3.0 使用 LangChain `OllamaEmbeddings + FAISS` 作为 RAG 链路。
 
-| Backend | Hit@1 | Hit@3 | 平均检索耗时 |
-|---|---:|---:|---:|
-| TF-IDF | 60.00% | 96.67% | 1.74 ms |
-| Ollama Embedding + FAISS | 73.33% | 93.33% | 219.32 ms |
+更新后请重新运行当前 RAG 评测：
 
-解释：向量检索在 Top-1 语义排序上更好；TF-IDF 在当前小型知识库中更快，并且 Top-3 略高。因此项目保留双后端和回退机制。
+```powershell
+python -m scripts.build_vector_index
+python -m scripts.evaluate_rag_retrieval
+```
 
-> 该结果来自本地 30 条模拟查询与私人脱敏知识库。公开仓库只提供完全模拟的 Demo 知识，因此复现实验数值可能不同。
+新结果以本机重新生成的 `runtime/rag_eval/` 输出为准。
 
 ## Qwen2.5-0.5B 推理对比
 
