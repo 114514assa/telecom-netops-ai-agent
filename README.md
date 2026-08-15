@@ -1,171 +1,223 @@
 # Telecom NetOps AI Agent
 
-面向接入网终端故障排查场景搭建的只读型 AI Agent。项目使用模拟资源和网络数据，将资源查询、网络状态解析、确定性故障判断、RAG 知识检索和诊断结果整理串成可恢复工作流。
+一个用于接入网故障排查练习的 AI Agent 项目。
 
-> 公开仓库仅包含模拟数据与 Demo 知识，不连接运营商生产系统，不包含真实 IP、设备标识、账号密钥或内部资料。
+项目根据常见的终端接入故障排查流程，将资源查询、交换机信息解析、规则判断、知识检索和结果整理串成一个可执行流程。当前仓库使用的资源、设备状态和知识库均为模拟数据，不连接真实生产网络。
 
-## 主要功能
+## 功能
 
-- **LangGraph 工作流**：编排资源查询、证据解析、规则诊断、RAG、报告生成、人工确认和归档，SQLite Checkpoint 支持恢复。
-- **LangChain 应用组件**：使用 `ChatPromptTemplate` 组织受限 LLM 提示，使用 LangChain FAISS VectorStore 与 OllamaEmbeddings 完成本地 RAG。
-- **MCP 只读工具**：通过 FastMCP 封装资源查询、Interface/MAC/ARP/VLAN 解析、规则诊断和知识检索，并提供 `langchain-mcp-adapters` 兼容桥接。
-- **确定性诊断优先**：关键网络事实由解析器和规则引擎判断，LLM 只负责辅助说明，不直接修改诊断结论。
-- **本地轻量推理**：支持 Qwen2.5-0.5B-Instruct 的 FP16 / INT8 / INT4(NF4) 推理实践。
-- **安全兜底**：RAG fail-open、LLM Guardrail、Human-in-the-loop、审计日志和只读边界。
+目前实现了以下内容：
 
-## 架构
+* 根据终端 IP 查询模拟接入资源
+* 解析 Interface、MAC、ARP、VLAN 等交换机信息
+* 根据端口状态、MAC 学习和 VLAN 配置进行基础故障判断
+* 使用 LangGraph 编排完整诊断流程
+* 使用 Ollama Embedding + FAISS 检索排障知识
+* 使用 LangChain 组织 RAG、Prompt 和 MCP Tool 接入
+* 使用 FastMCP 提供只读网络查询与诊断工具
+* 可选使用本地 Qwen 模型整理诊断说明
+* 支持人工确认、SQLite Checkpoint 和诊断记录保存
 
-```mermaid
-flowchart TD
-    A[FastAPI / Web UI] --> B[LangGraph Workflow]
-    B --> C[Simulated Inventory]
-    B --> D[Interface/MAC/ARP/VLAN Parsers]
-    B --> E[Deterministic Diagnosis Rules]
-    B --> F[LangChain RAG]
-    F --> F1[OllamaEmbeddings]
-    F1 --> F2[FAISS VectorStore]
-    B --> G[Report Composer]
-    G --> H[LangChain ChatPromptTemplate]
-    H --> I{Optional LLM}
-    I --> I1[OpenAI-compatible API]
-    I --> I2[Local Qwen FP16/INT8/INT4]
-    I1 --> J[Guardrail]
-    I2 --> J
-    J --> K[HITL Approval]
-    B --> L[SQLite Checkpoint / Audit]
-    M[LangChain MCP Bridge] --> N[Read-only FastMCP Server]
-    N --> C
-    N --> D
-    N --> E
-    N --> F
+整体流程：
+
+```text
+终端 IP
+   ↓
+资源查询
+   ↓
+网络信息解析
+   ↓
+规则诊断
+   ↓
+RAG 检索
+   ↓
+结果整理
+   ↓
+人工确认
+   ↓
+归档
 ```
+
+关键故障判断由解析器和规则完成，大模型主要用于整理已有诊断结果和补充排障说明。
 
 ## 技术栈
 
-| 模块 | 技术 |
-|---|---|
-| Agent / Workflow | LangGraph, LangChain |
-| Tool Protocol | MCP, FastMCP, langchain-mcp-adapters |
-| API | FastAPI, Pydantic |
-| RAG | OllamaEmbeddings, FAISS |
-| LLM | OpenAI-compatible API, Hugging Face Transformers |
-| Quantization | bitsandbytes, FP16, INT8, INT4/NF4 |
-| Storage | SQLite, CSV, JSONL |
-| Engineering | Docker, pytest, Ruff, GitHub Actions |
+* Python
+* LangGraph / LangChain
+* MCP / FastMCP
+* FastAPI
+* Ollama
+* FAISS
+* Transformers / bitsandbytes
+* SQLite
+* Docker
 
-## 快速开始
+## 项目结构
 
-Python 3.10+：
+```text
+.
+├── app/
+│   ├── graph/          # LangGraph 工作流
+│   ├── llm/            # LLM 与 LangChain 报告生成
+│   ├── rag/            # Ollama + FAISS 检索
+│   ├── services/       # 资源查询、诊断、知识检索等业务逻辑
+│   ├── mcp_server.py   # MCP Server
+│   └── mcp_bridge.py   # LangChain MCP Bridge
+│
+├── knowledge/
+│   └── demo/           # Demo 知识库
+├── scripts/            # 初始化、测试和 Demo 脚本
+├── tests/
+├── docs/
+└── requirements.txt
+```
+
+## 运行
+
+要求 Python 3.10+。
+
+### 1. 安装依赖
+
+Windows PowerShell：
 
 ```powershell
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
+
 python -m pip install -r requirements.txt
 Copy-Item .env.example .env
+```
+
+### 2. 初始化模拟数据
+
+```powershell
 python -m scripts.seed_db
 ```
 
-准备本地 RAG：
+### 3. 准备 RAG
+
+本地安装并启动 Ollama 后：
 
 ```powershell
 ollama pull qwen3-embedding:0.6b
 python -m scripts.build_vector_index
 ```
 
-启动：
+当前 RAG 使用：
+
+```text
+Markdown Knowledge
+      ↓
+Ollama Embedding
+      ↓
+FAISS
+      ↓
+Retriever
+```
+
+### 4. 启动项目
 
 ```powershell
 uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
-- Web Demo: `http://127.0.0.1:8000/`
-- Swagger: `http://127.0.0.1:8000/docs`
-
-如果暂时不运行 Ollama，可在 `.env` 中设置 `RAG_ENABLED=false`；确定性诊断流程仍可正常运行。
-
-## RAG
-
-当前版本仅保留 LangChain 向量检索链路：
+浏览器访问：
 
 ```text
-knowledge/demo/*.md
-        ↓
-LangChain Document
-        ↓
-OllamaEmbeddings
-        ↓
-FAISS
-        ↓
-Retriever
-        ↓
-LangGraph retrieve node
+http://127.0.0.1:8000/
 ```
 
-配置示例：
+API 文档：
 
-```env
-RAG_ENABLED=true
-RAG_KNOWLEDGE_DIR=knowledge/demo
-RAG_TOP_K=3
-RAG_FAIL_OPEN=true
-OLLAMA_BASE_URL=http://localhost:11434
-OLLAMA_EMBED_MODEL=qwen3-embedding:0.6b
+```text
+http://127.0.0.1:8000/docs
 ```
 
-重新构建索引：
+## Demo
+
+项目中准备了几种模拟故障，例如：
+
+* 接口 DOWN
+* 接口 UP 但没有学习到目标 MAC
+* VLAN 配置与资源记录不一致
+* 端口登记信息不一致
+* 接入侧正常，需要继续检查上层网络
+
+运行 VLAN 不一致示例：
 
 ```powershell
-python -m scripts.build_vector_index
-python -m scripts.test_vector_retrieval
+python -m scripts.run_demo --case vlan_mismatch
 ```
 
-## MCP / LangChain 工具桥接
+## MCP
 
-启动独立 MCP Server：
+MCP Server：
 
 ```powershell
 python -m app.mcp_server
 ```
 
-验证 MCP 工具能够被转换为 LangChain Tools：
+目前提供的工具主要用于：
+
+```text
+资源查询
+网络信息解析
+故障判断
+知识检索
+只读边界查询
+```
+
+也可以通过 `langchain-mcp-adapters` 将 MCP Tool 接入 LangChain：
 
 ```powershell
 python -m scripts.test_langchain_mcp_bridge
 ```
 
-主诊断工作流仍直接调用本地确定性解析器和规则，不让 LLM 自主选择写操作或决定故障结论；MCP Bridge 用于展示标准工具协议和 LangChain/LangGraph 生态互操作。
+## 本地 LLM
 
-## 本地模型量化
+LLM 不是运行主诊断流程的必要条件。
 
-可选安装：
+如果需要测试本地模型，可以安装额外依赖：
 
 ```powershell
 python -m pip install -r requirements-llm.txt
 ```
 
-配置：
+示例：
 
 ```env
 LLM_ENABLED=true
 LLM_BACKEND=local_hf
 LOCAL_LLM_MODEL_ID=Qwen/Qwen2.5-0.5B-Instruct
 LOCAL_LLM_QUANTIZATION=int4
-LOCAL_LLM_MAX_NEW_TOKENS=96
 ```
 
-## Demo
+项目中保留了 FP16、INT8 和 INT4 的本地推理测试脚本，相关实验记录见：
 
-项目内置接口 DOWN、无目标 MAC、VLAN 不一致、接入侧正常需继续核查上层、端口登记不一致等模拟场景。
+```text
+docs/EXPERIMENT_RESULTS.md
+```
+
+## 测试
 
 ```powershell
-python -m scripts.run_demo --case vlan_mismatch
+pytest -q
 ```
 
-## 项目边界
+RAG 和 MCP 可以单独测试：
 
-该仓库用于学习和展示网络运维场景下的 Agent 开发流程。资源数据、交换机状态和知识库均为模拟内容，不连接真实生产网络，也不会执行网络配置修改操作。
+```powershell
+python -m scripts.test_vector_retrieval
+python -m scripts.test_langchain_mcp_bridge
+```
 
-详细说明见 `docs/`。
+## 说明
+
+这个项目主要用于学习和整理 AI Agent 在网络运维场景中的实现方式。
+
+仓库中的 IP、设备、交换机状态和知识内容均为模拟数据，不包含真实客户数据、生产配置或运营商内部资料，也不会执行网络配置修改操作。
+
+其他实现说明放在 `docs/` 目录中。
 
 ## License
 
