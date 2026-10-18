@@ -1,0 +1,816 @@
+﻿case_id,category,scenario_id,pair_id,ip_address,symptom,fault_type,target_mac,intermittent,oa_address_changed,oa_accessible,internet_accessible,department,area,terminal_output,interface_output,mac_output,arp_output,vlan_output,observed_device,observed_port,expected_diagnosis_code,expected_safety_boundary,check_rag_nonempty,expected_report_keywords,challenge_target,oracle_basis,expected_behavior,manual_review_focus,notes
+SEM-R-001,semantic_rephrase,resource_lookup_missing,BASE-R-001,10.99.8.101,这个IP在资源系统里查不到接入号，先帮忙确认是不是录错了。,access_unknown,00:aa:99:88:77:01,false,false,,,,待确认区域,,,,,,,,resource_not_found,false,true,,自然语言语义泛化 + RAG检索,仅改变一线人员/用户的自然语言表达，不改变真实网络证据,核心诊断应保持与对应基准Case一致；RAG建议应与故障方向相关,重点看knowledge_hits与报告说明是否仍围绕正确故障方向，而非只看诊断code,
+SEM-R-002,semantic_rephrase,resource_lookup_missing,BASE-R-002,10.99.8.102,前端只给了这个IP，运维系统没有匹配结果。,access_unknown,00:aa:99:88:77:02,false,false,,,,待确认区域,,,,,,,,resource_not_found,false,true,,自然语言语义泛化 + RAG检索,仅改变一线人员/用户的自然语言表达，不改变真实网络证据,核心诊断应保持与对应基准Case一致；RAG建议应与故障方向相关,重点看knowledge_hits与报告说明是否仍围绕正确故障方向，而非只看诊断code,
+SEM-R-003,semantic_rephrase,resource_lookup_missing,BASE-R-003,10.99.8.103,按IP反查不到交换机信息，是台账没同步吗？,access_unknown,00:aa:99:88:77:03,false,false,,,,待确认区域,,,,,,,,resource_not_found,false,true,,自然语言语义泛化 + RAG检索,仅改变一线人员/用户的自然语言表达，不改变真实网络证据,核心诊断应保持与对应基准Case一致；RAG建议应与故障方向相关,重点看knowledge_hits与报告说明是否仍围绕正确故障方向，而非只看诊断code,
+SEM-R-004,semantic_rephrase,resource_lookup_missing,BASE-R-004,10.99.8.104,这个IP在资源系统里查不到接入号，先帮忙确认是不是录错了。,access_unknown,00:aa:99:88:77:04,false,false,,,,待确认区域,,,,,,,,resource_not_found,false,true,,自然语言语义泛化 + RAG检索,仅改变一线人员/用户的自然语言表达，不改变真实网络证据,核心诊断应保持与对应基准Case一致；RAG建议应与故障方向相关,重点看knowledge_hits与报告说明是否仍围绕正确故障方向，而非只看诊断code,
+SEM-R-005,semantic_rephrase,resource_lookup_missing,BASE-R-005,10.99.8.105,前端只给了这个IP，运维系统没有匹配结果。,access_unknown,00:aa:99:88:77:05,false,false,,,,待确认区域,,,,,,,,resource_not_found,false,true,,自然语言语义泛化 + RAG检索,仅改变一线人员/用户的自然语言表达，不改变真实网络证据,核心诊断应保持与对应基准Case一致；RAG建议应与故障方向相关,重点看knowledge_hits与报告说明是否仍围绕正确故障方向，而非只看诊断code,
+SEM-R-006,semantic_rephrase,device_inventory_mismatch,BASE-R-006,10.132.10.21,终端刚迁过位置，台账还是旧接入关系。,access_unknown,00:11:22:33:44:21,false,false,,,,办公楼A区,,"<SW> display interface GE0/0/10
+GE0/0/10 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-001
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  132    GE0/0/40      dynamic
+00aa-bb00-0002  132    GE0/0/41      dynamic
+0011-2233-4421  132    GE0/0/10      dynamic",,"<SW> display current-configuration interface GE0/0/10
+interface GigabitEthernet0/0/10
+ description 办公楼A区-ACC-SIM-001
+ port link-type access
+ port default vlan 132
+ undo shutdown",SW-SIM-X1,GE0/0/10,resource_inconsistency,false,true,,自然语言语义泛化 + RAG检索,仅改变一线人员/用户的自然语言表达，不改变真实网络证据,核心诊断应保持与对应基准Case一致；RAG建议应与故障方向相关,重点看knowledge_hits与报告说明是否仍围绕正确故障方向，而非只看诊断code,
+SEM-R-007,semantic_rephrase,device_inventory_mismatch,BASE-R-007,10.132.10.22,系统登记和现场看到的接入口对不上，应该先信哪个？,access_unknown,00:11:22:33:44:22,false,false,,,,办公楼A区,,"<SW> display interface GE0/0/11
+GE0/0/11 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-002
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  132    GE0/0/40      dynamic
+00aa-bb00-0002  132    GE0/0/41      dynamic
+0011-2233-4422  132    GE0/0/11      dynamic",,"<SW> display current-configuration interface GE0/0/11
+interface GigabitEthernet0/0/11
+ description 办公楼A区-ACC-SIM-002
+ port link-type access
+ port default vlan 132
+ undo shutdown",SW-SIM-X2,GE0/0/11,resource_inconsistency,false,true,,自然语言语义泛化 + RAG检索,仅改变一线人员/用户的自然语言表达，不改变真实网络证据,核心诊断应保持与对应基准Case一致；RAG建议应与故障方向相关,重点看knowledge_hits与报告说明是否仍围绕正确故障方向，而非只看诊断code,
+SEM-R-008,semantic_rephrase,device_inventory_mismatch,BASE-R-008,10.20.30.15,MAC确实学到了，但位置跟资源记录不是一个口。,access_unknown,00:11:22:33:44:15,false,false,,,,办公楼B区,,"<SW> display interface GE0/0/15
+GE0/0/15 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-003
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic
+0011-2233-4415  200    GE0/0/15      dynamic",,"<SW> display current-configuration interface GE0/0/15
+interface GigabitEthernet0/0/15
+ description 办公楼B区-ACC-SIM-003
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-X3,GE0/0/15,resource_inconsistency,false,true,,自然语言语义泛化 + RAG检索,仅改变一线人员/用户的自然语言表达，不改变真实网络证据,核心诊断应保持与对应基准Case一致；RAG建议应与故障方向相关,重点看knowledge_hits与报告说明是否仍围绕正确故障方向，而非只看诊断code,
+SEM-R-009,semantic_rephrase,device_inventory_mismatch,BASE-R-009,10.20.30.16,终端刚迁过位置，台账还是旧接入关系。,access_unknown,00:11:22:33:44:16,false,false,,,,办公楼B区,,"<SW> display interface GE0/0/16
+GE0/0/16 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-004
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic
+0011-2233-4416  200    GE0/0/16      dynamic",,"<SW> display current-configuration interface GE0/0/16
+interface GigabitEthernet0/0/16
+ description 办公楼B区-ACC-SIM-004
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-X4,GE0/0/16,resource_inconsistency,false,true,,自然语言语义泛化 + RAG检索,仅改变一线人员/用户的自然语言表达，不改变真实网络证据,核心诊断应保持与对应基准Case一致；RAG建议应与故障方向相关,重点看knowledge_hits与报告说明是否仍围绕正确故障方向，而非只看诊断code,
+SEM-R-010,semantic_rephrase,device_inventory_mismatch,BASE-R-010,10.20.30.17,系统登记和现场看到的接入口对不上，应该先信哪个？,access_unknown,00:11:22:33:44:17,false,false,,,,办公楼C区,,"<SW> display interface GE0/0/17
+GE0/0/17 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-005
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  300    GE0/0/40      dynamic
+00aa-bb00-0002  300    GE0/0/41      dynamic
+0011-2233-4417  300    GE0/0/17      dynamic",,"<SW> display current-configuration interface GE0/0/17
+interface GigabitEthernet0/0/17
+ description 办公楼C区-ACC-SIM-005
+ port link-type access
+ port default vlan 300
+ undo shutdown",SW-SIM-X5,GE0/0/17,resource_inconsistency,false,true,,自然语言语义泛化 + RAG检索,仅改变一线人员/用户的自然语言表达，不改变真实网络证据,核心诊断应保持与对应基准Case一致；RAG建议应与故障方向相关,重点看knowledge_hits与报告说明是否仍围绕正确故障方向，而非只看诊断code,
+SEM-R-011,semantic_rephrase,port_inventory_mismatch,BASE-R-011,10.132.10.21,MAC确实学到了，但位置跟资源记录不是一个口。,access_unknown,00:11:22:33:44:21,false,false,,,,办公楼A区,,"<SW> display interface GE0/0/10
+GE0/0/10 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-001
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  132    GE0/0/40      dynamic
+00aa-bb00-0002  132    GE0/0/41      dynamic
+0011-2233-4421  132    GE0/0/30      dynamic",,"<SW> display current-configuration interface GE0/0/10
+interface GigabitEthernet0/0/10
+ description 办公楼A区-ACC-SIM-001
+ port link-type access
+ port default vlan 132
+ undo shutdown",SW-SIM-01,GE0/0/30,resource_inconsistency,false,true,,自然语言语义泛化 + RAG检索,仅改变一线人员/用户的自然语言表达，不改变真实网络证据,核心诊断应保持与对应基准Case一致；RAG建议应与故障方向相关,重点看knowledge_hits与报告说明是否仍围绕正确故障方向，而非只看诊断code,
+SEM-R-012,semantic_rephrase,port_inventory_mismatch,BASE-R-012,10.132.10.22,终端刚迁过位置，台账还是旧接入关系。,access_unknown,00:11:22:33:44:22,false,false,,,,办公楼A区,,"<SW> display interface GE0/0/11
+GE0/0/11 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-002
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  132    GE0/0/40      dynamic
+00aa-bb00-0002  132    GE0/0/41      dynamic
+0011-2233-4422  132    GE0/0/31      dynamic",,"<SW> display current-configuration interface GE0/0/11
+interface GigabitEthernet0/0/11
+ description 办公楼A区-ACC-SIM-002
+ port link-type access
+ port default vlan 132
+ undo shutdown",SW-SIM-01,GE0/0/31,resource_inconsistency,false,true,,自然语言语义泛化 + RAG检索,仅改变一线人员/用户的自然语言表达，不改变真实网络证据,核心诊断应保持与对应基准Case一致；RAG建议应与故障方向相关,重点看knowledge_hits与报告说明是否仍围绕正确故障方向，而非只看诊断code,
+SEM-R-013,semantic_rephrase,port_inventory_mismatch,BASE-R-013,10.20.30.15,系统登记和现场看到的接入口对不上，应该先信哪个？,access_unknown,00:11:22:33:44:15,false,false,,,,办公楼B区,,"<SW> display interface GE0/0/15
+GE0/0/15 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-003
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic
+0011-2233-4415  200    GE0/0/32      dynamic",,"<SW> display current-configuration interface GE0/0/15
+interface GigabitEthernet0/0/15
+ description 办公楼B区-ACC-SIM-003
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/32,resource_inconsistency,false,true,,自然语言语义泛化 + RAG检索,仅改变一线人员/用户的自然语言表达，不改变真实网络证据,核心诊断应保持与对应基准Case一致；RAG建议应与故障方向相关,重点看knowledge_hits与报告说明是否仍围绕正确故障方向，而非只看诊断code,
+SEM-R-014,semantic_rephrase,port_inventory_mismatch,BASE-R-014,10.20.30.16,MAC确实学到了，但位置跟资源记录不是一个口。,access_unknown,00:11:22:33:44:16,false,false,,,,办公楼B区,,"<SW> display interface GE0/0/16
+GE0/0/16 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-004
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic
+0011-2233-4416  200    GE0/0/33      dynamic",,"<SW> display current-configuration interface GE0/0/16
+interface GigabitEthernet0/0/16
+ description 办公楼B区-ACC-SIM-004
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/33,resource_inconsistency,false,true,,自然语言语义泛化 + RAG检索,仅改变一线人员/用户的自然语言表达，不改变真实网络证据,核心诊断应保持与对应基准Case一致；RAG建议应与故障方向相关,重点看knowledge_hits与报告说明是否仍围绕正确故障方向，而非只看诊断code,
+SEM-R-015,semantic_rephrase,port_inventory_mismatch,BASE-R-015,10.20.30.17,终端刚迁过位置，台账还是旧接入关系。,access_unknown,00:11:22:33:44:17,false,false,,,,办公楼C区,,"<SW> display interface GE0/0/17
+GE0/0/17 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-005
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  300    GE0/0/40      dynamic
+00aa-bb00-0002  300    GE0/0/41      dynamic
+0011-2233-4417  300    GE0/0/34      dynamic",,"<SW> display current-configuration interface GE0/0/17
+interface GigabitEthernet0/0/17
+ description 办公楼C区-ACC-SIM-005
+ port link-type access
+ port default vlan 300
+ undo shutdown",SW-SIM-04,GE0/0/34,resource_inconsistency,false,true,,自然语言语义泛化 + RAG检索,仅改变一线人员/用户的自然语言表达，不改变真实网络证据,核心诊断应保持与对应基准Case一致；RAG建议应与故障方向相关,重点看knowledge_hits与报告说明是否仍围绕正确故障方向，而非只看诊断code,
+SEM-R-016,semantic_rephrase,interface_down,BASE-R-016,10.132.10.21,网口灯都不亮，交换机端口也是down。,network_down,00:11:22:33:44:21,false,false,,,,办公楼A区,,"<SW> display interface GE0/0/10
+GE0/0/10 current state : DOWN
+Line protocol current state : DOWN
+Description: USER-ACC-SIM-001
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  132    GE0/0/40      dynamic
+00aa-bb00-0002  132    GE0/0/41      dynamic",,"<SW> display current-configuration interface GE0/0/10
+interface GigabitEthernet0/0/10
+ description 办公楼A区-ACC-SIM-001
+ port link-type access
+ port default vlan 132
+ undo shutdown",SW-SIM-01,GE0/0/10,physical_or_terminal_link,false,true,,自然语言语义泛化 + RAG检索,仅改变一线人员/用户的自然语言表达，不改变真实网络证据,核心诊断应保持与对应基准Case一致；RAG建议应与故障方向相关,重点看knowledge_hits与报告说明是否仍围绕正确故障方向，而非只看诊断code,
+SEM-R-017,semantic_rephrase,interface_down,BASE-R-017,10.132.10.22,电脑这边显示网线没插好，设备口没有起来。,network_down,00:11:22:33:44:22,false,false,,,,办公楼A区,,"<SW> display interface GE0/0/11
+GE0/0/11 current state : DOWN
+Line protocol current state : DOWN
+Description: USER-ACC-SIM-002
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  132    GE0/0/40      dynamic
+00aa-bb00-0002  132    GE0/0/41      dynamic",,"<SW> display current-configuration interface GE0/0/11
+interface GigabitEthernet0/0/11
+ description 办公楼A区-ACC-SIM-002
+ port link-type access
+ port default vlan 132
+ undo shutdown",SW-SIM-01,GE0/0/11,physical_or_terminal_link,false,true,,自然语言语义泛化 + RAG检索,仅改变一线人员/用户的自然语言表达，不改变真实网络证据,核心诊断应保持与对应基准Case一致；RAG建议应与故障方向相关,重点看knowledge_hits与报告说明是否仍围绕正确故障方向，而非只看诊断code,
+SEM-R-018,semantic_rephrase,interface_down,BASE-R-018,10.20.30.15,用户突然断网，查口发现链路没建立。,network_down,00:11:22:33:44:15,false,false,,,,办公楼B区,,"<SW> display interface GE0/0/15
+GE0/0/15 current state : DOWN
+Line protocol current state : DOWN
+Description: USER-ACC-SIM-003
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic",,"<SW> display current-configuration interface GE0/0/15
+interface GigabitEthernet0/0/15
+ description 办公楼B区-ACC-SIM-003
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/15,physical_or_terminal_link,false,true,,自然语言语义泛化 + RAG检索,仅改变一线人员/用户的自然语言表达，不改变真实网络证据,核心诊断应保持与对应基准Case一致；RAG建议应与故障方向相关,重点看knowledge_hits与报告说明是否仍围绕正确故障方向，而非只看诊断code,
+SEM-R-019,semantic_rephrase,interface_down,BASE-R-019,10.20.30.16,网口灯都不亮，交换机端口也是down。,network_down,00:11:22:33:44:16,false,false,,,,办公楼B区,,"<SW> display interface GE0/0/16
+GE0/0/16 current state : DOWN
+Line protocol current state : DOWN
+Description: USER-ACC-SIM-004
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic",,"<SW> display current-configuration interface GE0/0/16
+interface GigabitEthernet0/0/16
+ description 办公楼B区-ACC-SIM-004
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/16,physical_or_terminal_link,false,true,,自然语言语义泛化 + RAG检索,仅改变一线人员/用户的自然语言表达，不改变真实网络证据,核心诊断应保持与对应基准Case一致；RAG建议应与故障方向相关,重点看knowledge_hits与报告说明是否仍围绕正确故障方向，而非只看诊断code,
+SEM-R-020,semantic_rephrase,interface_down,BASE-R-020,10.20.30.17,电脑这边显示网线没插好，设备口没有起来。,network_down,00:11:22:33:44:17,false,false,,,,办公楼C区,,"<SW> display interface GE0/0/17
+GE0/0/17 current state : DOWN
+Line protocol current state : DOWN
+Description: USER-ACC-SIM-005
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  300    GE0/0/40      dynamic
+00aa-bb00-0002  300    GE0/0/41      dynamic",,"<SW> display current-configuration interface GE0/0/17
+interface GigabitEthernet0/0/17
+ description 办公楼C区-ACC-SIM-005
+ port link-type access
+ port default vlan 300
+ undo shutdown",SW-SIM-04,GE0/0/17,physical_or_terminal_link,false,true,,自然语言语义泛化 + RAG检索,仅改变一线人员/用户的自然语言表达，不改变真实网络证据,核心诊断应保持与对应基准Case一致；RAG建议应与故障方向相关,重点看knowledge_hits与报告说明是否仍围绕正确故障方向，而非只看诊断code,
+SEM-R-021,semantic_rephrase,intermittent_link_errors,BASE-R-021,10.132.10.21,网络抖得厉害，端口统计有error和drop。,intermittent,00:11:22:33:44:21,true,false,,,,办公楼A区,,"<SW> display interface GE0/0/10
+GE0/0/10 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-001
+Input errors: 24
+Output errors: 12
+Input drops: 12
+Output drops: 6","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  132    GE0/0/40      dynamic
+00aa-bb00-0002  132    GE0/0/41      dynamic
+0011-2233-4421  132    GE0/0/10      dynamic",,"<SW> display current-configuration interface GE0/0/10
+interface GigabitEthernet0/0/10
+ description 办公楼A区-ACC-SIM-001
+ port link-type access
+ port default vlan 132
+ undo shutdown",SW-SIM-01,GE0/0/10,link_quality,false,true,,自然语言语义泛化 + RAG检索,仅改变一线人员/用户的自然语言表达，不改变真实网络证据,核心诊断应保持与对应基准Case一致；RAG建议应与故障方向相关,重点看knowledge_hits与报告说明是否仍围绕正确故障方向，而非只看诊断code,
+SEM-R-022,semantic_rephrase,intermittent_link_errors,BASE-R-022,10.132.10.22,不是完全断，隔一会儿就卡一下，端口错误计数也在涨。,intermittent,00:11:22:33:44:22,true,false,,,,办公楼A区,,"<SW> display interface GE0/0/11
+GE0/0/11 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-002
+Input errors: 31
+Output errors: 15
+Input drops: 13
+Output drops: 6","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  132    GE0/0/40      dynamic
+00aa-bb00-0002  132    GE0/0/41      dynamic
+0011-2233-4422  132    GE0/0/11      dynamic",,"<SW> display current-configuration interface GE0/0/11
+interface GigabitEthernet0/0/11
+ description 办公楼A区-ACC-SIM-002
+ port link-type access
+ port default vlan 132
+ undo shutdown",SW-SIM-01,GE0/0/11,link_quality,false,true,,自然语言语义泛化 + RAG检索,仅改变一线人员/用户的自然语言表达，不改变真实网络证据,核心诊断应保持与对应基准Case一致；RAG建议应与故障方向相关,重点看knowledge_hits与报告说明是否仍围绕正确故障方向，而非只看诊断code,
+SEM-R-023,semantic_rephrase,intermittent_link_errors,BASE-R-023,10.20.30.15,这台电脑时通时不通，接口一直up但丢包不少。,intermittent,00:11:22:33:44:15,true,false,,,,办公楼B区,,"<SW> display interface GE0/0/15
+GE0/0/15 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-003
+Input errors: 38
+Output errors: 19
+Input drops: 14
+Output drops: 7","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic
+0011-2233-4415  200    GE0/0/15      dynamic",,"<SW> display current-configuration interface GE0/0/15
+interface GigabitEthernet0/0/15
+ description 办公楼B区-ACC-SIM-003
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/15,link_quality,false,true,,自然语言语义泛化 + RAG检索,仅改变一线人员/用户的自然语言表达，不改变真实网络证据,核心诊断应保持与对应基准Case一致；RAG建议应与故障方向相关,重点看knowledge_hits与报告说明是否仍围绕正确故障方向，而非只看诊断code,
+SEM-R-024,semantic_rephrase,intermittent_link_errors,BASE-R-024,10.20.30.16,网络抖得厉害，端口统计有error和drop。,intermittent,00:11:22:33:44:16,true,false,,,,办公楼B区,,"<SW> display interface GE0/0/16
+GE0/0/16 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-004
+Input errors: 45
+Output errors: 22
+Input drops: 15
+Output drops: 7","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic
+0011-2233-4416  200    GE0/0/16      dynamic",,"<SW> display current-configuration interface GE0/0/16
+interface GigabitEthernet0/0/16
+ description 办公楼B区-ACC-SIM-004
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/16,link_quality,false,true,,自然语言语义泛化 + RAG检索,仅改变一线人员/用户的自然语言表达，不改变真实网络证据,核心诊断应保持与对应基准Case一致；RAG建议应与故障方向相关,重点看knowledge_hits与报告说明是否仍围绕正确故障方向，而非只看诊断code,
+SEM-R-025,semantic_rephrase,intermittent_link_errors,BASE-R-025,10.20.30.17,不是完全断，隔一会儿就卡一下，端口错误计数也在涨。,intermittent,00:11:22:33:44:17,true,false,,,,办公楼C区,,"<SW> display interface GE0/0/17
+GE0/0/17 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-005
+Input errors: 52
+Output errors: 26
+Input drops: 16
+Output drops: 8","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  300    GE0/0/40      dynamic
+00aa-bb00-0002  300    GE0/0/41      dynamic
+0011-2233-4417  300    GE0/0/17      dynamic",,"<SW> display current-configuration interface GE0/0/17
+interface GigabitEthernet0/0/17
+ description 办公楼C区-ACC-SIM-005
+ port link-type access
+ port default vlan 300
+ undo shutdown",SW-SIM-04,GE0/0/17,link_quality,false,true,,自然语言语义泛化 + RAG检索,仅改变一线人员/用户的自然语言表达，不改变真实网络证据,核心诊断应保持与对应基准Case一致；RAG建议应与故障方向相关,重点看knowledge_hits与报告说明是否仍围绕正确故障方向，而非只看诊断code,
+SEM-R-026,semantic_rephrase,up_no_target_mac,BASE-R-026,10.132.10.21,端口up没问题，display mac-address查不到目标。,network_down,00:11:22:33:44:21,false,false,,,,办公楼A区,,"<SW> display interface GE0/0/10
+GE0/0/10 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-001
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  132    GE0/0/40      dynamic
+00aa-bb00-0002  132    GE0/0/41      dynamic",,"<SW> display current-configuration interface GE0/0/10
+interface GigabitEthernet0/0/10
+ description 办公楼A区-ACC-SIM-001
+ port link-type access
+ port default vlan 132
+ undo shutdown",SW-SIM-01,GE0/0/10,l2_no_mac,false,true,,自然语言语义泛化 + RAG检索,仅改变一线人员/用户的自然语言表达，不改变真实网络证据,核心诊断应保持与对应基准Case一致；RAG建议应与故障方向相关,重点看knowledge_hits与报告说明是否仍围绕正确故障方向，而非只看诊断code,
+SEM-R-027,semantic_rephrase,up_no_target_mac,BASE-R-027,10.132.10.22,链路有了但二层地址没上来。,network_down,00:11:22:33:44:22,false,false,,,,办公楼A区,,"<SW> display interface GE0/0/11
+GE0/0/11 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-002
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  132    GE0/0/40      dynamic
+00aa-bb00-0002  132    GE0/0/41      dynamic",,"<SW> display current-configuration interface GE0/0/11
+interface GigabitEthernet0/0/11
+ description 办公楼A区-ACC-SIM-002
+ port link-type access
+ port default vlan 132
+ undo shutdown",SW-SIM-01,GE0/0/11,l2_no_mac,false,true,,自然语言语义泛化 + RAG检索,仅改变一线人员/用户的自然语言表达，不改变真实网络证据,核心诊断应保持与对应基准Case一致；RAG建议应与故障方向相关,重点看knowledge_hits与报告说明是否仍围绕正确故障方向，而非只看诊断code,
+SEM-R-028,semantic_rephrase,up_no_target_mac,BASE-R-028,10.20.30.15,口是起来的，可就是学不到这台终端的MAC。,network_down,00:11:22:33:44:15,false,false,,,,办公楼B区,,"<SW> display interface GE0/0/15
+GE0/0/15 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-003
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic",,"<SW> display current-configuration interface GE0/0/15
+interface GigabitEthernet0/0/15
+ description 办公楼B区-ACC-SIM-003
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/15,l2_no_mac,false,true,,自然语言语义泛化 + RAG检索,仅改变一线人员/用户的自然语言表达，不改变真实网络证据,核心诊断应保持与对应基准Case一致；RAG建议应与故障方向相关,重点看knowledge_hits与报告说明是否仍围绕正确故障方向，而非只看诊断code,
+SEM-R-029,semantic_rephrase,up_no_target_mac,BASE-R-029,10.20.30.16,端口up没问题，display mac-address查不到目标。,network_down,00:11:22:33:44:16,false,false,,,,办公楼B区,,"<SW> display interface GE0/0/16
+GE0/0/16 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-004
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic",,"<SW> display current-configuration interface GE0/0/16
+interface GigabitEthernet0/0/16
+ description 办公楼B区-ACC-SIM-004
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/16,l2_no_mac,false,true,,自然语言语义泛化 + RAG检索,仅改变一线人员/用户的自然语言表达，不改变真实网络证据,核心诊断应保持与对应基准Case一致；RAG建议应与故障方向相关,重点看knowledge_hits与报告说明是否仍围绕正确故障方向，而非只看诊断code,
+SEM-R-030,semantic_rephrase,up_no_target_mac,BASE-R-030,10.20.30.17,链路有了但二层地址没上来。,network_down,00:11:22:33:44:17,false,false,,,,办公楼C区,,"<SW> display interface GE0/0/17
+GE0/0/17 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-005
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  300    GE0/0/40      dynamic
+00aa-bb00-0002  300    GE0/0/41      dynamic",,"<SW> display current-configuration interface GE0/0/17
+interface GigabitEthernet0/0/17
+ description 办公楼C区-ACC-SIM-005
+ port link-type access
+ port default vlan 300
+ undo shutdown",SW-SIM-04,GE0/0/17,l2_no_mac,false,true,,自然语言语义泛化 + RAG检索,仅改变一线人员/用户的自然语言表达，不改变真实网络证据,核心诊断应保持与对应基准Case一致；RAG建议应与故障方向相关,重点看knowledge_hits与报告说明是否仍围绕正确故障方向，而非只看诊断code,
+SEM-R-031,semantic_rephrase,access_vlan_mismatch,BASE-R-031,10.132.10.21,地址迁完以后业务不通，端口还在旧VLAN。,address_migration,00:11:22:33:44:21,false,true,,,,办公楼A区,,"<SW> display interface GE0/0/10
+GE0/0/10 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-001
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  142    GE0/0/40      dynamic
+00aa-bb00-0002  142    GE0/0/41      dynamic
+0011-2233-4421  142    GE0/0/10      dynamic",,"<SW> display current-configuration interface GE0/0/10
+interface GigabitEthernet0/0/10
+ description 办公楼A区-ACC-SIM-001
+ port link-type access
+ port default vlan 142
+ undo shutdown",SW-SIM-01,GE0/0/10,vlan_mismatch,false,true,,自然语言语义泛化 + RAG检索,仅改变一线人员/用户的自然语言表达，不改变真实网络证据,核心诊断应保持与对应基准Case一致；RAG建议应与故障方向相关,重点看knowledge_hits与报告说明是否仍围绕正确故障方向，而非只看诊断code,
+SEM-R-032,semantic_rephrase,access_vlan_mismatch,BASE-R-032,10.132.10.22,台账写的是新网段，交换机口的VLAN没跟着改。,address_migration,00:11:22:33:44:22,false,true,,,,办公楼A区,,"<SW> display interface GE0/0/11
+GE0/0/11 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-002
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  152    GE0/0/40      dynamic
+00aa-bb00-0002  152    GE0/0/41      dynamic
+0011-2233-4422  152    GE0/0/11      dynamic",,"<SW> display current-configuration interface GE0/0/11
+interface GigabitEthernet0/0/11
+ description 办公楼A区-ACC-SIM-002
+ port link-type access
+ port default vlan 152
+ undo shutdown",SW-SIM-01,GE0/0/11,vlan_mismatch,false,true,,自然语言语义泛化 + RAG检索,仅改变一线人员/用户的自然语言表达，不改变真实网络证据,核心诊断应保持与对应基准Case一致；RAG建议应与故障方向相关,重点看knowledge_hits与报告说明是否仍围绕正确故障方向，而非只看诊断code,
+SEM-R-033,semantic_rephrase,access_vlan_mismatch,BASE-R-033,10.20.30.15,MAC学到了，不过所属VLAN跟资源记录不一致。,address_migration,00:11:22:33:44:15,false,true,,,,办公楼B区,,"<SW> display interface GE0/0/15
+GE0/0/15 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-003
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  230    GE0/0/40      dynamic
+00aa-bb00-0002  230    GE0/0/41      dynamic
+0011-2233-4415  230    GE0/0/15      dynamic",,"<SW> display current-configuration interface GE0/0/15
+interface GigabitEthernet0/0/15
+ description 办公楼B区-ACC-SIM-003
+ port link-type access
+ port default vlan 230
+ undo shutdown",SW-SIM-03,GE0/0/15,vlan_mismatch,false,true,,自然语言语义泛化 + RAG检索,仅改变一线人员/用户的自然语言表达，不改变真实网络证据,核心诊断应保持与对应基准Case一致；RAG建议应与故障方向相关,重点看knowledge_hits与报告说明是否仍围绕正确故障方向，而非只看诊断code,
+SEM-R-034,semantic_rephrase,access_vlan_mismatch,BASE-R-034,10.20.30.16,地址迁完以后业务不通，端口还在旧VLAN。,address_migration,00:11:22:33:44:16,false,true,,,,办公楼B区,,"<SW> display interface GE0/0/16
+GE0/0/16 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-004
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  300    GE0/0/40      dynamic
+00aa-bb00-0002  300    GE0/0/41      dynamic
+0011-2233-4416  300    GE0/0/16      dynamic",,"<SW> display current-configuration interface GE0/0/16
+interface GigabitEthernet0/0/16
+ description 办公楼B区-ACC-SIM-004
+ port link-type access
+ port default vlan 300
+ undo shutdown",SW-SIM-03,GE0/0/16,vlan_mismatch,false,true,,自然语言语义泛化 + RAG检索,仅改变一线人员/用户的自然语言表达，不改变真实网络证据,核心诊断应保持与对应基准Case一致；RAG建议应与故障方向相关,重点看knowledge_hits与报告说明是否仍围绕正确故障方向，而非只看诊断code,
+SEM-R-035,semantic_rephrase,access_vlan_mismatch,BASE-R-035,10.20.30.17,台账写的是新网段，交换机口的VLAN没跟着改。,address_migration,00:11:22:33:44:17,false,true,,,,办公楼C区,,"<SW> display interface GE0/0/17
+GE0/0/17 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-005
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  500    GE0/0/40      dynamic
+00aa-bb00-0002  500    GE0/0/41      dynamic
+0011-2233-4417  500    GE0/0/17      dynamic",,"<SW> display current-configuration interface GE0/0/17
+interface GigabitEthernet0/0/17
+ description 办公楼C区-ACC-SIM-005
+ port link-type access
+ port default vlan 500
+ undo shutdown",SW-SIM-04,GE0/0/17,vlan_mismatch,false,true,,自然语言语义泛化 + RAG检索,仅改变一线人员/用户的自然语言表达，不改变真实网络证据,核心诊断应保持与对应基准Case一致；RAG建议应与故障方向相关,重点看knowledge_hits与报告说明是否仍围绕正确故障方向，而非只看诊断code,
+SEM-R-036,semantic_rephrase,wrong_default_gateway,BASE-R-036,10.132.10.21,感觉是电脑自己网络参数没改对。,access_unknown,00:11:22:33:44:21,false,false,,,,办公楼A区,"Windows IP Configuration
+Ethernet adapter Ethernet:
+   IPv4 Address. . . . . . . . . . . : 10.132.10.21
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 10.132.10.200
+   DNS Servers . . . . . . . . . . . : 10.132.0.53
+   Physical Address. . . . . . . . . : 00-11-22-33-44-21
+Reply from 10.132.10.200: bytes=32 time<1ms TTL=64
+Server:  dns-sim
+Address: 10.132.0.53
+Name: intranet.example
+Address: 10.1.1.8","<SW> display interface GE0/0/10
+GE0/0/10 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-001
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  132    GE0/0/40      dynamic
+00aa-bb00-0002  132    GE0/0/41      dynamic
+0011-2233-4421  132    GE0/0/10      dynamic","<SW> display arp
+IP ADDRESS       MAC ADDRESS       TYPE       INTERFACE
+10.254.0.9       00aa-bbcc-0009    dynamic    Vlanif999
+10.132.10.21    0011-2233-4421    dynamic    Vlanif132","<SW> display current-configuration interface GE0/0/10
+interface GigabitEthernet0/0/10
+ description 办公楼A区-ACC-SIM-001
+ port link-type access
+ port default vlan 132
+ undo shutdown",SW-SIM-01,GE0/0/10,terminal_config,false,true,,自然语言语义泛化 + RAG检索,仅改变一线人员/用户的自然语言表达，不改变真实网络证据,核心诊断应保持与对应基准Case一致；RAG建议应与故障方向相关,重点看knowledge_hits与报告说明是否仍围绕正确故障方向，而非只看诊断code,
+SEM-R-037,semantic_rephrase,wrong_default_gateway,BASE-R-037,10.132.10.22,交换机这边都正常，电脑网关好像配错了。,access_unknown,00:11:22:33:44:22,false,false,,,,办公楼A区,"Windows IP Configuration
+Ethernet adapter Ethernet:
+   IPv4 Address. . . . . . . . . . . : 10.132.10.22
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 10.132.10.201
+   DNS Servers . . . . . . . . . . . : 10.132.0.53
+   Physical Address. . . . . . . . . : 00-11-22-33-44-22
+Reply from 10.132.10.201: bytes=32 time<1ms TTL=64
+Server:  dns-sim
+Address: 10.132.0.53
+Name: intranet.example
+Address: 10.1.1.8","<SW> display interface GE0/0/11
+GE0/0/11 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-002
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  132    GE0/0/40      dynamic
+00aa-bb00-0002  132    GE0/0/41      dynamic
+0011-2233-4422  132    GE0/0/11      dynamic","<SW> display arp
+IP ADDRESS       MAC ADDRESS       TYPE       INTERFACE
+10.254.0.9       00aa-bbcc-0009    dynamic    Vlanif999
+10.132.10.22    0011-2233-4422    dynamic    Vlanif132","<SW> display current-configuration interface GE0/0/11
+interface GigabitEthernet0/0/11
+ description 办公楼A区-ACC-SIM-002
+ port link-type access
+ port default vlan 132
+ undo shutdown",SW-SIM-01,GE0/0/11,terminal_config,false,true,,自然语言语义泛化 + RAG检索,仅改变一线人员/用户的自然语言表达，不改变真实网络证据,核心诊断应保持与对应基准Case一致；RAG建议应与故障方向相关,重点看knowledge_hits与报告说明是否仍围绕正确故障方向，而非只看诊断code,
+SEM-R-038,semantic_rephrase,wrong_default_gateway,BASE-R-038,10.20.30.15,MAC、VLAN没问题，终端ipconfig里的默认网关不是分配的那个。,access_unknown,00:11:22:33:44:15,false,false,,,,办公楼B区,"Windows IP Configuration
+Ethernet adapter Ethernet:
+   IPv4 Address. . . . . . . . . . . : 10.20.30.15
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 10.20.30.202
+   DNS Servers . . . . . . . . . . . : 10.20.0.53
+   Physical Address. . . . . . . . . : 00-11-22-33-44-15
+Reply from 10.20.30.202: bytes=32 time<1ms TTL=64
+Server:  dns-sim
+Address: 10.20.0.53
+Name: intranet.example
+Address: 10.1.1.8","<SW> display interface GE0/0/15
+GE0/0/15 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-003
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic
+0011-2233-4415  200    GE0/0/15      dynamic","<SW> display arp
+IP ADDRESS       MAC ADDRESS       TYPE       INTERFACE
+10.254.0.9       00aa-bbcc-0009    dynamic    Vlanif999
+10.20.30.15    0011-2233-4415    dynamic    Vlanif200","<SW> display current-configuration interface GE0/0/15
+interface GigabitEthernet0/0/15
+ description 办公楼B区-ACC-SIM-003
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/15,terminal_config,false,true,,自然语言语义泛化 + RAG检索,仅改变一线人员/用户的自然语言表达，不改变真实网络证据,核心诊断应保持与对应基准Case一致；RAG建议应与故障方向相关,重点看knowledge_hits与报告说明是否仍围绕正确故障方向，而非只看诊断code,
+SEM-R-039,semantic_rephrase,wrong_default_gateway,BASE-R-039,10.20.30.16,感觉是电脑自己网络参数没改对。,access_unknown,00:11:22:33:44:16,false,false,,,,办公楼B区,"Windows IP Configuration
+Ethernet adapter Ethernet:
+   IPv4 Address. . . . . . . . . . . : 10.20.30.16
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 10.20.30.203
+   DNS Servers . . . . . . . . . . . : 10.20.0.53
+   Physical Address. . . . . . . . . : 00-11-22-33-44-16
+Reply from 10.20.30.203: bytes=32 time<1ms TTL=64
+Server:  dns-sim
+Address: 10.20.0.53
+Name: intranet.example
+Address: 10.1.1.8","<SW> display interface GE0/0/16
+GE0/0/16 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-004
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic
+0011-2233-4416  200    GE0/0/16      dynamic","<SW> display arp
+IP ADDRESS       MAC ADDRESS       TYPE       INTERFACE
+10.254.0.9       00aa-bbcc-0009    dynamic    Vlanif999
+10.20.30.16    0011-2233-4416    dynamic    Vlanif200","<SW> display current-configuration interface GE0/0/16
+interface GigabitEthernet0/0/16
+ description 办公楼B区-ACC-SIM-004
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/16,terminal_config,false,true,,自然语言语义泛化 + RAG检索,仅改变一线人员/用户的自然语言表达，不改变真实网络证据,核心诊断应保持与对应基准Case一致；RAG建议应与故障方向相关,重点看knowledge_hits与报告说明是否仍围绕正确故障方向，而非只看诊断code,
+SEM-R-040,semantic_rephrase,wrong_default_gateway,BASE-R-040,10.20.30.17,交换机这边都正常，电脑网关好像配错了。,access_unknown,00:11:22:33:44:17,false,false,,,,办公楼C区,"Windows IP Configuration
+Ethernet adapter Ethernet:
+   IPv4 Address. . . . . . . . . . . : 10.20.30.17
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 10.20.30.204
+   DNS Servers . . . . . . . . . . . : 10.20.0.53
+   Physical Address. . . . . . . . . : 00-11-22-33-44-17
+Reply from 10.20.30.204: bytes=32 time<1ms TTL=64
+Server:  dns-sim
+Address: 10.20.0.53
+Name: intranet.example
+Address: 10.1.1.8","<SW> display interface GE0/0/17
+GE0/0/17 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-005
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  300    GE0/0/40      dynamic
+00aa-bb00-0002  300    GE0/0/41      dynamic
+0011-2233-4417  300    GE0/0/17      dynamic","<SW> display arp
+IP ADDRESS       MAC ADDRESS       TYPE       INTERFACE
+10.254.0.9       00aa-bbcc-0009    dynamic    Vlanif999
+10.20.30.17    0011-2233-4417    dynamic    Vlanif300","<SW> display current-configuration interface GE0/0/17
+interface GigabitEthernet0/0/17
+ description 办公楼C区-ACC-SIM-005
+ port link-type access
+ port default vlan 300
+ undo shutdown",SW-SIM-04,GE0/0/17,terminal_config,false,true,,自然语言语义泛化 + RAG检索,仅改变一线人员/用户的自然语言表达，不改变真实网络证据,核心诊断应保持与对应基准Case一致；RAG建议应与故障方向相关,重点看knowledge_hits与报告说明是否仍围绕正确故障方向，而非只看诊断code,
+SEM-R-041,semantic_rephrase,l2_normal_service_unreachable,BASE-R-041,10.132.10.21,二层没看出问题，但域名解析一直超时。,oa_service,00:11:22:33:44:21,false,false,false,,,办公楼A区,"Windows IP Configuration
+Ethernet adapter Ethernet:
+   IPv4 Address. . . . . . . . . . . : 10.132.10.21
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 10.132.10.1
+   DNS Servers . . . . . . . . . . . : 10.132.0.53
+   Physical Address. . . . . . . . . : 00-11-22-33-44-21
+Reply from 10.132.10.1: bytes=32 time<1ms TTL=64
+Server: dns-sim
+DNS request timed out.
+*** Request to dns-sim timed-out","<SW> display interface GE0/0/10
+GE0/0/10 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-001
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  132    GE0/0/40      dynamic
+00aa-bb00-0002  132    GE0/0/41      dynamic
+0011-2233-4421  132    GE0/0/10      dynamic","<SW> display arp
+IP ADDRESS       MAC ADDRESS       TYPE       INTERFACE
+10.254.0.9       00aa-bbcc-0009    dynamic    Vlanif999
+10.132.10.21    0011-2233-4421    dynamic    Vlanif132","<SW> display current-configuration interface GE0/0/10
+interface GigabitEthernet0/0/10
+ description 办公楼A区-ACC-SIM-001
+ port link-type access
+ port default vlan 132
+ undo shutdown",SW-SIM-01,GE0/0/10,uplink_policy_or_application,false,true,,自然语言语义泛化 + RAG检索,仅改变一线人员/用户的自然语言表达，不改变真实网络证据,核心诊断应保持与对应基准Case一致；RAG建议应与故障方向相关,重点看knowledge_hits与报告说明是否仍围绕正确故障方向，而非只看诊断code,
+SEM-R-042,semantic_rephrase,l2_normal_service_unreachable,BASE-R-042,10.132.10.22,端口、MAC、VLAN都对，业务还是不通，往上层查吧。,oa_service,00:11:22:33:44:22,false,false,false,,,办公楼A区,"Windows IP Configuration
+Ethernet adapter Ethernet:
+   IPv4 Address. . . . . . . . . . . : 10.132.10.22
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 10.132.10.1
+   DNS Servers . . . . . . . . . . . : 10.132.0.53
+   Physical Address. . . . . . . . . : 00-11-22-33-44-22
+Reply from 10.132.10.1: bytes=32 time<1ms TTL=64
+Server: dns-sim
+DNS request timed out.
+*** Request to dns-sim timed-out","<SW> display interface GE0/0/11
+GE0/0/11 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-002
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  132    GE0/0/40      dynamic
+00aa-bb00-0002  132    GE0/0/41      dynamic
+0011-2233-4422  132    GE0/0/11      dynamic","<SW> display arp
+IP ADDRESS       MAC ADDRESS       TYPE       INTERFACE
+10.254.0.9       00aa-bbcc-0009    dynamic    Vlanif999
+10.132.10.22    0011-2233-4422    dynamic    Vlanif132","<SW> display current-configuration interface GE0/0/11
+interface GigabitEthernet0/0/11
+ description 办公楼A区-ACC-SIM-002
+ port link-type access
+ port default vlan 132
+ undo shutdown",SW-SIM-01,GE0/0/11,uplink_policy_or_application,false,true,,自然语言语义泛化 + RAG检索,仅改变一线人员/用户的自然语言表达，不改变真实网络证据,核心诊断应保持与对应基准Case一致；RAG建议应与故障方向相关,重点看knowledge_hits与报告说明是否仍围绕正确故障方向，而非只看诊断code,
+SEM-R-043,semantic_rephrase,l2_normal_service_unreachable,BASE-R-043,10.20.30.15,接入侧都正常，网关也通，就是OA打不开。,oa_service,00:11:22:33:44:15,false,false,false,,,办公楼B区,"Windows IP Configuration
+Ethernet adapter Ethernet:
+   IPv4 Address. . . . . . . . . . . : 10.20.30.15
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 10.20.30.1
+   DNS Servers . . . . . . . . . . . : 10.20.0.53
+   Physical Address. . . . . . . . . : 00-11-22-33-44-15
+Reply from 10.20.30.1: bytes=32 time<1ms TTL=64
+Server: dns-sim
+DNS request timed out.
+*** Request to dns-sim timed-out","<SW> display interface GE0/0/15
+GE0/0/15 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-003
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic
+0011-2233-4415  200    GE0/0/15      dynamic","<SW> display arp
+IP ADDRESS       MAC ADDRESS       TYPE       INTERFACE
+10.254.0.9       00aa-bbcc-0009    dynamic    Vlanif999
+10.20.30.15    0011-2233-4415    dynamic    Vlanif200","<SW> display current-configuration interface GE0/0/15
+interface GigabitEthernet0/0/15
+ description 办公楼B区-ACC-SIM-003
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/15,uplink_policy_or_application,false,true,,自然语言语义泛化 + RAG检索,仅改变一线人员/用户的自然语言表达，不改变真实网络证据,核心诊断应保持与对应基准Case一致；RAG建议应与故障方向相关,重点看knowledge_hits与报告说明是否仍围绕正确故障方向，而非只看诊断code,
+SEM-R-044,semantic_rephrase,l2_normal_service_unreachable,BASE-R-044,10.20.30.16,二层没看出问题，但域名解析一直超时。,oa_service,00:11:22:33:44:16,false,false,false,,,办公楼B区,"Windows IP Configuration
+Ethernet adapter Ethernet:
+   IPv4 Address. . . . . . . . . . . : 10.20.30.16
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 10.20.30.1
+   DNS Servers . . . . . . . . . . . : 10.20.0.53
+   Physical Address. . . . . . . . . : 00-11-22-33-44-16
+Reply from 10.20.30.1: bytes=32 time<1ms TTL=64
+Server: dns-sim
+DNS request timed out.
+*** Request to dns-sim timed-out","<SW> display interface GE0/0/16
+GE0/0/16 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-004
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic
+0011-2233-4416  200    GE0/0/16      dynamic","<SW> display arp
+IP ADDRESS       MAC ADDRESS       TYPE       INTERFACE
+10.254.0.9       00aa-bbcc-0009    dynamic    Vlanif999
+10.20.30.16    0011-2233-4416    dynamic    Vlanif200","<SW> display current-configuration interface GE0/0/16
+interface GigabitEthernet0/0/16
+ description 办公楼B区-ACC-SIM-004
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/16,uplink_policy_or_application,false,true,,自然语言语义泛化 + RAG检索,仅改变一线人员/用户的自然语言表达，不改变真实网络证据,核心诊断应保持与对应基准Case一致；RAG建议应与故障方向相关,重点看knowledge_hits与报告说明是否仍围绕正确故障方向，而非只看诊断code,
+SEM-R-045,semantic_rephrase,l2_normal_service_unreachable,BASE-R-045,10.20.30.17,端口、MAC、VLAN都对，业务还是不通，往上层查吧。,oa_service,00:11:22:33:44:17,false,false,false,,,办公楼C区,"Windows IP Configuration
+Ethernet adapter Ethernet:
+   IPv4 Address. . . . . . . . . . . : 10.20.30.17
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 10.20.30.1
+   DNS Servers . . . . . . . . . . . : 10.20.0.53
+   Physical Address. . . . . . . . . : 00-11-22-33-44-17
+Reply from 10.20.30.1: bytes=32 time<1ms TTL=64
+Server: dns-sim
+DNS request timed out.
+*** Request to dns-sim timed-out","<SW> display interface GE0/0/17
+GE0/0/17 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-005
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  300    GE0/0/40      dynamic
+00aa-bb00-0002  300    GE0/0/41      dynamic
+0011-2233-4417  300    GE0/0/17      dynamic","<SW> display arp
+IP ADDRESS       MAC ADDRESS       TYPE       INTERFACE
+10.254.0.9       00aa-bbcc-0009    dynamic    Vlanif999
+10.20.30.17    0011-2233-4417    dynamic    Vlanif300","<SW> display current-configuration interface GE0/0/17
+interface GigabitEthernet0/0/17
+ description 办公楼C区-ACC-SIM-005
+ port link-type access
+ port default vlan 300
+ undo shutdown",SW-SIM-04,GE0/0/17,uplink_policy_or_application,false,true,,自然语言语义泛化 + RAG检索,仅改变一线人员/用户的自然语言表达，不改变真实网络证据,核心诊断应保持与对应基准Case一致；RAG建议应与故障方向相关,重点看knowledge_hits与报告说明是否仍围绕正确故障方向，而非只看诊断code,
+SEM-R-046,semantic_rephrase,evidence_not_collected,BASE-R-046,10.132.10.21,现在只有一句“上不了网”，别的信息还没拿到。,access_unknown,00:11:22:33:44:21,false,false,,,,办公楼A区,,,,,,,,insufficient_evidence,false,true,,自然语言语义泛化 + RAG检索,仅改变一线人员/用户的自然语言表达，不改变真实网络证据,核心诊断应保持与对应基准Case一致；RAG建议应与故障方向相关,重点看knowledge_hits与报告说明是否仍围绕正确故障方向，而非只看诊断code,
+SEM-R-047,semantic_rephrase,evidence_not_collected,BASE-R-047,10.132.10.22,先别下结论，目前交换机输出都没收集。,access_unknown,00:11:22:33:44:22,false,false,,,,办公楼A区,,,,,,,,insufficient_evidence,false,true,,自然语言语义泛化 + RAG检索,仅改变一线人员/用户的自然语言表达，不改变真实网络证据,核心诊断应保持与对应基准Case一致；RAG建议应与故障方向相关,重点看knowledge_hits与报告说明是否仍围绕正确故障方向，而非只看诊断code,
+SEM-R-048,semantic_rephrase,evidence_not_collected,BASE-R-048,10.20.30.15,证据太少了，先告诉我下一步要查什么。,access_unknown,00:11:22:33:44:15,false,false,,,,办公楼B区,,,,,,,,insufficient_evidence,false,true,,自然语言语义泛化 + RAG检索,仅改变一线人员/用户的自然语言表达，不改变真实网络证据,核心诊断应保持与对应基准Case一致；RAG建议应与故障方向相关,重点看knowledge_hits与报告说明是否仍围绕正确故障方向，而非只看诊断code,
+SEM-R-049,semantic_rephrase,evidence_not_collected,BASE-R-049,10.20.30.16,现在只有一句“上不了网”，别的信息还没拿到。,access_unknown,00:11:22:33:44:16,false,false,,,,办公楼B区,,,,,,,,insufficient_evidence,false,true,,自然语言语义泛化 + RAG检索,仅改变一线人员/用户的自然语言表达，不改变真实网络证据,核心诊断应保持与对应基准Case一致；RAG建议应与故障方向相关,重点看knowledge_hits与报告说明是否仍围绕正确故障方向，而非只看诊断code,
+SEM-R-050,semantic_rephrase,evidence_not_collected,BASE-R-050,10.20.30.17,先别下结论，目前交换机输出都没收集。,access_unknown,00:11:22:33:44:17,false,false,,,,办公楼C区,,,,,,,,insufficient_evidence,false,true,,自然语言语义泛化 + RAG检索,仅改变一线人员/用户的自然语言表达，不改变真实网络证据,核心诊断应保持与对应基准Case一致；RAG建议应与故障方向相关,重点看knowledge_hits与报告说明是否仍围绕正确故障方向，而非只看诊断code,

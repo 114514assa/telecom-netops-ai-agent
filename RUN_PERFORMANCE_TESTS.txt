@@ -1,0 +1,323 @@
+Telecom NetOps AI Agent - 第二阶段性能 / 并发 / 资源测试
+========================================================
+
+适用当前仓库真实接口：
+  POST /api/v1/incidents
+  POST /api/v1/incidents/{thread_id}/resume
+  GET  /health
+  GET  /api/v1/system/model
+
+测试数据直接复用：
+  data/sample_requests/interface_down.json
+  data/sample_requests/no_mac.json
+  data/sample_requests/vlan_mismatch.json
+  data/sample_requests/upstream.json
+  data/sample_requests/resource_mismatch.json
+
+不要再创建 {"query": "..."} 类型的虚构压测请求体。
+
+--------------------------------------------------------
+0. 将本补充包解压到项目根目录
+--------------------------------------------------------
+
+最终新增：
+  scripts/benchmark_agent_e2e.py
+  tests/test_performance_cases.py
+  docs/PERFORMANCE_TESTING.md
+  requirements-perf.txt
+  RUN_PERFORMANCE_TESTS.txt
+
+--------------------------------------------------------
+1. 安装性能采样依赖
+--------------------------------------------------------
+
+.\.venv\Scripts\Activate.ps1
+python -m pip install -r requirements-perf.txt
+
+当前 requirements.txt 已有 httpx，因此只额外增加 psutil。
+
+--------------------------------------------------------
+2. 先验证原项目和测试样例
+--------------------------------------------------------
+
+python -m pytest -q
+python -m pytest -q tests/test_performance_cases.py
+
+--------------------------------------------------------
+3. 现有模型级量化基准继续保留
+--------------------------------------------------------
+
+当前仓库已经有正式量化性能脚本，不要重复替换：
+
+python -m scripts.benchmark_quantization_v2 `
+  --model Qwen/Qwen2.5-0.5B-Instruct `
+  --modes fp16 int8 int4 `
+  --repeats 5 `
+  --warmup 2 `
+  --max-new-tokens 96
+
+它负责：
+  FP16 / INT8 / INT4
+  生成时延
+  tokens/s
+  model memory footprint
+  peak GPU memory
+
+结果：
+  runtime/quant_benchmark_v2/
+
+--------------------------------------------------------
+4. 端到端基准前，性能模式启动 FastAPI
+--------------------------------------------------------
+
+重要：
+  不要使用 --reload
+  不要先开多个 workers
+  单 worker 作为本地 Agent 基线
+
+PowerShell 窗口 A：
+
+uvicorn app.main:app --host 127.0.0.1 --port 8000 --workers 1
+
+窗口 B 先检查：
+
+Invoke-RestMethod http://127.0.0.1:8000/health
+Invoke-RestMethod http://127.0.0.1:8000/api/v1/system/model
+
+health 应看到：
+  status = ok
+  workflow_ready = True
+
+system/model 用于确认本次到底是：
+  RAG 开/关
+  LLM 开/关
+  local_hf / openai
+  fp16 / int8 / int4
+
+--------------------------------------------------------
+5. 找到 uvicorn Python PID（推荐）
+--------------------------------------------------------
+
+PowerShell：
+
+Get-CimInstance Win32_Process |
+  Where-Object { $_.CommandLine -match "uvicorn app.main:app" } |
+  Select-Object ProcessId, Name, CommandLine
+
+记录 ProcessId，例如 12345。
+
+--------------------------------------------------------
+6. 正式测试 A：完整 INT4 Agent
+--------------------------------------------------------
+
+推荐 .env：
+
+REQUIRE_APPROVAL=true
+RAG_ENABLED=true
+LLM_ENABLED=true
+LLM_BACKEND=local_hf
+LOCAL_LLM_MODEL_ID=Qwen/Qwen2.5-0.5B-Instruct
+LOCAL_LLM_QUANTIZATION=int4
+LOCAL_LLM_MAX_NEW_TOKENS=96
+LOCAL_LLM_TEMPERATURE=0.0
+
+确保：
+  Ollama 正常
+  FAISS 索引已构建
+  当前 RAG_KNOWLEDGE_DIR 与实际 knowledge 目录一致
+
+重新启动 FastAPI 后：
+
+python -m scripts.benchmark_agent_e2e `
+  --label int4_full `
+  --mode full `
+  --concurrency 1 2 5 10 `
+  --requests-per-level 20 `
+  --repeats 3 `
+  --warmup 2 `
+  --timeout 180 `
+  --pid 12345
+
+如果暂时不传 PID，删掉：
+  --pid 12345
+
+full 模式含义：
+  POST /incidents
+      -> normalize
+      -> inventory
+      -> parse
+      -> diagnose
+      -> RAG
+      -> compose
+      -> awaiting_approval
+  POST /resume
+      -> approved
+      -> finalize
+      -> completed
+
+因此这是完整 HITL 工作流时延，而不是单独模型生成时延。
+
+--------------------------------------------------------
+7. 正式测试 B：确定性核心基线（定位 LLM/RAG 开销）
+--------------------------------------------------------
+
+修改 .env：
+
+REQUIRE_APPROVAL=true
+RAG_ENABLED=false
+LLM_ENABLED=false
+
+重新启动 FastAPI。
+
+然后：
+
+python -m scripts.benchmark_agent_e2e `
+  --label deterministic_core `
+  --mode full `
+  --concurrency 1 5 10 20 `
+  --requests-per-level 50 `
+  --repeats 3 `
+  --warmup 3 `
+  --timeout 60 `
+  --pid 12345
+
+注意：重启后 PID 可能变化，重新查询。
+
+这个结果用于回答：
+  “Agent 自己的工作流/API/规则链开销是多少？”
+  “加入 RAG + 本地 LLM 后增加了多少端到端时延？”
+  “并发上升后瓶颈主要来自核心流程还是模型推理？”
+
+--------------------------------------------------------
+8. 可选测试 C：只加 RAG，不加 LLM
+--------------------------------------------------------
+
+.env：
+
+REQUIRE_APPROVAL=true
+RAG_ENABLED=true
+LLM_ENABLED=false
+
+重新启动 FastAPI。
+
+python -m scripts.benchmark_agent_e2e `
+  --label rag_only `
+  --mode full `
+  --concurrency 1 2 5 10 `
+  --requests-per-level 30 `
+  --repeats 3 `
+  --warmup 2 `
+  --timeout 120 `
+  --pid 12345
+
+这一步不是必须写简历，但很适合定位：
+  Ollama Embedding + FAISS 检索对端到端时延的影响。
+
+--------------------------------------------------------
+9. 如果只想测“生成报告到审批点”
+--------------------------------------------------------
+
+使用：
+
+--mode start
+
+例如：
+
+python -m scripts.benchmark_agent_e2e `
+  --label int4_start_only `
+  --mode start `
+  --concurrency 1 2 5 10 `
+  --requests-per-level 20 `
+  --repeats 3 `
+  --warmup 2 `
+  --timeout 180
+
+start 模式到 awaiting_approval 为止，不执行 resume/finalize。
+
+--------------------------------------------------------
+10. 输出文件
+--------------------------------------------------------
+
+每次生成：
+
+runtime/perf_e2e/<label_timestamp>/
+  agent_perf_run.json
+  agent_perf_detail.csv
+  agent_perf_resources.csv
+  agent_perf_by_repeat.csv
+  agent_perf_summary.csv
+  agent_perf_report.md
+
+重点先发回来：
+  agent_perf_summary.csv
+  agent_perf_detail.csv
+  agent_perf_run.json
+
+--------------------------------------------------------
+11. 核心指标
+--------------------------------------------------------
+
+业务成功：
+  success_rate_pct
+
+性能：
+  throughput_rps
+  e2e_p50_ms
+  e2e_p95_ms
+  e2e_p99_ms
+  e2e_max_ms
+
+内部模型：
+  llm_mean_latency_ms
+  detail 中的 llm_tokens_per_second
+  detail 中的 llm_output_tokens
+
+资源：
+  system_cpu_avg_pct
+  system_cpu_peak_pct
+  system_mem_peak_pct
+  process_rss_peak_mb
+  gpu_util_peak_pct
+  gpu_mem_peak_mb
+
+--------------------------------------------------------
+12. 当前项目特别要注意的解释
+--------------------------------------------------------
+
+1) /api/v1/incidents 是 async FastAPI 路由，但内部调用 runtime.graph.invoke()
+   是同步工作流执行。
+   所以在单 worker + 本地模型下，并发提升未必带来吞吐线性增长。
+   这不是测试脚本自动判定的 bug；要用实际 P95/P99/吞吐数据确认。
+
+2) 不要为了让并发结果“更好看”先改成多 worker。
+   local_hf 模型可能被每个 worker 各加载一份，显存与内存口径会变化，
+   会破坏单实例基线的可比性。
+
+3) nvidia-smi 采样的是整张 GPU。
+   如果 Ollama embedding 和 local_hf 同时使用 GPU，
+   gpu_mem_peak_mb 是服务环境整卡占用，不是单独 Qwen 模型占用。
+   模型独立显存仍以 benchmark_quantization_v2 的结果为准。
+
+4) 当前 REQUIRE_APPROVAL=true 时：
+   “到审批点时延”和“完整归档时延”是两个不同指标。
+   简历里不要混写。
+
+5) HTTP 200 不等于业务成功。
+   新脚本会进一步检查 workflow status：
+   full 必须最终 completed。
+
+--------------------------------------------------------
+13. 第一轮建议顺序
+--------------------------------------------------------
+
+先跑：
+  A. deterministic_core
+  B. int4_full
+
+先不要重复跑 FP16 / INT8 的完整 Agent E2E。
+因为现有 benchmark_quantization_v2 已经公平比较了三种量化模式。
+
+等 A/B 数据出来后再决定：
+  是否需要 rag_only
+  是否需要把 int4_full 并发扩大到 20
+  是否需要把 E2E 的 FP16 / INT8 也补齐

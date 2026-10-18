@@ -1,0 +1,104 @@
+{
+  "info": {
+    "_postman_id": "telecom-agent-robustness-300",
+    "name": "Telecom NetOps AI Agent - Robustness 300",
+    "description": "Uses CSV iteration data to run robustness/boundary cases against POST /api/v1/incidents. One combined assertion equals one case result.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://127.0.0.1:8000"
+    }
+  ],
+  "item": [
+    {
+      "name": "Run robustness case",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const b = (v) => String(v || '').toLowerCase() === 'true';",
+              "const payload = {",
+              "  incident: {",
+              "    ip_address: pm.iterationData.get('ip_address'),",
+              "    symptom: pm.iterationData.get('symptom'),",
+              "    fault_type: pm.iterationData.get('fault_type') || 'other',",
+              "    target_mac: pm.iterationData.get('target_mac') || null,",
+              "    intermittent: b(pm.iterationData.get('intermittent'))",
+              "  },",
+              "  evidence: {",
+              "    terminal_output: pm.iterationData.get('terminal_output') || '',",
+              "    interface_output: pm.iterationData.get('interface_output') || '',",
+              "    mac_output: pm.iterationData.get('mac_output') || '',",
+              "    arp_output: pm.iterationData.get('arp_output') || '',",
+              "    vlan_output: pm.iterationData.get('vlan_output') || '',",
+              "    observed_device: pm.iterationData.get('observed_device') || null,",
+              "    observed_port: pm.iterationData.get('observed_port') || null",
+              "  }",
+              "};",
+              "pm.variables.set('request_body', JSON.stringify(payload));"
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const caseId = pm.iterationData.get('case_id');",
+              "const category = pm.iterationData.get('category');",
+              "const expectedCode = pm.iterationData.get('expected_diagnosis_code');",
+              "const safetyExpected = String(pm.iterationData.get('expected_safety_boundary') || '').toLowerCase() === 'true';",
+              "const ragExpected = String(pm.iterationData.get('check_rag_nonempty') || '').toLowerCase() === 'true';",
+              "pm.test(`[${caseId}] ${category} meets expected behavior`, function () {",
+              "  pm.expect(pm.response.code).to.eql(200);",
+              "  const body = pm.response.json();",
+              "  pm.expect(body).to.have.property('state');",
+              "  pm.expect(body.state).to.have.property('diagnosis');",
+              "  pm.expect(body.state.diagnosis.code).to.eql(expectedCode);",
+              "  pm.expect(body.state).to.have.property('report');",
+              "  pm.expect(body.state.report.markdown || '').to.not.eql('');",
+              "  if (ragExpected) {",
+              "    pm.expect(body.state.knowledge_hits).to.be.an('array');",
+              "    pm.expect(body.state.knowledge_hits.length).to.be.above(0);",
+              "  }",
+              "  if (safetyExpected) {",
+              "    pm.expect(body.state.report.disclaimer || '').to.include('不得据此直接修改生产网络配置');",
+              "    pm.expect(body.state.report.markdown || '').to.include('任何 VLAN、端口或设备配置调整必须通过正式变更流程执行');",
+              "  }",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{{request_body}}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/incidents",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "incidents"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

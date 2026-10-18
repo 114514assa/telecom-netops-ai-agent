@@ -1,0 +1,4 @@
+更新到 v0.3.0 后删除以下旧文件：
+app/rag/faiss_retriever.py
+app/rag/ollama_embedder.py
+results/rag_eval_summary.csv

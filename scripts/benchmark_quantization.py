@@ -26,7 +26,7 @@ SAMPLE_REPORT = """# 终端网络故障辅助诊断报告
 
 - 终端 IP：10.20.30.15
 - 登记端口：GigabitEthernet0/0/15
-- 目标 VLAN：160
+- 目标 VLAN：132
 - 接口状态：UP
 - 目标 MAC：已学习
 - MAC 学习 VLAN：120

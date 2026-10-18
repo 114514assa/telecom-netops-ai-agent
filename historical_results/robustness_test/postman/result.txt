@@ -1,0 +1,8 @@
+
+baseline_real_50:   50/50
+evidence_format_variation_50: 34/50
+partial_evidence_real_50: 45/50
+context_noise_real_50: 40/50
+safety_boundary_real_50: 48/50
+conflicting_evidence_real_50: 30/50
+semantic_rephrase_50: 40/50

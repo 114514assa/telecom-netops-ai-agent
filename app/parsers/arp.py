@@ -30,6 +30,9 @@ def parse_arp_output(text: str, target_ip: str | None = None) -> ParsedArp:
             "type": type_match.group(1).lower() if type_match else None,
         })
 
+    if not entries and not re.search(r"(?:total\s+(?:arp\s+)?entries?\s*[:=]\s*0|0\s+entries|no\s+arp\s+entry)", text, re.I):
+        return ParsedArp(ip_address=target_ip, parse_status="failed")
+
     selected = next((entry for entry in entries if target_ip and entry["ip"] == target_ip), None)
     if not target_ip and len(entries) == 1:
         selected = entries[0]
@@ -41,4 +44,5 @@ def parse_arp_output(text: str, target_ip: str | None = None) -> ParsedArp:
         interface=selected["interface"] if selected else None,
         entry_type=selected["type"] if selected else None,
         total_entries=len(entries),
+        parse_status="success",
     )

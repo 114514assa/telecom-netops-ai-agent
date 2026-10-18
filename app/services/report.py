@@ -9,7 +9,7 @@ from app.domain.models import (
 )
 from app.llm.factory import build_report_backend
 from app.llm.langchain_report_chain import LangChainReportAssistant
-from app.llm.report_guardrails import validate_auxiliary_output
+from app.llm.report_guardrails import validate_auxiliary_output, safe_guardrail_metadata
 
 
 DISCLAIMER = (
@@ -64,12 +64,16 @@ class ReportComposer:
                     else "none",
                     "fallback_reason": type(exc).__name__,
                     "guardrail_passed": False,
+                    "guardrail_reasons": ["llm_backend_exception"],
+                    "guardrail_revision": "v3.1.0",
                 },
             )
 
         if not generation.text:
             meta = generation.as_meta()
-            meta.update({"guardrail_passed": False, "fallback_reason": "empty_llm_output"})
+            meta.update({"guardrail_passed": False, "fallback_reason": "empty_llm_output",
+                         "guardrail_reasons": ["empty_llm_output"],
+                         "guardrail_revision": "v3.1.0"})
             return ReportResult(
                 title=title,
                 markdown=base,
@@ -88,7 +92,9 @@ class ReportComposer:
         meta.update(
             {
                 "guardrail_passed": guard.passed,
-                "guardrail": guard.as_dict(),
+                "guardrail": safe_guardrail_metadata(guard),
+                "guardrail_reasons": list(guard.reasons),
+                "guardrail_revision": "v3.1.0",
                 "truncated": truncated,
             }
         )

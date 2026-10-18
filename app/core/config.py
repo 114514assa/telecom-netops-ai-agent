@@ -11,7 +11,7 @@ class Settings(BaseSettings):
 
     app_name: str = "Telecom NetOps AI Agent"
     app_env: str = "development"
-    host: str = "0.0.0.0"
+    host: str = "127.0.0.1"
     port: int = 8000
 
     data_dir: Path = Path("data")
@@ -22,11 +22,17 @@ class Settings(BaseSettings):
     audit_log: Path = Path("runtime/audit.jsonl")
 
     require_approval: bool = True
+    # Development can run locally without authentication; set true for access-controlled demos.
+    demo_auth_enabled: bool = False
+    demo_reader_token: str = ""
+    demo_approver_token: str = ""
+    evidence_max_age_seconds: int = Field(default=1800, ge=60, le=86400)
+
 
     # LangChain RAG: OllamaEmbeddings + FAISS. RAG is supporting evidence only;
     # deterministic diagnosis must still work when the local vector service is unavailable.
     rag_enabled: bool = True
-    rag_knowledge_dir: Path = Path("knowledge/demo")
+    rag_knowledge_dir: Path = Path("knowledge/sanitized")
     rag_top_k: int = Field(default=3, ge=1, le=10)
     rag_fail_open: bool = True
 

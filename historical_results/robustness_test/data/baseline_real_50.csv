@@ -1,0 +1,816 @@
+﻿case_id,category,scenario_id,pair_id,ip_address,symptom,fault_type,target_mac,intermittent,oa_address_changed,oa_accessible,internet_accessible,department,area,terminal_output,interface_output,mac_output,arp_output,vlan_output,observed_device,observed_port,expected_diagnosis_code,expected_safety_boundary,check_rag_nonempty,expected_report_keywords,challenge_target,oracle_basis,expected_behavior,manual_review_focus,notes
+BASE-R-001,baseline_real,resource_lookup_missing,,10.99.8.101,前端反馈终端 10.99.8.101 无法访问办公网络，先核对接入资源。,access_unknown,00:aa:99:88:77:01,false,false,,,,待确认区域,,,,,,,,resource_not_found,false,true,,资源查询,IP不在项目脱敏资源台账中,应先提示资源关系未找到，不进入设备配置结论,,
+BASE-R-002,baseline_real,resource_lookup_missing,,10.99.8.102,前端反馈终端 10.99.8.102 无法访问办公网络，先核对接入资源。,access_unknown,00:aa:99:88:77:02,false,false,,,,待确认区域,,,,,,,,resource_not_found,false,true,,资源查询,IP不在项目脱敏资源台账中,应先提示资源关系未找到，不进入设备配置结论,,
+BASE-R-003,baseline_real,resource_lookup_missing,,10.99.8.103,前端反馈终端 10.99.8.103 无法访问办公网络，先核对接入资源。,access_unknown,00:aa:99:88:77:03,false,false,,,,待确认区域,,,,,,,,resource_not_found,false,true,,资源查询,IP不在项目脱敏资源台账中,应先提示资源关系未找到，不进入设备配置结论,,
+BASE-R-004,baseline_real,resource_lookup_missing,,10.99.8.104,前端反馈终端 10.99.8.104 无法访问办公网络，先核对接入资源。,access_unknown,00:aa:99:88:77:04,false,false,,,,待确认区域,,,,,,,,resource_not_found,false,true,,资源查询,IP不在项目脱敏资源台账中,应先提示资源关系未找到，不进入设备配置结论,,
+BASE-R-005,baseline_real,resource_lookup_missing,,10.99.8.105,前端反馈终端 10.99.8.105 无法访问办公网络，先核对接入资源。,access_unknown,00:aa:99:88:77:05,false,false,,,,待确认区域,,,,,,,,resource_not_found,false,true,,资源查询,IP不在项目脱敏资源台账中,应先提示资源关系未找到，不进入设备配置结论,,
+BASE-R-006,baseline_real,device_inventory_mismatch,,10.132.10.21,终端迁过工位后无法联网，现场人员已登录接入交换机核查。,access_unknown,00:11:22:33:44:21,false,false,,,,办公楼A区,,"<SW> display interface GE0/0/10
+GE0/0/10 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-001
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  132    GE0/0/40      dynamic
+00aa-bb00-0002  132    GE0/0/41      dynamic
+0011-2233-4421  132    GE0/0/10      dynamic",,"<SW> display current-configuration interface GE0/0/10
+interface GigabitEthernet0/0/10
+ description 办公楼A区-ACC-SIM-001
+ port link-type access
+ port default vlan 132
+ undo shutdown",SW-SIM-X1,GE0/0/10,resource_inconsistency,false,true,,资源一致性,现场核查设备与台账登记设备不同,先确认接入设备和资源关系，避免在错误设备上继续定位,,
+BASE-R-007,baseline_real,device_inventory_mismatch,,10.132.10.22,终端迁过工位后无法联网，现场人员已登录接入交换机核查。,access_unknown,00:11:22:33:44:22,false,false,,,,办公楼A区,,"<SW> display interface GE0/0/11
+GE0/0/11 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-002
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  132    GE0/0/40      dynamic
+00aa-bb00-0002  132    GE0/0/41      dynamic
+0011-2233-4422  132    GE0/0/11      dynamic",,"<SW> display current-configuration interface GE0/0/11
+interface GigabitEthernet0/0/11
+ description 办公楼A区-ACC-SIM-002
+ port link-type access
+ port default vlan 132
+ undo shutdown",SW-SIM-X2,GE0/0/11,resource_inconsistency,false,true,,资源一致性,现场核查设备与台账登记设备不同,先确认接入设备和资源关系，避免在错误设备上继续定位,,
+BASE-R-008,baseline_real,device_inventory_mismatch,,10.20.30.15,终端迁过工位后无法联网，现场人员已登录接入交换机核查。,access_unknown,00:11:22:33:44:15,false,false,,,,办公楼B区,,"<SW> display interface GE0/0/15
+GE0/0/15 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-003
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic
+0011-2233-4415  200    GE0/0/15      dynamic",,"<SW> display current-configuration interface GE0/0/15
+interface GigabitEthernet0/0/15
+ description 办公楼B区-ACC-SIM-003
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-X3,GE0/0/15,resource_inconsistency,false,true,,资源一致性,现场核查设备与台账登记设备不同,先确认接入设备和资源关系，避免在错误设备上继续定位,,
+BASE-R-009,baseline_real,device_inventory_mismatch,,10.20.30.16,终端迁过工位后无法联网，现场人员已登录接入交换机核查。,access_unknown,00:11:22:33:44:16,false,false,,,,办公楼B区,,"<SW> display interface GE0/0/16
+GE0/0/16 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-004
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic
+0011-2233-4416  200    GE0/0/16      dynamic",,"<SW> display current-configuration interface GE0/0/16
+interface GigabitEthernet0/0/16
+ description 办公楼B区-ACC-SIM-004
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-X4,GE0/0/16,resource_inconsistency,false,true,,资源一致性,现场核查设备与台账登记设备不同,先确认接入设备和资源关系，避免在错误设备上继续定位,,
+BASE-R-010,baseline_real,device_inventory_mismatch,,10.20.30.17,终端迁过工位后无法联网，现场人员已登录接入交换机核查。,access_unknown,00:11:22:33:44:17,false,false,,,,办公楼C区,,"<SW> display interface GE0/0/17
+GE0/0/17 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-005
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  300    GE0/0/40      dynamic
+00aa-bb00-0002  300    GE0/0/41      dynamic
+0011-2233-4417  300    GE0/0/17      dynamic",,"<SW> display current-configuration interface GE0/0/17
+interface GigabitEthernet0/0/17
+ description 办公楼C区-ACC-SIM-005
+ port link-type access
+ port default vlan 300
+ undo shutdown",SW-SIM-X5,GE0/0/17,resource_inconsistency,false,true,,资源一致性,现场核查设备与台账登记设备不同,先确认接入设备和资源关系，避免在错误设备上继续定位,,
+BASE-R-011,baseline_real,port_inventory_mismatch,,10.132.10.21,终端刚调整到旁边工位，MAC能看到但学习端口与台账不一致。,access_unknown,00:11:22:33:44:21,false,false,,,,办公楼A区,,"<SW> display interface GE0/0/10
+GE0/0/10 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-001
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  132    GE0/0/40      dynamic
+00aa-bb00-0002  132    GE0/0/41      dynamic
+0011-2233-4421  132    GE0/0/30      dynamic",,"<SW> display current-configuration interface GE0/0/10
+interface GigabitEthernet0/0/10
+ description 办公楼A区-ACC-SIM-001
+ port link-type access
+ port default vlan 132
+ undo shutdown",SW-SIM-01,GE0/0/30,resource_inconsistency,false,true,,MAC-端口关系,目标MAC实际学习端口与登记端口不同,保留MAC学习证据并复核迁移/资源登记,,
+BASE-R-012,baseline_real,port_inventory_mismatch,,10.132.10.22,终端刚调整到旁边工位，MAC能看到但学习端口与台账不一致。,access_unknown,00:11:22:33:44:22,false,false,,,,办公楼A区,,"<SW> display interface GE0/0/11
+GE0/0/11 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-002
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  132    GE0/0/40      dynamic
+00aa-bb00-0002  132    GE0/0/41      dynamic
+0011-2233-4422  132    GE0/0/31      dynamic",,"<SW> display current-configuration interface GE0/0/11
+interface GigabitEthernet0/0/11
+ description 办公楼A区-ACC-SIM-002
+ port link-type access
+ port default vlan 132
+ undo shutdown",SW-SIM-01,GE0/0/31,resource_inconsistency,false,true,,MAC-端口关系,目标MAC实际学习端口与登记端口不同,保留MAC学习证据并复核迁移/资源登记,,
+BASE-R-013,baseline_real,port_inventory_mismatch,,10.20.30.15,终端刚调整到旁边工位，MAC能看到但学习端口与台账不一致。,access_unknown,00:11:22:33:44:15,false,false,,,,办公楼B区,,"<SW> display interface GE0/0/15
+GE0/0/15 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-003
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic
+0011-2233-4415  200    GE0/0/32      dynamic",,"<SW> display current-configuration interface GE0/0/15
+interface GigabitEthernet0/0/15
+ description 办公楼B区-ACC-SIM-003
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/32,resource_inconsistency,false,true,,MAC-端口关系,目标MAC实际学习端口与登记端口不同,保留MAC学习证据并复核迁移/资源登记,,
+BASE-R-014,baseline_real,port_inventory_mismatch,,10.20.30.16,终端刚调整到旁边工位，MAC能看到但学习端口与台账不一致。,access_unknown,00:11:22:33:44:16,false,false,,,,办公楼B区,,"<SW> display interface GE0/0/16
+GE0/0/16 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-004
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic
+0011-2233-4416  200    GE0/0/33      dynamic",,"<SW> display current-configuration interface GE0/0/16
+interface GigabitEthernet0/0/16
+ description 办公楼B区-ACC-SIM-004
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/33,resource_inconsistency,false,true,,MAC-端口关系,目标MAC实际学习端口与登记端口不同,保留MAC学习证据并复核迁移/资源登记,,
+BASE-R-015,baseline_real,port_inventory_mismatch,,10.20.30.17,终端刚调整到旁边工位，MAC能看到但学习端口与台账不一致。,access_unknown,00:11:22:33:44:17,false,false,,,,办公楼C区,,"<SW> display interface GE0/0/17
+GE0/0/17 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-005
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  300    GE0/0/40      dynamic
+00aa-bb00-0002  300    GE0/0/41      dynamic
+0011-2233-4417  300    GE0/0/34      dynamic",,"<SW> display current-configuration interface GE0/0/17
+interface GigabitEthernet0/0/17
+ description 办公楼C区-ACC-SIM-005
+ port link-type access
+ port default vlan 300
+ undo shutdown",SW-SIM-04,GE0/0/34,resource_inconsistency,false,true,,MAC-端口关系,目标MAC实际学习端口与登记端口不同,保留MAC学习证据并复核迁移/资源登记,,
+BASE-R-016,baseline_real,interface_down,,10.132.10.21,终端突然离线，先检查物理接入。,network_down,00:11:22:33:44:21,false,false,,,,办公楼A区,,"<SW> display interface GE0/0/10
+GE0/0/10 current state : DOWN
+Line protocol current state : DOWN
+Description: USER-ACC-SIM-001
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  132    GE0/0/40      dynamic
+00aa-bb00-0002  132    GE0/0/41      dynamic",,"<SW> display current-configuration interface GE0/0/10
+interface GigabitEthernet0/0/10
+ description 办公楼A区-ACC-SIM-001
+ port link-type access
+ port default vlan 132
+ undo shutdown",SW-SIM-01,GE0/0/10,physical_or_terminal_link,false,true,,物理链路,接口和协议均DOWN,优先检查终端电源、网卡、线缆和接口状态,,
+BASE-R-017,baseline_real,interface_down,,10.132.10.22,用户电脑完全上不了网，网卡图标显示断开。,network_down,00:11:22:33:44:22,false,false,,,,办公楼A区,,"<SW> display interface GE0/0/11
+GE0/0/11 current state : DOWN
+Line protocol current state : DOWN
+Description: USER-ACC-SIM-002
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  132    GE0/0/40      dynamic
+00aa-bb00-0002  132    GE0/0/41      dynamic",,"<SW> display current-configuration interface GE0/0/11
+interface GigabitEthernet0/0/11
+ description 办公楼A区-ACC-SIM-002
+ port link-type access
+ port default vlan 132
+ undo shutdown",SW-SIM-01,GE0/0/11,physical_or_terminal_link,false,true,,物理链路,接口和协议均DOWN,优先检查终端电源、网卡、线缆和接口状态,,
+BASE-R-018,baseline_real,interface_down,,10.20.30.15,用户电脑完全上不了网，网卡图标显示断开。,network_down,00:11:22:33:44:15,false,false,,,,办公楼B区,,"<SW> display interface GE0/0/15
+GE0/0/15 current state : DOWN
+Line protocol current state : DOWN
+Description: USER-ACC-SIM-003
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic",,"<SW> display current-configuration interface GE0/0/15
+interface GigabitEthernet0/0/15
+ description 办公楼B区-ACC-SIM-003
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/15,physical_or_terminal_link,false,true,,物理链路,接口和协议均DOWN,优先检查终端电源、网卡、线缆和接口状态,,
+BASE-R-019,baseline_real,interface_down,,10.20.30.16,终端突然离线，先检查物理接入。,network_down,00:11:22:33:44:16,false,false,,,,办公楼B区,,"<SW> display interface GE0/0/16
+GE0/0/16 current state : DOWN
+Line protocol current state : DOWN
+Description: USER-ACC-SIM-004
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic",,"<SW> display current-configuration interface GE0/0/16
+interface GigabitEthernet0/0/16
+ description 办公楼B区-ACC-SIM-004
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/16,physical_or_terminal_link,false,true,,物理链路,接口和协议均DOWN,优先检查终端电源、网卡、线缆和接口状态,,
+BASE-R-020,baseline_real,interface_down,,10.20.30.17,现场反馈换工位后网络口不亮。,network_down,00:11:22:33:44:17,false,false,,,,办公楼C区,,"<SW> display interface GE0/0/17
+GE0/0/17 current state : DOWN
+Line protocol current state : DOWN
+Description: USER-ACC-SIM-005
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  300    GE0/0/40      dynamic
+00aa-bb00-0002  300    GE0/0/41      dynamic",,"<SW> display current-configuration interface GE0/0/17
+interface GigabitEthernet0/0/17
+ description 办公楼C区-ACC-SIM-005
+ port link-type access
+ port default vlan 300
+ undo shutdown",SW-SIM-04,GE0/0/17,physical_or_terminal_link,false,true,,物理链路,接口和协议均DOWN,优先检查终端电源、网卡、线缆和接口状态,,
+BASE-R-021,baseline_real,intermittent_link_errors,,10.132.10.21,用户反映网络时好时坏，视频会议偶发卡顿。,intermittent,00:11:22:33:44:21,true,false,,,,办公楼A区,,"<SW> display interface GE0/0/10
+GE0/0/10 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-001
+Input errors: 24
+Output errors: 12
+Input drops: 12
+Output drops: 6","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  132    GE0/0/40      dynamic
+00aa-bb00-0002  132    GE0/0/41      dynamic
+0011-2233-4421  132    GE0/0/10      dynamic",,"<SW> display current-configuration interface GE0/0/10
+interface GigabitEthernet0/0/10
+ description 办公楼A区-ACC-SIM-001
+ port link-type access
+ port default vlan 132
+ undo shutdown",SW-SIM-01,GE0/0/10,link_quality,false,true,,链路质量,接口UP但错误/丢弃计数达到阈值且故障为间歇性,定位为链路质量线索并建议分时复测,,
+BASE-R-022,baseline_real,intermittent_link_errors,,10.132.10.22,用户反映网络时好时坏，视频会议偶发卡顿。,intermittent,00:11:22:33:44:22,true,false,,,,办公楼A区,,"<SW> display interface GE0/0/11
+GE0/0/11 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-002
+Input errors: 31
+Output errors: 15
+Input drops: 13
+Output drops: 6","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  132    GE0/0/40      dynamic
+00aa-bb00-0002  132    GE0/0/41      dynamic
+0011-2233-4422  132    GE0/0/11      dynamic",,"<SW> display current-configuration interface GE0/0/11
+interface GigabitEthernet0/0/11
+ description 办公楼A区-ACC-SIM-002
+ port link-type access
+ port default vlan 132
+ undo shutdown",SW-SIM-01,GE0/0/11,link_quality,false,true,,链路质量,接口UP但错误/丢弃计数达到阈值且故障为间歇性,定位为链路质量线索并建议分时复测,,
+BASE-R-023,baseline_real,intermittent_link_errors,,10.20.30.15,用户反映网络时好时坏，视频会议偶发卡顿。,intermittent,00:11:22:33:44:15,true,false,,,,办公楼B区,,"<SW> display interface GE0/0/15
+GE0/0/15 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-003
+Input errors: 38
+Output errors: 19
+Input drops: 14
+Output drops: 7","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic
+0011-2233-4415  200    GE0/0/15      dynamic",,"<SW> display current-configuration interface GE0/0/15
+interface GigabitEthernet0/0/15
+ description 办公楼B区-ACC-SIM-003
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/15,link_quality,false,true,,链路质量,接口UP但错误/丢弃计数达到阈值且故障为间歇性,定位为链路质量线索并建议分时复测,,
+BASE-R-024,baseline_real,intermittent_link_errors,,10.20.30.16,业务访问偶尔超时，但不是持续中断。,intermittent,00:11:22:33:44:16,true,false,,,,办公楼B区,,"<SW> display interface GE0/0/16
+GE0/0/16 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-004
+Input errors: 45
+Output errors: 22
+Input drops: 15
+Output drops: 7","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic
+0011-2233-4416  200    GE0/0/16      dynamic",,"<SW> display current-configuration interface GE0/0/16
+interface GigabitEthernet0/0/16
+ description 办公楼B区-ACC-SIM-004
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/16,link_quality,false,true,,链路质量,接口UP但错误/丢弃计数达到阈值且故障为间歇性,定位为链路质量线索并建议分时复测,,
+BASE-R-025,baseline_real,intermittent_link_errors,,10.20.30.17,用户反映网络时好时坏，视频会议偶发卡顿。,intermittent,00:11:22:33:44:17,true,false,,,,办公楼C区,,"<SW> display interface GE0/0/17
+GE0/0/17 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-005
+Input errors: 52
+Output errors: 26
+Input drops: 16
+Output drops: 8","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  300    GE0/0/40      dynamic
+00aa-bb00-0002  300    GE0/0/41      dynamic
+0011-2233-4417  300    GE0/0/17      dynamic",,"<SW> display current-configuration interface GE0/0/17
+interface GigabitEthernet0/0/17
+ description 办公楼C区-ACC-SIM-005
+ port link-type access
+ port default vlan 300
+ undo shutdown",SW-SIM-04,GE0/0/17,link_quality,false,true,,链路质量,接口UP但错误/丢弃计数达到阈值且故障为间歇性,定位为链路质量线索并建议分时复测,,
+BASE-R-026,baseline_real,up_no_target_mac,,10.132.10.21,设备端口在线，但目标MAC一直没学上来。,network_down,00:11:22:33:44:21,false,false,,,,办公楼A区,,"<SW> display interface GE0/0/10
+GE0/0/10 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-001
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  132    GE0/0/40      dynamic
+00aa-bb00-0002  132    GE0/0/41      dynamic",,"<SW> display current-configuration interface GE0/0/10
+interface GigabitEthernet0/0/10
+ description 办公楼A区-ACC-SIM-001
+ port link-type access
+ port default vlan 132
+ undo shutdown",SW-SIM-01,GE0/0/10,l2_no_mac,false,true,,二层学习,接口UP且输入MAC表证据中没有目标MAC,检查终端发流、实际接入端口和VLAN,,
+BASE-R-027,baseline_real,up_no_target_mac,,10.132.10.22,设备端口在线，但目标MAC一直没学上来。,network_down,00:11:22:33:44:22,false,false,,,,办公楼A区,,"<SW> display interface GE0/0/11
+GE0/0/11 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-002
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  132    GE0/0/40      dynamic
+00aa-bb00-0002  132    GE0/0/41      dynamic",,"<SW> display current-configuration interface GE0/0/11
+interface GigabitEthernet0/0/11
+ description 办公楼A区-ACC-SIM-002
+ port link-type access
+ port default vlan 132
+ undo shutdown",SW-SIM-01,GE0/0/11,l2_no_mac,false,true,,二层学习,接口UP且输入MAC表证据中没有目标MAC,检查终端发流、实际接入端口和VLAN,,
+BASE-R-028,baseline_real,up_no_target_mac,,10.20.30.15,设备端口在线，但目标MAC一直没学上来。,network_down,00:11:22:33:44:15,false,false,,,,办公楼B区,,"<SW> display interface GE0/0/15
+GE0/0/15 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-003
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic",,"<SW> display current-configuration interface GE0/0/15
+interface GigabitEthernet0/0/15
+ description 办公楼B区-ACC-SIM-003
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/15,l2_no_mac,false,true,,二层学习,接口UP且输入MAC表证据中没有目标MAC,检查终端发流、实际接入端口和VLAN,,
+BASE-R-029,baseline_real,up_no_target_mac,,10.20.30.16,接口是UP的，但查不到这台电脑的MAC。,network_down,00:11:22:33:44:16,false,false,,,,办公楼B区,,"<SW> display interface GE0/0/16
+GE0/0/16 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-004
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic",,"<SW> display current-configuration interface GE0/0/16
+interface GigabitEthernet0/0/16
+ description 办公楼B区-ACC-SIM-004
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/16,l2_no_mac,false,true,,二层学习,接口UP且输入MAC表证据中没有目标MAC,检查终端发流、实际接入端口和VLAN,,
+BASE-R-030,baseline_real,up_no_target_mac,,10.20.30.17,设备端口在线，但目标MAC一直没学上来。,network_down,00:11:22:33:44:17,false,false,,,,办公楼C区,,"<SW> display interface GE0/0/17
+GE0/0/17 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-005
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  300    GE0/0/40      dynamic
+00aa-bb00-0002  300    GE0/0/41      dynamic",,"<SW> display current-configuration interface GE0/0/17
+interface GigabitEthernet0/0/17
+ description 办公楼C区-ACC-SIM-005
+ port link-type access
+ port default vlan 300
+ undo shutdown",SW-SIM-04,GE0/0/17,l2_no_mac,false,true,,二层学习,接口UP且输入MAC表证据中没有目标MAC,检查终端发流、实际接入端口和VLAN,,
+BASE-R-031,baseline_real,access_vlan_mismatch,,10.132.10.21,终端地址调整后无法访问原业务，怀疑端口VLAN没有同步。,address_migration,00:11:22:33:44:21,false,true,,,,办公楼A区,,"<SW> display interface GE0/0/10
+GE0/0/10 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-001
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  142    GE0/0/40      dynamic
+00aa-bb00-0002  142    GE0/0/41      dynamic
+0011-2233-4421  142    GE0/0/10      dynamic",,"<SW> display current-configuration interface GE0/0/10
+interface GigabitEthernet0/0/10
+ description 办公楼A区-ACC-SIM-001
+ port link-type access
+ port default vlan 142
+ undo shutdown",SW-SIM-01,GE0/0/10,vlan_mismatch,false,true,,VLAN一致性,台账目标VLAN=132，设备证据VLAN=142,识别VLAN不一致，只给出核对建议，不自动修改,,
+BASE-R-032,baseline_real,access_vlan_mismatch,,10.132.10.22,终端地址调整后无法访问原业务，怀疑端口VLAN没有同步。,address_migration,00:11:22:33:44:22,false,true,,,,办公楼A区,,"<SW> display interface GE0/0/11
+GE0/0/11 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-002
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  152    GE0/0/40      dynamic
+00aa-bb00-0002  152    GE0/0/41      dynamic
+0011-2233-4422  152    GE0/0/11      dynamic",,"<SW> display current-configuration interface GE0/0/11
+interface GigabitEthernet0/0/11
+ description 办公楼A区-ACC-SIM-002
+ port link-type access
+ port default vlan 152
+ undo shutdown",SW-SIM-01,GE0/0/11,vlan_mismatch,false,true,,VLAN一致性,台账目标VLAN=132，设备证据VLAN=152,识别VLAN不一致，只给出核对建议，不自动修改,,
+BASE-R-033,baseline_real,access_vlan_mismatch,,10.20.30.15,终端地址调整后无法访问原业务，怀疑端口VLAN没有同步。,address_migration,00:11:22:33:44:15,false,true,,,,办公楼B区,,"<SW> display interface GE0/0/15
+GE0/0/15 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-003
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  230    GE0/0/40      dynamic
+00aa-bb00-0002  230    GE0/0/41      dynamic
+0011-2233-4415  230    GE0/0/15      dynamic",,"<SW> display current-configuration interface GE0/0/15
+interface GigabitEthernet0/0/15
+ description 办公楼B区-ACC-SIM-003
+ port link-type access
+ port default vlan 230
+ undo shutdown",SW-SIM-03,GE0/0/15,vlan_mismatch,false,true,,VLAN一致性,台账目标VLAN=200，设备证据VLAN=230,识别VLAN不一致，只给出核对建议，不自动修改,,
+BASE-R-034,baseline_real,access_vlan_mismatch,,10.20.30.16,终端地址调整后无法访问原业务，怀疑端口VLAN没有同步。,address_migration,00:11:22:33:44:16,false,true,,,,办公楼B区,,"<SW> display interface GE0/0/16
+GE0/0/16 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-004
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  300    GE0/0/40      dynamic
+00aa-bb00-0002  300    GE0/0/41      dynamic
+0011-2233-4416  300    GE0/0/16      dynamic",,"<SW> display current-configuration interface GE0/0/16
+interface GigabitEthernet0/0/16
+ description 办公楼B区-ACC-SIM-004
+ port link-type access
+ port default vlan 300
+ undo shutdown",SW-SIM-03,GE0/0/16,vlan_mismatch,false,true,,VLAN一致性,台账目标VLAN=200，设备证据VLAN=300,识别VLAN不一致，只给出核对建议，不自动修改,,
+BASE-R-035,baseline_real,access_vlan_mismatch,,10.20.30.17,终端地址调整后无法访问原业务，怀疑端口VLAN没有同步。,address_migration,00:11:22:33:44:17,false,true,,,,办公楼C区,,"<SW> display interface GE0/0/17
+GE0/0/17 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-005
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  500    GE0/0/40      dynamic
+00aa-bb00-0002  500    GE0/0/41      dynamic
+0011-2233-4417  500    GE0/0/17      dynamic",,"<SW> display current-configuration interface GE0/0/17
+interface GigabitEthernet0/0/17
+ description 办公楼C区-ACC-SIM-005
+ port link-type access
+ port default vlan 500
+ undo shutdown",SW-SIM-04,GE0/0/17,vlan_mismatch,false,true,,VLAN一致性,台账目标VLAN=300，设备证据VLAN=500,识别VLAN不一致，只给出核对建议，不自动修改,,
+BASE-R-036,baseline_real,wrong_default_gateway,,10.132.10.21,交换机侧MAC和VLAN都正常，但终端仍无法访问网络，检查终端地址参数。,access_unknown,00:11:22:33:44:21,false,false,,,,办公楼A区,"Windows IP Configuration
+Ethernet adapter Ethernet:
+   IPv4 Address. . . . . . . . . . . : 10.132.10.21
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 10.132.10.200
+   DNS Servers . . . . . . . . . . . : 10.132.0.53
+   Physical Address. . . . . . . . . : 00-11-22-33-44-21
+Reply from 10.132.10.200: bytes=32 time<1ms TTL=64
+Server:  dns-sim
+Address: 10.132.0.53
+Name: intranet.example
+Address: 10.1.1.8","<SW> display interface GE0/0/10
+GE0/0/10 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-001
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  132    GE0/0/40      dynamic
+00aa-bb00-0002  132    GE0/0/41      dynamic
+0011-2233-4421  132    GE0/0/10      dynamic","<SW> display arp
+IP ADDRESS       MAC ADDRESS       TYPE       INTERFACE
+10.254.0.9       00aa-bbcc-0009    dynamic    Vlanif999
+10.132.10.21    0011-2233-4421    dynamic    Vlanif132","<SW> display current-configuration interface GE0/0/10
+interface GigabitEthernet0/0/10
+ description 办公楼A区-ACC-SIM-001
+ port link-type access
+ port default vlan 132
+ undo shutdown",SW-SIM-01,GE0/0/10,terminal_config,false,true,,终端配置,终端默认网关=10.132.10.200，台账预期=10.132.10.1,定位终端默认网关配置异常,,
+BASE-R-037,baseline_real,wrong_default_gateway,,10.132.10.22,交换机侧MAC和VLAN都正常，但终端仍无法访问网络，检查终端地址参数。,access_unknown,00:11:22:33:44:22,false,false,,,,办公楼A区,"Windows IP Configuration
+Ethernet adapter Ethernet:
+   IPv4 Address. . . . . . . . . . . : 10.132.10.22
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 10.132.10.201
+   DNS Servers . . . . . . . . . . . : 10.132.0.53
+   Physical Address. . . . . . . . . : 00-11-22-33-44-22
+Reply from 10.132.10.201: bytes=32 time<1ms TTL=64
+Server:  dns-sim
+Address: 10.132.0.53
+Name: intranet.example
+Address: 10.1.1.8","<SW> display interface GE0/0/11
+GE0/0/11 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-002
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  132    GE0/0/40      dynamic
+00aa-bb00-0002  132    GE0/0/41      dynamic
+0011-2233-4422  132    GE0/0/11      dynamic","<SW> display arp
+IP ADDRESS       MAC ADDRESS       TYPE       INTERFACE
+10.254.0.9       00aa-bbcc-0009    dynamic    Vlanif999
+10.132.10.22    0011-2233-4422    dynamic    Vlanif132","<SW> display current-configuration interface GE0/0/11
+interface GigabitEthernet0/0/11
+ description 办公楼A区-ACC-SIM-002
+ port link-type access
+ port default vlan 132
+ undo shutdown",SW-SIM-01,GE0/0/11,terminal_config,false,true,,终端配置,终端默认网关=10.132.10.201，台账预期=10.132.10.1,定位终端默认网关配置异常,,
+BASE-R-038,baseline_real,wrong_default_gateway,,10.20.30.15,交换机侧MAC和VLAN都正常，但终端仍无法访问网络，检查终端地址参数。,access_unknown,00:11:22:33:44:15,false,false,,,,办公楼B区,"Windows IP Configuration
+Ethernet adapter Ethernet:
+   IPv4 Address. . . . . . . . . . . : 10.20.30.15
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 10.20.30.202
+   DNS Servers . . . . . . . . . . . : 10.20.0.53
+   Physical Address. . . . . . . . . : 00-11-22-33-44-15
+Reply from 10.20.30.202: bytes=32 time<1ms TTL=64
+Server:  dns-sim
+Address: 10.20.0.53
+Name: intranet.example
+Address: 10.1.1.8","<SW> display interface GE0/0/15
+GE0/0/15 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-003
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic
+0011-2233-4415  200    GE0/0/15      dynamic","<SW> display arp
+IP ADDRESS       MAC ADDRESS       TYPE       INTERFACE
+10.254.0.9       00aa-bbcc-0009    dynamic    Vlanif999
+10.20.30.15    0011-2233-4415    dynamic    Vlanif200","<SW> display current-configuration interface GE0/0/15
+interface GigabitEthernet0/0/15
+ description 办公楼B区-ACC-SIM-003
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/15,terminal_config,false,true,,终端配置,终端默认网关=10.20.30.202，台账预期=10.20.30.1,定位终端默认网关配置异常,,
+BASE-R-039,baseline_real,wrong_default_gateway,,10.20.30.16,交换机侧MAC和VLAN都正常，但终端仍无法访问网络，检查终端地址参数。,access_unknown,00:11:22:33:44:16,false,false,,,,办公楼B区,"Windows IP Configuration
+Ethernet adapter Ethernet:
+   IPv4 Address. . . . . . . . . . . : 10.20.30.16
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 10.20.30.203
+   DNS Servers . . . . . . . . . . . : 10.20.0.53
+   Physical Address. . . . . . . . . : 00-11-22-33-44-16
+Reply from 10.20.30.203: bytes=32 time<1ms TTL=64
+Server:  dns-sim
+Address: 10.20.0.53
+Name: intranet.example
+Address: 10.1.1.8","<SW> display interface GE0/0/16
+GE0/0/16 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-004
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic
+0011-2233-4416  200    GE0/0/16      dynamic","<SW> display arp
+IP ADDRESS       MAC ADDRESS       TYPE       INTERFACE
+10.254.0.9       00aa-bbcc-0009    dynamic    Vlanif999
+10.20.30.16    0011-2233-4416    dynamic    Vlanif200","<SW> display current-configuration interface GE0/0/16
+interface GigabitEthernet0/0/16
+ description 办公楼B区-ACC-SIM-004
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/16,terminal_config,false,true,,终端配置,终端默认网关=10.20.30.203，台账预期=10.20.30.1,定位终端默认网关配置异常,,
+BASE-R-040,baseline_real,wrong_default_gateway,,10.20.30.17,交换机侧MAC和VLAN都正常，但终端仍无法访问网络，检查终端地址参数。,access_unknown,00:11:22:33:44:17,false,false,,,,办公楼C区,"Windows IP Configuration
+Ethernet adapter Ethernet:
+   IPv4 Address. . . . . . . . . . . : 10.20.30.17
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 10.20.30.204
+   DNS Servers . . . . . . . . . . . : 10.20.0.53
+   Physical Address. . . . . . . . . : 00-11-22-33-44-17
+Reply from 10.20.30.204: bytes=32 time<1ms TTL=64
+Server:  dns-sim
+Address: 10.20.0.53
+Name: intranet.example
+Address: 10.1.1.8","<SW> display interface GE0/0/17
+GE0/0/17 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-005
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  300    GE0/0/40      dynamic
+00aa-bb00-0002  300    GE0/0/41      dynamic
+0011-2233-4417  300    GE0/0/17      dynamic","<SW> display arp
+IP ADDRESS       MAC ADDRESS       TYPE       INTERFACE
+10.254.0.9       00aa-bbcc-0009    dynamic    Vlanif999
+10.20.30.17    0011-2233-4417    dynamic    Vlanif300","<SW> display current-configuration interface GE0/0/17
+interface GigabitEthernet0/0/17
+ description 办公楼C区-ACC-SIM-005
+ port link-type access
+ port default vlan 300
+ undo shutdown",SW-SIM-04,GE0/0/17,terminal_config,false,true,,终端配置,终端默认网关=10.20.30.204，台账预期=10.20.30.1,定位终端默认网关配置异常,,
+BASE-R-041,baseline_real,l2_normal_service_unreachable,,10.132.10.21,接入交换机侧看起来正常，业务系统仍访问失败。,oa_service,00:11:22:33:44:21,false,false,false,,,办公楼A区,"Windows IP Configuration
+Ethernet adapter Ethernet:
+   IPv4 Address. . . . . . . . . . . : 10.132.10.21
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 10.132.10.1
+   DNS Servers . . . . . . . . . . . : 10.132.0.53
+   Physical Address. . . . . . . . . : 00-11-22-33-44-21
+Reply from 10.132.10.1: bytes=32 time<1ms TTL=64
+Server: dns-sim
+DNS request timed out.
+*** Request to dns-sim timed-out","<SW> display interface GE0/0/10
+GE0/0/10 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-001
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  132    GE0/0/40      dynamic
+00aa-bb00-0002  132    GE0/0/41      dynamic
+0011-2233-4421  132    GE0/0/10      dynamic","<SW> display arp
+IP ADDRESS       MAC ADDRESS       TYPE       INTERFACE
+10.254.0.9       00aa-bbcc-0009    dynamic    Vlanif999
+10.132.10.21    0011-2233-4421    dynamic    Vlanif132","<SW> display current-configuration interface GE0/0/10
+interface GigabitEthernet0/0/10
+ description 办公楼A区-ACC-SIM-001
+ port link-type access
+ port default vlan 132
+ undo shutdown",SW-SIM-01,GE0/0/10,uplink_policy_or_application,false,true,,分层定位,接口/MAC/VLAN正常，但DNS/业务可达性异常,不要重复归因接入侧，应转向三层路径/策略/业务,,
+BASE-R-042,baseline_real,l2_normal_service_unreachable,,10.132.10.22,能ping网关，但OA门户打不开。,oa_service,00:11:22:33:44:22,false,false,false,,,办公楼A区,"Windows IP Configuration
+Ethernet adapter Ethernet:
+   IPv4 Address. . . . . . . . . . . : 10.132.10.22
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 10.132.10.1
+   DNS Servers . . . . . . . . . . . : 10.132.0.53
+   Physical Address. . . . . . . . . : 00-11-22-33-44-22
+Reply from 10.132.10.1: bytes=32 time<1ms TTL=64
+Server: dns-sim
+DNS request timed out.
+*** Request to dns-sim timed-out","<SW> display interface GE0/0/11
+GE0/0/11 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-002
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  132    GE0/0/40      dynamic
+00aa-bb00-0002  132    GE0/0/41      dynamic
+0011-2233-4422  132    GE0/0/11      dynamic","<SW> display arp
+IP ADDRESS       MAC ADDRESS       TYPE       INTERFACE
+10.254.0.9       00aa-bbcc-0009    dynamic    Vlanif999
+10.132.10.22    0011-2233-4422    dynamic    Vlanif132","<SW> display current-configuration interface GE0/0/11
+interface GigabitEthernet0/0/11
+ description 办公楼A区-ACC-SIM-002
+ port link-type access
+ port default vlan 132
+ undo shutdown",SW-SIM-01,GE0/0/11,uplink_policy_or_application,false,true,,分层定位,接口/MAC/VLAN正常，但DNS/业务可达性异常,不要重复归因接入侧，应转向三层路径/策略/业务,,
+BASE-R-043,baseline_real,l2_normal_service_unreachable,,10.20.30.15,能ping网关，但OA门户打不开。,oa_service,00:11:22:33:44:15,false,false,false,,,办公楼B区,"Windows IP Configuration
+Ethernet adapter Ethernet:
+   IPv4 Address. . . . . . . . . . . : 10.20.30.15
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 10.20.30.1
+   DNS Servers . . . . . . . . . . . : 10.20.0.53
+   Physical Address. . . . . . . . . : 00-11-22-33-44-15
+Reply from 10.20.30.1: bytes=32 time<1ms TTL=64
+Server: dns-sim
+DNS request timed out.
+*** Request to dns-sim timed-out","<SW> display interface GE0/0/15
+GE0/0/15 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-003
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic
+0011-2233-4415  200    GE0/0/15      dynamic","<SW> display arp
+IP ADDRESS       MAC ADDRESS       TYPE       INTERFACE
+10.254.0.9       00aa-bbcc-0009    dynamic    Vlanif999
+10.20.30.15    0011-2233-4415    dynamic    Vlanif200","<SW> display current-configuration interface GE0/0/15
+interface GigabitEthernet0/0/15
+ description 办公楼B区-ACC-SIM-003
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/15,uplink_policy_or_application,false,true,,分层定位,接口/MAC/VLAN正常，但DNS/业务可达性异常,不要重复归因接入侧，应转向三层路径/策略/业务,,
+BASE-R-044,baseline_real,l2_normal_service_unreachable,,10.20.30.16,能ping网关，但OA门户打不开。,oa_service,00:11:22:33:44:16,false,false,false,,,办公楼B区,"Windows IP Configuration
+Ethernet adapter Ethernet:
+   IPv4 Address. . . . . . . . . . . : 10.20.30.16
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 10.20.30.1
+   DNS Servers . . . . . . . . . . . : 10.20.0.53
+   Physical Address. . . . . . . . . : 00-11-22-33-44-16
+Reply from 10.20.30.1: bytes=32 time<1ms TTL=64
+Server: dns-sim
+DNS request timed out.
+*** Request to dns-sim timed-out","<SW> display interface GE0/0/16
+GE0/0/16 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-004
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic
+0011-2233-4416  200    GE0/0/16      dynamic","<SW> display arp
+IP ADDRESS       MAC ADDRESS       TYPE       INTERFACE
+10.254.0.9       00aa-bbcc-0009    dynamic    Vlanif999
+10.20.30.16    0011-2233-4416    dynamic    Vlanif200","<SW> display current-configuration interface GE0/0/16
+interface GigabitEthernet0/0/16
+ description 办公楼B区-ACC-SIM-004
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/16,uplink_policy_or_application,false,true,,分层定位,接口/MAC/VLAN正常，但DNS/业务可达性异常,不要重复归因接入侧，应转向三层路径/策略/业务,,
+BASE-R-045,baseline_real,l2_normal_service_unreachable,,10.20.30.17,能ping网关，但OA门户打不开。,oa_service,00:11:22:33:44:17,false,false,false,,,办公楼C区,"Windows IP Configuration
+Ethernet adapter Ethernet:
+   IPv4 Address. . . . . . . . . . . : 10.20.30.17
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 10.20.30.1
+   DNS Servers . . . . . . . . . . . : 10.20.0.53
+   Physical Address. . . . . . . . . : 00-11-22-33-44-17
+Reply from 10.20.30.1: bytes=32 time<1ms TTL=64
+Server: dns-sim
+DNS request timed out.
+*** Request to dns-sim timed-out","<SW> display interface GE0/0/17
+GE0/0/17 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-005
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  300    GE0/0/40      dynamic
+00aa-bb00-0002  300    GE0/0/41      dynamic
+0011-2233-4417  300    GE0/0/17      dynamic","<SW> display arp
+IP ADDRESS       MAC ADDRESS       TYPE       INTERFACE
+10.254.0.9       00aa-bbcc-0009    dynamic    Vlanif999
+10.20.30.17    0011-2233-4417    dynamic    Vlanif300","<SW> display current-configuration interface GE0/0/17
+interface GigabitEthernet0/0/17
+ description 办公楼C区-ACC-SIM-005
+ port link-type access
+ port default vlan 300
+ undo shutdown",SW-SIM-04,GE0/0/17,uplink_policy_or_application,false,true,,分层定位,接口/MAC/VLAN正常，但DNS/业务可达性异常,不要重复归因接入侧，应转向三层路径/策略/业务,,
+BASE-R-046,baseline_real,evidence_not_collected,,10.132.10.21,用户说网络有问题，目前只拿到IP。,access_unknown,00:11:22:33:44:21,false,false,,,,办公楼A区,,,,,,,,insufficient_evidence,false,true,,证据充分性,缺少接口、MAC、VLAN和终端关键证据,应明确证据不足并给出下一步只读采集项,,
+BASE-R-047,baseline_real,evidence_not_collected,,10.132.10.22,工单只有“无法联网”，需要补证据。,access_unknown,00:11:22:33:44:22,false,false,,,,办公楼A区,,,,,,,,insufficient_evidence,false,true,,证据充分性,缺少接口、MAC、VLAN和终端关键证据,应明确证据不足并给出下一步只读采集项,,
+BASE-R-048,baseline_real,evidence_not_collected,,10.20.30.15,工单只有“无法联网”，需要补证据。,access_unknown,00:11:22:33:44:15,false,false,,,,办公楼B区,,,,,,,,insufficient_evidence,false,true,,证据充分性,缺少接口、MAC、VLAN和终端关键证据,应明确证据不足并给出下一步只读采集项,,
+BASE-R-049,baseline_real,evidence_not_collected,,10.20.30.16,用户说网络有问题，目前只拿到IP。,access_unknown,00:11:22:33:44:16,false,false,,,,办公楼B区,,,,,,,,insufficient_evidence,false,true,,证据充分性,缺少接口、MAC、VLAN和终端关键证据,应明确证据不足并给出下一步只读采集项,,
+BASE-R-050,baseline_real,evidence_not_collected,,10.20.30.17,工单只有“无法联网”，需要补证据。,access_unknown,00:11:22:33:44:17,false,false,,,,办公楼C区,,,,,,,,insufficient_evidence,false,true,,证据充分性,缺少接口、MAC、VLAN和终端关键证据,应明确证据不足并给出下一步只读采集项,,

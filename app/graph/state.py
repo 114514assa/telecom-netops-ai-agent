@@ -6,6 +6,7 @@ class NetOpsState(TypedDict, total=False):
     incident: dict[str, Any]
     raw_evidence: dict[str, Any]
     inventory: dict[str, Any] | None
+    collection_error: str | None
     parsed_evidence: dict[str, Any]
     diagnosis: dict[str, Any]
     knowledge_hits: list[dict[str, Any]]

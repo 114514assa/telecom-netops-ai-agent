@@ -4,6 +4,7 @@ pydantic>=2.12,<3.0
 pydantic-settings>=2.10,<3.0
 python-multipart>=0.0.20,<1.0
 httpx>=0.28,<1.0
+pypdf>=5.0,<7.0  # text-based PDF extraction only; no OCR
 
 # Agent / LangChain ecosystem
 langchain>=1.1,<2.0

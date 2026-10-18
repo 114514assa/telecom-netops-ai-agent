@@ -1,0 +1,16 @@
+{
+  "version": "3.1.1",
+  "edition": "guardrail-observability-and-negation-fix-windows-pytest-hotfix",
+  "parent_version": "3.1.0",
+  "source_baseline_archive": "telecom-netops-ai-agent_测试用例工具集成完整加固版.zip",
+  "source_baseline_sha256": "7cfdd8a45518f49e86cb0e8cbaf9756c945a688a7c3bcb55d3454e4d8d0acabf",
+  "breaking_changes": [
+    "Report generation_meta.guardrail excludes raw candidate_text, auxiliary_text and identifier values; use reason codes + digest instead"
+  ],
+  "core_workflow": "unchanged",
+  "rag_corpus_and_queries": "unchanged",
+  "mcp_tools": "unchanged (nine)",
+  "runtime_isolation": "runtime_v3_1 via RUN_V3_1_ENV.ps1",
+  "validation_note": "Offline PDF regression verified on Linux; full Windows pytest and GPU/E2E re-verification remain necessary.",
+  "hotfix_scope": "Explicit short pytest parametrization IDs for >5 MiB PDF rejection case; no production logic changes"
+}

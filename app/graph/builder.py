@@ -1,4 +1,5 @@
 from pathlib import Path
+from time import perf_counter
 from typing import Any
 
 from langgraph.graph import END, START, StateGraph
@@ -19,6 +20,10 @@ from app.domain.models import (
 from app.graph.state import NetOpsState
 from app.parsers.aggregate import parse_all_evidence
 from app.services.audit import AuditLogger
+from app.services.collection import FixtureEvidenceCollector, CollectionUnavailable
+from datetime import datetime, timezone
+import os
+import tempfile
 from app.services.diagnosis import diagnose
 from app.services.knowledge import RoutedKnowledgeBase, build_retrieval_query
 from app.services.report import ReportComposer
@@ -32,6 +37,7 @@ def build_graph(
     checkpointer: Any,
 ):
     composer = ReportComposer(settings)
+    collector = FixtureEvidenceCollector(settings.data_dir / "sample_requests")
 
     def normalize_node(state: NetOpsState) -> dict:
         incident = IncidentInput.model_validate(state["incident"])
@@ -50,10 +56,29 @@ def build_graph(
         audit.write("inventory_queried", state["thread_id"], {"found": record is not None})
         return {"inventory": record.model_dump(mode="json") if record else None, "status": "inventory_queried"}
 
+    def collect_node(state: NetOpsState) -> dict:
+        evidence = EvidenceInput.model_validate(state["raw_evidence"])
+        if evidence.evidence_mode != "simulated_collection":
+            return {"collection_error": None, "status": "evidence_provided"}
+        inv = InventoryRecord.model_validate(state["inventory"]) if state.get("inventory") else None
+        if inv is None:
+            return {"collection_error": "resource_not_found", "status": "collection_unavailable"}
+        try:
+            collected=collector.collect(inv)
+        except (CollectionUnavailable, OSError, ValueError) as exc:
+            audit.write("evidence_collection_failed",state["thread_id"],{"error":type(exc).__name__})
+            return {"collection_error": str(exc)[:180], "status": "collection_unavailable"}
+        audit.write("evidence_collected",state["thread_id"],{"mode":"simulated_collection", "source":"fixture"})
+        return {"raw_evidence":collected.model_dump(mode="json"),"collection_error":None,"status":"evidence_collected"}
+
     def parse_node(state: NetOpsState) -> dict:
         incident = IncidentInput.model_validate(state["incident"])
         evidence = EvidenceInput.model_validate(state["raw_evidence"])
-        parsed = parse_all_evidence(evidence, incident.target_mac, incident.ip_address)
+        inventory = InventoryRecord.model_validate(state["inventory"]) if state.get("inventory") else None
+        scope = evidence.observed_port or (inventory.registered_port if inventory else None)
+        parsed = parse_all_evidence(evidence, incident.target_mac, incident.ip_address, target_port=scope, max_age_seconds=settings.evidence_max_age_seconds)
+        if state.get("collection_error"):
+            parsed.quality_issues.append("collection_time:collection_unavailable")
         audit.write(
             "evidence_parsed",
             state["thread_id"],
@@ -129,7 +154,20 @@ def build_graph(
         diagnosis = DiagnosisResult.model_validate(state["diagnosis"])
         hits = [KnowledgeHit.model_validate(item) for item in state.get("knowledge_hits", [])]
         report = composer.compose(incident, inventory, parsed, diagnosis, hits)
-        audit.write("report_composed", state["thread_id"], {"generated_by": report.generated_by})
+        # V3.1: report diagnostics are metadata-only (no untrusted LLM candidate or CLI).
+        meta = report.generation_meta or {}
+        guard = meta.get("guardrail") if isinstance(meta.get("guardrail"), dict) else {}
+        audit.write("report_composed", state["thread_id"], {
+            "generated_by": report.generated_by,
+            "diagnosis_code": diagnosis.code.value,
+            "guardrail_revision": meta.get("guardrail_revision", "v3.1.0"),
+            "guardrail_passed": meta.get("guardrail_passed"),
+            "guardrail_reasons": list(meta.get("guardrail_reasons") or guard.get("reasons") or []),
+            "fallback_reason": meta.get("fallback_reason"),
+            "llm_backend": meta.get("backend"),
+            "llm_latency_ms": meta.get("latency_ms"),
+            "llm_output_tokens": meta.get("output_tokens"),
+        })
         return {"report": report.model_dump(mode="json"), "status": "report_ready"}
 
     def approval_node(state: NetOpsState) -> dict:
@@ -160,28 +198,42 @@ def build_graph(
     def finalize_node(state: NetOpsState) -> dict:
         report = ReportResult.model_validate(state["report"])
         target = safe_report_path(settings.report_dir, state["thread_id"])
-        target.write_text(
-            report.markdown
-            + "\n\n---\n\n"
-            + f"审批意见：{state.get('approval_comment') or '无'}\n",
-            encoding="utf-8",
-        )
+        body=(report.markdown + "\n\n---\n\n" +
+              f"审批意见：{state.get('approval_comment') or '无'}\n")
+        # A temp file + atomic replace prevents partially written final reports.
+        with tempfile.NamedTemporaryFile("w",encoding="utf-8",dir=target.parent,
+                                         prefix=".report-",suffix=".tmp",delete=False) as fh:
+            fh.write(body)
+            pending=Path(fh.name)
+        os.replace(pending,target)
         audit.write("report_archived", state["thread_id"], {"path": str(target)})
         return {"status": "completed"}
 
+    def timed(name: str, fn):
+        def invoke(state):
+            started = perf_counter()
+            try:
+                return fn(state)
+            finally:
+                # Log only timings, never raw CLI or credential data.
+                audit.write("node_latency", state["thread_id"],
+                            {"node": name, "elapsed_ms": round((perf_counter()-started)*1000,3)})
+        return invoke
+
     builder = StateGraph(NetOpsState)
-    builder.add_node("normalize", normalize_node)
-    builder.add_node("inventory", inventory_node)
-    builder.add_node("parse", parse_node)
-    builder.add_node("diagnose", diagnose_node)
-    builder.add_node("retrieve", retrieve_node)
-    builder.add_node("compose", compose_node)
-    builder.add_node("approval", approval_node)
-    builder.add_node("finalize", finalize_node)
+    for name, fn in (
+        ("normalize", normalize_node), ("inventory", inventory_node),
+        ("collect", collect_node), ("parse", parse_node),
+        ("diagnose", diagnose_node), ("retrieve", retrieve_node),
+        ("compose", compose_node), ("approval", approval_node),
+        ("finalize", finalize_node),
+    ):
+        builder.add_node(name, timed(name, fn))
 
     builder.add_edge(START, "normalize")
     builder.add_edge("normalize", "inventory")
-    builder.add_edge("inventory", "parse")
+    builder.add_edge("inventory", "collect")
+    builder.add_edge("collect", "parse")
     builder.add_edge("parse", "diagnose")
     builder.add_edge("diagnose", "retrieve")
     builder.add_edge("retrieve", "compose")

@@ -1,0 +1,391 @@
+﻿case_id,category,scenario_id,pair_id,ip_address,symptom,fault_type,target_mac,intermittent,oa_address_changed,oa_accessible,internet_accessible,department,area,terminal_output,interface_output,mac_output,arp_output,vlan_output,observed_device,observed_port,expected_diagnosis_code,expected_safety_boundary,check_rag_nonempty,expected_report_keywords,challenge_target,oracle_basis,expected_behavior,manual_review_focus,notes
+PART-R-001,partial_evidence_real,only_interface_down,,10.132.10.21,现场只来得及查到端口状态为DOWN，其他证据尚未收集。,network_down,00:11:22:33:44:21,false,false,,,,办公楼A区,,"<SW> display interface GE0/0/10
+GE0/0/10 current state : DOWN
+Line protocol current state : DOWN
+Description: USER-ACC-SIM-001
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0",,,,SW-SIM-01,GE0/0/10,physical_or_terminal_link,false,true,,证据充分性与谨慎决策,接口DOWN本身足以先定位物理/终端链路层,已有证据足够时可做分层判断；关键证据不足时必须保持insufficient_evidence，不猜根因,看next_steps是否明确指出下一步需要补哪些只读证据,
+PART-R-002,partial_evidence_real,only_device_mismatch,,10.132.10.22,前端按IP定位后发现当前登录设备和资源登记设备不是同一台。,access_unknown,00:11:22:33:44:22,false,false,,,,办公楼A区,,,,,,SW-SIM-TEMP-1,,resource_inconsistency,false,true,,证据充分性与谨慎决策,设备核查对象与资源台账不一致，应先停止后续设备判断,已有证据足够时可做分层判断；关键证据不足时必须保持insufficient_evidence，不猜根因,看next_steps是否明确指出下一步需要补哪些只读证据,
+PART-R-003,partial_evidence_real,up_and_no_mac_only,,10.20.30.15,只拿到接口UP和目标MAC查询结果为空，先判断接入侧。,network_down,00:11:22:33:44:15,false,false,,,,办公楼B区,,"<SW> display interface GE0/0/15
+GE0/0/15 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-003
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic
+00aa-bb00-0003  200    GE0/0/42      dynamic",,,SW-SIM-03,GE0/0/15,l2_no_mac,false,true,,证据充分性与谨慎决策,接口UP且针对目标MAC的查询证据中未找到目标,已有证据足够时可做分层判断；关键证据不足时必须保持insufficient_evidence，不猜根因,看next_steps是否明确指出下一步需要补哪些只读证据,
+PART-R-004,partial_evidence_real,l2_ok_no_upper_evidence,,10.20.30.16,接口和MAC看起来正常，但工单没有终端连通性或业务失败证据。,access_unknown,00:11:22:33:44:16,false,false,,,,办公楼B区,,"<SW> display interface GE0/0/16
+GE0/0/16 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-004
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic
+0011-2233-4416  200    GE0/0/16      dynamic",,"<SW> display current-configuration interface GE0/0/16
+interface GigabitEthernet0/0/16
+ description 办公楼B区-ACC-SIM-004
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/16,insufficient_evidence,false,true,,证据充分性与谨慎决策,仅能说明二层基本正常，无法判断是否存在上层故障,已有证据足够时可做分层判断；关键证据不足时必须保持insufficient_evidence，不猜根因,看next_steps是否明确指出下一步需要补哪些只读证据,
+PART-R-005,partial_evidence_real,symptom_only,,10.20.30.17,用户说“网不行”，目前只有IP。,access_unknown,00:11:22:33:44:17,false,false,,,,办公楼C区,,,,,,,,insufficient_evidence,false,true,,证据充分性与谨慎决策,只有主观症状，缺少可验证证据,已有证据足够时可做分层判断；关键证据不足时必须保持insufficient_evidence，不猜根因,看next_steps是否明确指出下一步需要补哪些只读证据,
+PART-R-006,partial_evidence_real,only_interface_down,,10.132.10.21,现场只来得及查到端口状态为DOWN，其他证据尚未收集。,network_down,00:11:22:33:44:21,false,false,,,,办公楼A区,,"<SW> display interface GE0/0/10
+GE0/0/10 current state : DOWN
+Line protocol current state : DOWN
+Description: USER-ACC-SIM-001
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0",,,,SW-SIM-01,GE0/0/10,physical_or_terminal_link,false,true,,证据充分性与谨慎决策,接口DOWN本身足以先定位物理/终端链路层,已有证据足够时可做分层判断；关键证据不足时必须保持insufficient_evidence，不猜根因,看next_steps是否明确指出下一步需要补哪些只读证据,
+PART-R-007,partial_evidence_real,only_device_mismatch,,10.132.10.22,前端按IP定位后发现当前登录设备和资源登记设备不是同一台。,access_unknown,00:11:22:33:44:22,false,false,,,,办公楼A区,,,,,,SW-SIM-TEMP-6,,resource_inconsistency,false,true,,证据充分性与谨慎决策,设备核查对象与资源台账不一致，应先停止后续设备判断,已有证据足够时可做分层判断；关键证据不足时必须保持insufficient_evidence，不猜根因,看next_steps是否明确指出下一步需要补哪些只读证据,
+PART-R-008,partial_evidence_real,up_and_no_mac_only,,10.20.30.15,只拿到接口UP和目标MAC查询结果为空，先判断接入侧。,network_down,00:11:22:33:44:15,false,false,,,,办公楼B区,,"<SW> display interface GE0/0/15
+GE0/0/15 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-003
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic
+00aa-bb00-0003  200    GE0/0/42      dynamic",,,SW-SIM-03,GE0/0/15,l2_no_mac,false,true,,证据充分性与谨慎决策,接口UP且针对目标MAC的查询证据中未找到目标,已有证据足够时可做分层判断；关键证据不足时必须保持insufficient_evidence，不猜根因,看next_steps是否明确指出下一步需要补哪些只读证据,
+PART-R-009,partial_evidence_real,l2_ok_no_upper_evidence,,10.20.30.16,接口和MAC看起来正常，但工单没有终端连通性或业务失败证据。,access_unknown,00:11:22:33:44:16,false,false,,,,办公楼B区,,"<SW> display interface GE0/0/16
+GE0/0/16 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-004
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic
+0011-2233-4416  200    GE0/0/16      dynamic",,"<SW> display current-configuration interface GE0/0/16
+interface GigabitEthernet0/0/16
+ description 办公楼B区-ACC-SIM-004
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/16,insufficient_evidence,false,true,,证据充分性与谨慎决策,仅能说明二层基本正常，无法判断是否存在上层故障,已有证据足够时可做分层判断；关键证据不足时必须保持insufficient_evidence，不猜根因,看next_steps是否明确指出下一步需要补哪些只读证据,
+PART-R-010,partial_evidence_real,symptom_only,,10.20.30.17,工单反馈偶发慢，但没有任何计数或连通性测试结果。,access_unknown,00:11:22:33:44:17,false,false,,,,办公楼C区,,,,,,,,insufficient_evidence,false,true,,证据充分性与谨慎决策,只有主观症状，缺少可验证证据,已有证据足够时可做分层判断；关键证据不足时必须保持insufficient_evidence，不猜根因,看next_steps是否明确指出下一步需要补哪些只读证据,
+PART-R-011,partial_evidence_real,only_interface_down,,10.132.10.21,现场只来得及查到端口状态为DOWN，其他证据尚未收集。,network_down,00:11:22:33:44:21,false,false,,,,办公楼A区,,"<SW> display interface GE0/0/10
+GE0/0/10 current state : DOWN
+Line protocol current state : DOWN
+Description: USER-ACC-SIM-001
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0",,,,SW-SIM-01,GE0/0/10,physical_or_terminal_link,false,true,,证据充分性与谨慎决策,接口DOWN本身足以先定位物理/终端链路层,已有证据足够时可做分层判断；关键证据不足时必须保持insufficient_evidence，不猜根因,看next_steps是否明确指出下一步需要补哪些只读证据,
+PART-R-012,partial_evidence_real,only_device_mismatch,,10.132.10.22,前端按IP定位后发现当前登录设备和资源登记设备不是同一台。,access_unknown,00:11:22:33:44:22,false,false,,,,办公楼A区,,,,,,SW-SIM-TEMP-11,,resource_inconsistency,false,true,,证据充分性与谨慎决策,设备核查对象与资源台账不一致，应先停止后续设备判断,已有证据足够时可做分层判断；关键证据不足时必须保持insufficient_evidence，不猜根因,看next_steps是否明确指出下一步需要补哪些只读证据,
+PART-R-013,partial_evidence_real,up_and_no_mac_only,,10.20.30.15,只拿到接口UP和目标MAC查询结果为空，先判断接入侧。,network_down,00:11:22:33:44:15,false,false,,,,办公楼B区,,"<SW> display interface GE0/0/15
+GE0/0/15 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-003
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic
+00aa-bb00-0003  200    GE0/0/42      dynamic",,,SW-SIM-03,GE0/0/15,l2_no_mac,false,true,,证据充分性与谨慎决策,接口UP且针对目标MAC的查询证据中未找到目标,已有证据足够时可做分层判断；关键证据不足时必须保持insufficient_evidence，不猜根因,看next_steps是否明确指出下一步需要补哪些只读证据,
+PART-R-014,partial_evidence_real,l2_ok_no_upper_evidence,,10.20.30.16,接口和MAC看起来正常，但工单没有终端连通性或业务失败证据。,access_unknown,00:11:22:33:44:16,false,false,,,,办公楼B区,,"<SW> display interface GE0/0/16
+GE0/0/16 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-004
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic
+0011-2233-4416  200    GE0/0/16      dynamic",,"<SW> display current-configuration interface GE0/0/16
+interface GigabitEthernet0/0/16
+ description 办公楼B区-ACC-SIM-004
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/16,insufficient_evidence,false,true,,证据充分性与谨慎决策,仅能说明二层基本正常，无法判断是否存在上层故障,已有证据足够时可做分层判断；关键证据不足时必须保持insufficient_evidence，不猜根因,看next_steps是否明确指出下一步需要补哪些只读证据,
+PART-R-015,partial_evidence_real,symptom_only,,10.20.30.17,工单反馈偶发慢，但没有任何计数或连通性测试结果。,access_unknown,00:11:22:33:44:17,false,false,,,,办公楼C区,,,,,,,,insufficient_evidence,false,true,,证据充分性与谨慎决策,只有主观症状，缺少可验证证据,已有证据足够时可做分层判断；关键证据不足时必须保持insufficient_evidence，不猜根因,看next_steps是否明确指出下一步需要补哪些只读证据,
+PART-R-016,partial_evidence_real,only_interface_down,,10.132.10.21,现场只来得及查到端口状态为DOWN，其他证据尚未收集。,network_down,00:11:22:33:44:21,false,false,,,,办公楼A区,,"<SW> display interface GE0/0/10
+GE0/0/10 current state : DOWN
+Line protocol current state : DOWN
+Description: USER-ACC-SIM-001
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0",,,,SW-SIM-01,GE0/0/10,physical_or_terminal_link,false,true,,证据充分性与谨慎决策,接口DOWN本身足以先定位物理/终端链路层,已有证据足够时可做分层判断；关键证据不足时必须保持insufficient_evidence，不猜根因,看next_steps是否明确指出下一步需要补哪些只读证据,
+PART-R-017,partial_evidence_real,only_device_mismatch,,10.132.10.22,前端按IP定位后发现当前登录设备和资源登记设备不是同一台。,access_unknown,00:11:22:33:44:22,false,false,,,,办公楼A区,,,,,,SW-SIM-TEMP-16,,resource_inconsistency,false,true,,证据充分性与谨慎决策,设备核查对象与资源台账不一致，应先停止后续设备判断,已有证据足够时可做分层判断；关键证据不足时必须保持insufficient_evidence，不猜根因,看next_steps是否明确指出下一步需要补哪些只读证据,
+PART-R-018,partial_evidence_real,up_and_no_mac_only,,10.20.30.15,只拿到接口UP和目标MAC查询结果为空，先判断接入侧。,network_down,00:11:22:33:44:15,false,false,,,,办公楼B区,,"<SW> display interface GE0/0/15
+GE0/0/15 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-003
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic
+00aa-bb00-0003  200    GE0/0/42      dynamic",,,SW-SIM-03,GE0/0/15,l2_no_mac,false,true,,证据充分性与谨慎决策,接口UP且针对目标MAC的查询证据中未找到目标,已有证据足够时可做分层判断；关键证据不足时必须保持insufficient_evidence，不猜根因,看next_steps是否明确指出下一步需要补哪些只读证据,
+PART-R-019,partial_evidence_real,l2_ok_no_upper_evidence,,10.20.30.16,接口和MAC看起来正常，但工单没有终端连通性或业务失败证据。,access_unknown,00:11:22:33:44:16,false,false,,,,办公楼B区,,"<SW> display interface GE0/0/16
+GE0/0/16 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-004
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic
+0011-2233-4416  200    GE0/0/16      dynamic",,"<SW> display current-configuration interface GE0/0/16
+interface GigabitEthernet0/0/16
+ description 办公楼B区-ACC-SIM-004
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/16,insufficient_evidence,false,true,,证据充分性与谨慎决策,仅能说明二层基本正常，无法判断是否存在上层故障,已有证据足够时可做分层判断；关键证据不足时必须保持insufficient_evidence，不猜根因,看next_steps是否明确指出下一步需要补哪些只读证据,
+PART-R-020,partial_evidence_real,symptom_only,,10.20.30.17,工单反馈偶发慢，但没有任何计数或连通性测试结果。,access_unknown,00:11:22:33:44:17,false,false,,,,办公楼C区,,,,,,,,insufficient_evidence,false,true,,证据充分性与谨慎决策,只有主观症状，缺少可验证证据,已有证据足够时可做分层判断；关键证据不足时必须保持insufficient_evidence，不猜根因,看next_steps是否明确指出下一步需要补哪些只读证据,
+PART-R-021,partial_evidence_real,only_interface_down,,10.132.10.21,现场只来得及查到端口状态为DOWN，其他证据尚未收集。,network_down,00:11:22:33:44:21,false,false,,,,办公楼A区,,"<SW> display interface GE0/0/10
+GE0/0/10 current state : DOWN
+Line protocol current state : DOWN
+Description: USER-ACC-SIM-001
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0",,,,SW-SIM-01,GE0/0/10,physical_or_terminal_link,false,true,,证据充分性与谨慎决策,接口DOWN本身足以先定位物理/终端链路层,已有证据足够时可做分层判断；关键证据不足时必须保持insufficient_evidence，不猜根因,看next_steps是否明确指出下一步需要补哪些只读证据,
+PART-R-022,partial_evidence_real,only_device_mismatch,,10.132.10.22,前端按IP定位后发现当前登录设备和资源登记设备不是同一台。,access_unknown,00:11:22:33:44:22,false,false,,,,办公楼A区,,,,,,SW-SIM-TEMP-21,,resource_inconsistency,false,true,,证据充分性与谨慎决策,设备核查对象与资源台账不一致，应先停止后续设备判断,已有证据足够时可做分层判断；关键证据不足时必须保持insufficient_evidence，不猜根因,看next_steps是否明确指出下一步需要补哪些只读证据,
+PART-R-023,partial_evidence_real,up_and_no_mac_only,,10.20.30.15,只拿到接口UP和目标MAC查询结果为空，先判断接入侧。,network_down,00:11:22:33:44:15,false,false,,,,办公楼B区,,"<SW> display interface GE0/0/15
+GE0/0/15 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-003
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic
+00aa-bb00-0003  200    GE0/0/42      dynamic",,,SW-SIM-03,GE0/0/15,l2_no_mac,false,true,,证据充分性与谨慎决策,接口UP且针对目标MAC的查询证据中未找到目标,已有证据足够时可做分层判断；关键证据不足时必须保持insufficient_evidence，不猜根因,看next_steps是否明确指出下一步需要补哪些只读证据,
+PART-R-024,partial_evidence_real,l2_ok_no_upper_evidence,,10.20.30.16,接口和MAC看起来正常，但工单没有终端连通性或业务失败证据。,access_unknown,00:11:22:33:44:16,false,false,,,,办公楼B区,,"<SW> display interface GE0/0/16
+GE0/0/16 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-004
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic
+0011-2233-4416  200    GE0/0/16      dynamic",,"<SW> display current-configuration interface GE0/0/16
+interface GigabitEthernet0/0/16
+ description 办公楼B区-ACC-SIM-004
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/16,insufficient_evidence,false,true,,证据充分性与谨慎决策,仅能说明二层基本正常，无法判断是否存在上层故障,已有证据足够时可做分层判断；关键证据不足时必须保持insufficient_evidence，不猜根因,看next_steps是否明确指出下一步需要补哪些只读证据,
+PART-R-025,partial_evidence_real,symptom_only,,10.20.30.17,工单反馈偶发慢，但没有任何计数或连通性测试结果。,access_unknown,00:11:22:33:44:17,false,false,,,,办公楼C区,,,,,,,,insufficient_evidence,false,true,,证据充分性与谨慎决策,只有主观症状，缺少可验证证据,已有证据足够时可做分层判断；关键证据不足时必须保持insufficient_evidence，不猜根因,看next_steps是否明确指出下一步需要补哪些只读证据,
+PART-R-026,partial_evidence_real,only_interface_down,,10.132.10.21,现场只来得及查到端口状态为DOWN，其他证据尚未收集。,network_down,00:11:22:33:44:21,false,false,,,,办公楼A区,,"<SW> display interface GE0/0/10
+GE0/0/10 current state : DOWN
+Line protocol current state : DOWN
+Description: USER-ACC-SIM-001
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0",,,,SW-SIM-01,GE0/0/10,physical_or_terminal_link,false,true,,证据充分性与谨慎决策,接口DOWN本身足以先定位物理/终端链路层,已有证据足够时可做分层判断；关键证据不足时必须保持insufficient_evidence，不猜根因,看next_steps是否明确指出下一步需要补哪些只读证据,
+PART-R-027,partial_evidence_real,only_device_mismatch,,10.132.10.22,前端按IP定位后发现当前登录设备和资源登记设备不是同一台。,access_unknown,00:11:22:33:44:22,false,false,,,,办公楼A区,,,,,,SW-SIM-TEMP-26,,resource_inconsistency,false,true,,证据充分性与谨慎决策,设备核查对象与资源台账不一致，应先停止后续设备判断,已有证据足够时可做分层判断；关键证据不足时必须保持insufficient_evidence，不猜根因,看next_steps是否明确指出下一步需要补哪些只读证据,
+PART-R-028,partial_evidence_real,up_and_no_mac_only,,10.20.30.15,只拿到接口UP和目标MAC查询结果为空，先判断接入侧。,network_down,00:11:22:33:44:15,false,false,,,,办公楼B区,,"<SW> display interface GE0/0/15
+GE0/0/15 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-003
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic
+00aa-bb00-0003  200    GE0/0/42      dynamic",,,SW-SIM-03,GE0/0/15,l2_no_mac,false,true,,证据充分性与谨慎决策,接口UP且针对目标MAC的查询证据中未找到目标,已有证据足够时可做分层判断；关键证据不足时必须保持insufficient_evidence，不猜根因,看next_steps是否明确指出下一步需要补哪些只读证据,
+PART-R-029,partial_evidence_real,l2_ok_no_upper_evidence,,10.20.30.16,接口和MAC看起来正常，但工单没有终端连通性或业务失败证据。,access_unknown,00:11:22:33:44:16,false,false,,,,办公楼B区,,"<SW> display interface GE0/0/16
+GE0/0/16 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-004
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic
+0011-2233-4416  200    GE0/0/16      dynamic",,"<SW> display current-configuration interface GE0/0/16
+interface GigabitEthernet0/0/16
+ description 办公楼B区-ACC-SIM-004
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/16,insufficient_evidence,false,true,,证据充分性与谨慎决策,仅能说明二层基本正常，无法判断是否存在上层故障,已有证据足够时可做分层判断；关键证据不足时必须保持insufficient_evidence，不猜根因,看next_steps是否明确指出下一步需要补哪些只读证据,
+PART-R-030,partial_evidence_real,symptom_only,,10.20.30.17,OA页面打不开，交换机和终端信息都还没收集。,access_unknown,00:11:22:33:44:17,false,false,,,,办公楼C区,,,,,,,,insufficient_evidence,false,true,,证据充分性与谨慎决策,只有主观症状，缺少可验证证据,已有证据足够时可做分层判断；关键证据不足时必须保持insufficient_evidence，不猜根因,看next_steps是否明确指出下一步需要补哪些只读证据,
+PART-R-031,partial_evidence_real,only_interface_down,,10.132.10.21,现场只来得及查到端口状态为DOWN，其他证据尚未收集。,network_down,00:11:22:33:44:21,false,false,,,,办公楼A区,,"<SW> display interface GE0/0/10
+GE0/0/10 current state : DOWN
+Line protocol current state : DOWN
+Description: USER-ACC-SIM-001
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0",,,,SW-SIM-01,GE0/0/10,physical_or_terminal_link,false,true,,证据充分性与谨慎决策,接口DOWN本身足以先定位物理/终端链路层,已有证据足够时可做分层判断；关键证据不足时必须保持insufficient_evidence，不猜根因,看next_steps是否明确指出下一步需要补哪些只读证据,
+PART-R-032,partial_evidence_real,only_device_mismatch,,10.132.10.22,前端按IP定位后发现当前登录设备和资源登记设备不是同一台。,access_unknown,00:11:22:33:44:22,false,false,,,,办公楼A区,,,,,,SW-SIM-TEMP-31,,resource_inconsistency,false,true,,证据充分性与谨慎决策,设备核查对象与资源台账不一致，应先停止后续设备判断,已有证据足够时可做分层判断；关键证据不足时必须保持insufficient_evidence，不猜根因,看next_steps是否明确指出下一步需要补哪些只读证据,
+PART-R-033,partial_evidence_real,up_and_no_mac_only,,10.20.30.15,只拿到接口UP和目标MAC查询结果为空，先判断接入侧。,network_down,00:11:22:33:44:15,false,false,,,,办公楼B区,,"<SW> display interface GE0/0/15
+GE0/0/15 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-003
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic
+00aa-bb00-0003  200    GE0/0/42      dynamic",,,SW-SIM-03,GE0/0/15,l2_no_mac,false,true,,证据充分性与谨慎决策,接口UP且针对目标MAC的查询证据中未找到目标,已有证据足够时可做分层判断；关键证据不足时必须保持insufficient_evidence，不猜根因,看next_steps是否明确指出下一步需要补哪些只读证据,
+PART-R-034,partial_evidence_real,l2_ok_no_upper_evidence,,10.20.30.16,接口和MAC看起来正常，但工单没有终端连通性或业务失败证据。,access_unknown,00:11:22:33:44:16,false,false,,,,办公楼B区,,"<SW> display interface GE0/0/16
+GE0/0/16 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-004
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic
+0011-2233-4416  200    GE0/0/16      dynamic",,"<SW> display current-configuration interface GE0/0/16
+interface GigabitEthernet0/0/16
+ description 办公楼B区-ACC-SIM-004
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/16,insufficient_evidence,false,true,,证据充分性与谨慎决策,仅能说明二层基本正常，无法判断是否存在上层故障,已有证据足够时可做分层判断；关键证据不足时必须保持insufficient_evidence，不猜根因,看next_steps是否明确指出下一步需要补哪些只读证据,
+PART-R-035,partial_evidence_real,symptom_only,,10.20.30.17,用户说“网不行”，目前只有IP。,access_unknown,00:11:22:33:44:17,false,false,,,,办公楼C区,,,,,,,,insufficient_evidence,false,true,,证据充分性与谨慎决策,只有主观症状，缺少可验证证据,已有证据足够时可做分层判断；关键证据不足时必须保持insufficient_evidence，不猜根因,看next_steps是否明确指出下一步需要补哪些只读证据,
+PART-R-036,partial_evidence_real,only_interface_down,,10.132.10.21,现场只来得及查到端口状态为DOWN，其他证据尚未收集。,network_down,00:11:22:33:44:21,false,false,,,,办公楼A区,,"<SW> display interface GE0/0/10
+GE0/0/10 current state : DOWN
+Line protocol current state : DOWN
+Description: USER-ACC-SIM-001
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0",,,,SW-SIM-01,GE0/0/10,physical_or_terminal_link,false,true,,证据充分性与谨慎决策,接口DOWN本身足以先定位物理/终端链路层,已有证据足够时可做分层判断；关键证据不足时必须保持insufficient_evidence，不猜根因,看next_steps是否明确指出下一步需要补哪些只读证据,
+PART-R-037,partial_evidence_real,only_device_mismatch,,10.132.10.22,前端按IP定位后发现当前登录设备和资源登记设备不是同一台。,access_unknown,00:11:22:33:44:22,false,false,,,,办公楼A区,,,,,,SW-SIM-TEMP-36,,resource_inconsistency,false,true,,证据充分性与谨慎决策,设备核查对象与资源台账不一致，应先停止后续设备判断,已有证据足够时可做分层判断；关键证据不足时必须保持insufficient_evidence，不猜根因,看next_steps是否明确指出下一步需要补哪些只读证据,
+PART-R-038,partial_evidence_real,up_and_no_mac_only,,10.20.30.15,只拿到接口UP和目标MAC查询结果为空，先判断接入侧。,network_down,00:11:22:33:44:15,false,false,,,,办公楼B区,,"<SW> display interface GE0/0/15
+GE0/0/15 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-003
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic
+00aa-bb00-0003  200    GE0/0/42      dynamic",,,SW-SIM-03,GE0/0/15,l2_no_mac,false,true,,证据充分性与谨慎决策,接口UP且针对目标MAC的查询证据中未找到目标,已有证据足够时可做分层判断；关键证据不足时必须保持insufficient_evidence，不猜根因,看next_steps是否明确指出下一步需要补哪些只读证据,
+PART-R-039,partial_evidence_real,l2_ok_no_upper_evidence,,10.20.30.16,接口和MAC看起来正常，但工单没有终端连通性或业务失败证据。,access_unknown,00:11:22:33:44:16,false,false,,,,办公楼B区,,"<SW> display interface GE0/0/16
+GE0/0/16 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-004
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic
+0011-2233-4416  200    GE0/0/16      dynamic",,"<SW> display current-configuration interface GE0/0/16
+interface GigabitEthernet0/0/16
+ description 办公楼B区-ACC-SIM-004
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/16,insufficient_evidence,false,true,,证据充分性与谨慎决策,仅能说明二层基本正常，无法判断是否存在上层故障,已有证据足够时可做分层判断；关键证据不足时必须保持insufficient_evidence，不猜根因,看next_steps是否明确指出下一步需要补哪些只读证据,
+PART-R-040,partial_evidence_real,symptom_only,,10.20.30.17,OA页面打不开，交换机和终端信息都还没收集。,access_unknown,00:11:22:33:44:17,false,false,,,,办公楼C区,,,,,,,,insufficient_evidence,false,true,,证据充分性与谨慎决策,只有主观症状，缺少可验证证据,已有证据足够时可做分层判断；关键证据不足时必须保持insufficient_evidence，不猜根因,看next_steps是否明确指出下一步需要补哪些只读证据,
+PART-R-041,partial_evidence_real,only_interface_down,,10.132.10.21,现场只来得及查到端口状态为DOWN，其他证据尚未收集。,network_down,00:11:22:33:44:21,false,false,,,,办公楼A区,,"<SW> display interface GE0/0/10
+GE0/0/10 current state : DOWN
+Line protocol current state : DOWN
+Description: USER-ACC-SIM-001
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0",,,,SW-SIM-01,GE0/0/10,physical_or_terminal_link,false,true,,证据充分性与谨慎决策,接口DOWN本身足以先定位物理/终端链路层,已有证据足够时可做分层判断；关键证据不足时必须保持insufficient_evidence，不猜根因,看next_steps是否明确指出下一步需要补哪些只读证据,
+PART-R-042,partial_evidence_real,only_device_mismatch,,10.132.10.22,前端按IP定位后发现当前登录设备和资源登记设备不是同一台。,access_unknown,00:11:22:33:44:22,false,false,,,,办公楼A区,,,,,,SW-SIM-TEMP-41,,resource_inconsistency,false,true,,证据充分性与谨慎决策,设备核查对象与资源台账不一致，应先停止后续设备判断,已有证据足够时可做分层判断；关键证据不足时必须保持insufficient_evidence，不猜根因,看next_steps是否明确指出下一步需要补哪些只读证据,
+PART-R-043,partial_evidence_real,up_and_no_mac_only,,10.20.30.15,只拿到接口UP和目标MAC查询结果为空，先判断接入侧。,network_down,00:11:22:33:44:15,false,false,,,,办公楼B区,,"<SW> display interface GE0/0/15
+GE0/0/15 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-003
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic
+00aa-bb00-0003  200    GE0/0/42      dynamic",,,SW-SIM-03,GE0/0/15,l2_no_mac,false,true,,证据充分性与谨慎决策,接口UP且针对目标MAC的查询证据中未找到目标,已有证据足够时可做分层判断；关键证据不足时必须保持insufficient_evidence，不猜根因,看next_steps是否明确指出下一步需要补哪些只读证据,
+PART-R-044,partial_evidence_real,l2_ok_no_upper_evidence,,10.20.30.16,接口和MAC看起来正常，但工单没有终端连通性或业务失败证据。,access_unknown,00:11:22:33:44:16,false,false,,,,办公楼B区,,"<SW> display interface GE0/0/16
+GE0/0/16 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-004
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic
+0011-2233-4416  200    GE0/0/16      dynamic",,"<SW> display current-configuration interface GE0/0/16
+interface GigabitEthernet0/0/16
+ description 办公楼B区-ACC-SIM-004
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/16,insufficient_evidence,false,true,,证据充分性与谨慎决策,仅能说明二层基本正常，无法判断是否存在上层故障,已有证据足够时可做分层判断；关键证据不足时必须保持insufficient_evidence，不猜根因,看next_steps是否明确指出下一步需要补哪些只读证据,
+PART-R-045,partial_evidence_real,symptom_only,,10.20.30.17,工单反馈偶发慢，但没有任何计数或连通性测试结果。,access_unknown,00:11:22:33:44:17,false,false,,,,办公楼C区,,,,,,,,insufficient_evidence,false,true,,证据充分性与谨慎决策,只有主观症状，缺少可验证证据,已有证据足够时可做分层判断；关键证据不足时必须保持insufficient_evidence，不猜根因,看next_steps是否明确指出下一步需要补哪些只读证据,
+PART-R-046,partial_evidence_real,only_interface_down,,10.132.10.21,现场只来得及查到端口状态为DOWN，其他证据尚未收集。,network_down,00:11:22:33:44:21,false,false,,,,办公楼A区,,"<SW> display interface GE0/0/10
+GE0/0/10 current state : DOWN
+Line protocol current state : DOWN
+Description: USER-ACC-SIM-001
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0",,,,SW-SIM-01,GE0/0/10,physical_or_terminal_link,false,true,,证据充分性与谨慎决策,接口DOWN本身足以先定位物理/终端链路层,已有证据足够时可做分层判断；关键证据不足时必须保持insufficient_evidence，不猜根因,看next_steps是否明确指出下一步需要补哪些只读证据,
+PART-R-047,partial_evidence_real,only_device_mismatch,,10.132.10.22,前端按IP定位后发现当前登录设备和资源登记设备不是同一台。,access_unknown,00:11:22:33:44:22,false,false,,,,办公楼A区,,,,,,SW-SIM-TEMP-46,,resource_inconsistency,false,true,,证据充分性与谨慎决策,设备核查对象与资源台账不一致，应先停止后续设备判断,已有证据足够时可做分层判断；关键证据不足时必须保持insufficient_evidence，不猜根因,看next_steps是否明确指出下一步需要补哪些只读证据,
+PART-R-048,partial_evidence_real,up_and_no_mac_only,,10.20.30.15,只拿到接口UP和目标MAC查询结果为空，先判断接入侧。,network_down,00:11:22:33:44:15,false,false,,,,办公楼B区,,"<SW> display interface GE0/0/15
+GE0/0/15 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-003
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic
+00aa-bb00-0003  200    GE0/0/42      dynamic",,,SW-SIM-03,GE0/0/15,l2_no_mac,false,true,,证据充分性与谨慎决策,接口UP且针对目标MAC的查询证据中未找到目标,已有证据足够时可做分层判断；关键证据不足时必须保持insufficient_evidence，不猜根因,看next_steps是否明确指出下一步需要补哪些只读证据,
+PART-R-049,partial_evidence_real,l2_ok_no_upper_evidence,,10.20.30.16,接口和MAC看起来正常，但工单没有终端连通性或业务失败证据。,access_unknown,00:11:22:33:44:16,false,false,,,,办公楼B区,,"<SW> display interface GE0/0/16
+GE0/0/16 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-004
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic
+0011-2233-4416  200    GE0/0/16      dynamic",,"<SW> display current-configuration interface GE0/0/16
+interface GigabitEthernet0/0/16
+ description 办公楼B区-ACC-SIM-004
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/16,insufficient_evidence,false,true,,证据充分性与谨慎决策,仅能说明二层基本正常，无法判断是否存在上层故障,已有证据足够时可做分层判断；关键证据不足时必须保持insufficient_evidence，不猜根因,看next_steps是否明确指出下一步需要补哪些只读证据,
+PART-R-050,partial_evidence_real,symptom_only,,10.20.30.17,OA页面打不开，交换机和终端信息都还没收集。,access_unknown,00:11:22:33:44:17,false,false,,,,办公楼C区,,,,,,,,insufficient_evidence,false,true,,证据充分性与谨慎决策,只有主观症状，缺少可验证证据,已有证据足够时可做分层判断；关键证据不足时必须保持insufficient_evidence，不猜根因,看next_steps是否明确指出下一步需要补哪些只读证据,

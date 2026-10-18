@@ -1,0 +1,72 @@
+[
+  {
+    "case_id": "vlan_mismatch_01",
+    "input_report": "# 终端网络故障辅助诊断报告\n\n- 终端 IP：10.20.30.15\n- 登记设备：SW-SIM-03\n- 登记端口：GE0/0/15\n- 目标 VLAN：200\n- 接口状态：UP\n- 目标 MAC：00:11:22:33:44:15，已学习\n- MAC 学习端口：GE0/0/15\n- MAC 学习 VLAN：210\n- 诊断代码：vlan_mismatch\n- 可能层级：二层接入层\n- 置信度：0.96\n- 结论：设备侧 VLAN 与资源登记目标 VLAN 不一致。\n- 建议：人工核对资源台账与正式变更记录，不得自动修改生产配置。\n- 人工审批：报告归档前需由授权人员确认。",
+    "expected_facts": ["10.20.30.15", "SW-SIM-03", "GE0/0/15", "VLAN 200", "VLAN 210", "00:11:22:33:44:15", "0.96"],
+    "diagnosis_code": "vlan_mismatch",
+    "required_terms": ["证据", "结论", "建议", "人工"]
+  },
+  {
+    "case_id": "interface_down_01",
+    "input_report": "# 终端网络故障辅助诊断报告\n\n- 终端 IP：10.132.10.21\n- 登记设备：SW-SIM-01\n- 登记端口：GE0/0/10\n- 目标 VLAN：132\n- 接口状态：DOWN\n- 协议状态：DOWN\n- 目标 MAC：00:11:22:33:44:21\n- 诊断代码：physical_or_terminal_link\n- 可能层级：物理链路层\n- 置信度：0.95\n- 结论：登记端口当前无有效链路，应先核查终端、电源、网卡、线缆和接入位置。\n- 建议：仅进行只读核查并转交授权维护人员处理。\n- 人工审批：报告归档前需由授权人员确认。",
+    "expected_facts": ["10.132.10.21", "SW-SIM-01", "GE0/0/10", "VLAN 132", "DOWN", "00:11:22:33:44:21", "0.95"],
+    "diagnosis_code": "physical_or_terminal_link",
+    "required_terms": ["证据", "结论", "建议", "人工"]
+  },
+  {
+    "case_id": "no_mac_01",
+    "input_report": "# 终端网络故障辅助诊断报告\n\n- 终端 IP：10.132.10.22\n- 登记设备：SW-SIM-01\n- 登记端口：GE0/0/11\n- 目标 VLAN：132\n- 接口状态：UP\n- 目标 MAC：00:11:22:33:44:22，未学习\n- 诊断代码：l2_no_mac\n- 可能层级：二层接入层\n- 置信度：0.88\n- 结论：物理接口已 UP，但未观察到目标终端 MAC 学习证据。\n- 建议：核查实际接入端口、终端是否产生流量以及 VLAN 是否与登记一致。\n- 人工审批：报告归档前需由授权人员确认。",
+    "expected_facts": ["10.132.10.22", "SW-SIM-01", "GE0/0/11", "VLAN 132", "UP", "00:11:22:33:44:22", "0.88"],
+    "diagnosis_code": "l2_no_mac",
+    "required_terms": ["证据", "结论", "建议", "人工"]
+  },
+  {
+    "case_id": "resource_mismatch_01",
+    "input_report": "# 终端网络故障辅助诊断报告\n\n- 终端 IP：10.20.30.17\n- 登记设备：SW-SIM-04\n- 登记端口：GE0/0/17\n- 目标 VLAN：300\n- 接口状态：UP\n- 目标 MAC：00:11:22:33:44:17\n- MAC 实际学习端口：GE0/0/18\n- 诊断代码：resource_inconsistency\n- 可能层级：资源与接入关系\n- 置信度：0.94\n- 结论：目标 MAC 的实际学习端口与资源登记端口不一致。\n- 建议：人工核对资源台账、终端实际接入位置和近期迁移记录。\n- 人工审批：报告归档前需由授权人员确认。",
+    "expected_facts": ["10.20.30.17", "SW-SIM-04", "GE0/0/17", "GE0/0/18", "VLAN 300", "00:11:22:33:44:17", "0.94"],
+    "diagnosis_code": "resource_inconsistency",
+    "required_terms": ["证据", "结论", "建议", "人工"]
+  },
+  {
+    "case_id": "upstream_01",
+    "input_report": "# 终端网络故障辅助诊断报告\n\n- 终端 IP：10.20.30.16\n- 登记设备：SW-SIM-03\n- 登记端口：GE0/0/16\n- 目标 VLAN：200\n- 接口状态：UP\n- 目标 MAC：00:11:22:33:44:16，已学习\n- MAC 学习 VLAN：200\n- 终端网关：10.20.30.1\n- DNS：10.20.0.53，请求超时\n- 诊断代码：uplink_policy_or_application\n- 可能层级：上层网络或业务层\n- 置信度：0.82\n- 结论：接入侧关键证据未见明显异常，应继续核查 DNS、上层路径、访问策略或业务系统。\n- 建议：将接入侧证据随工单转交对应维护人员继续排查。\n- 人工审批：报告归档前需由授权人员确认。",
+    "expected_facts": ["10.20.30.16", "SW-SIM-03", "GE0/0/16", "VLAN 200", "00:11:22:33:44:16", "10.20.30.1", "10.20.0.53", "0.82"],
+    "diagnosis_code": "uplink_policy_or_application",
+    "required_terms": ["证据", "结论", "建议", "人工"]
+  },
+  {
+    "case_id": "gateway_mismatch_01",
+    "input_report": "# 终端网络故障辅助诊断报告\n\n- 终端 IP：10.20.30.18\n- 登记设备：SW-SIM-05\n- 登记端口：GE0/0/8\n- 目标 VLAN：200\n- 接口状态：UP\n- 目标 MAC：00:11:22:33:44:18，已学习\n- 登记网关：10.20.30.1\n- 终端网关：10.20.30.254\n- 诊断代码：terminal_config\n- 可能层级：终端配置层\n- 置信度：0.93\n- 结论：终端默认网关与资源登记不一致。\n- 建议：人工核对终端地址配置和正式地址分配记录。\n- 人工审批：报告归档前需由授权人员确认。",
+    "expected_facts": ["10.20.30.18", "SW-SIM-05", "GE0/0/8", "VLAN 200", "00:11:22:33:44:18", "10.20.30.1", "10.20.30.254", "0.93"],
+    "diagnosis_code": "terminal_config",
+    "required_terms": ["证据", "结论", "建议", "人工"]
+  },
+  {
+    "case_id": "link_errors_01",
+    "input_report": "# 终端网络故障辅助诊断报告\n\n- 终端 IP：10.30.40.11\n- 登记设备：SW-SIM-06\n- 登记端口：GE0/0/21\n- 目标 VLAN：310\n- 接口状态：UP\n- Input errors：128\n- Output errors：64\n- 目标 MAC：00:11:22:33:55:11，已学习\n- 诊断代码：link_quality_issue\n- 可能层级：物理链路层\n- 置信度：0.86\n- 结论：接口已 UP，但错误计数较高，存在链路质量异常线索。\n- 建议：人工核查线缆、终端网卡和接口统计，保留现场证据。\n- 人工审批：报告归档前需由授权人员确认。",
+    "expected_facts": ["10.30.40.11", "SW-SIM-06", "GE0/0/21", "VLAN 310", "128", "64", "00:11:22:33:55:11", "0.86"],
+    "diagnosis_code": "link_quality_issue",
+    "required_terms": ["证据", "结论", "建议", "人工"]
+  },
+  {
+    "case_id": "arp_missing_01",
+    "input_report": "# 终端网络故障辅助诊断报告\n\n- 终端 IP：10.30.40.12\n- 登记设备：SW-SIM-06\n- 登记端口：GE0/0/22\n- 目标 VLAN：310\n- 接口状态：UP\n- 目标 MAC：00:11:22:33:55:12，已学习\n- MAC 学习 VLAN：310\n- 目标 ARP：未找到\n- 诊断代码：evidence_insufficient\n- 可能层级：待进一步核查\n- 置信度：0.60\n- 结论：二层存在目标 MAC 学习，但缺少目标 ARP 等进一步证据，暂不能确定上层故障位置。\n- 建议：补充终端地址、网关连通性和上层路径的只读查询结果。\n- 人工审批：报告归档前需由授权人员确认。",
+    "expected_facts": ["10.30.40.12", "SW-SIM-06", "GE0/0/22", "VLAN 310", "00:11:22:33:55:12", "0.60"],
+    "diagnosis_code": "evidence_insufficient",
+    "required_terms": ["证据", "结论", "建议", "人工"]
+  },
+  {
+    "case_id": "device_mismatch_01",
+    "input_report": "# 终端网络故障辅助诊断报告\n\n- 终端 IP：10.50.60.20\n- 登记设备：SW-SIM-07\n- 当前观察设备：SW-SIM-08\n- 登记端口：GE0/0/5\n- 目标 VLAN：500\n- 目标 MAC：00:11:22:33:66:20\n- 诊断代码：resource_inconsistency\n- 可能层级：资源与接入关系\n- 置信度：0.97\n- 结论：当前核查设备与资源台账登记设备不一致。\n- 建议：先人工确认接入设备和资源关系，再继续分析接口证据。\n- 人工审批：报告归档前需由授权人员确认。",
+    "expected_facts": ["10.50.60.20", "SW-SIM-07", "SW-SIM-08", "GE0/0/5", "VLAN 500", "00:11:22:33:66:20", "0.97"],
+    "diagnosis_code": "resource_inconsistency",
+    "required_terms": ["证据", "结论", "建议", "人工"]
+  },
+  {
+    "case_id": "normal_access_01",
+    "input_report": "# 终端网络故障辅助诊断报告\n\n- 终端 IP：10.60.70.30\n- 登记设备：SW-SIM-09\n- 登记端口：GE0/0/30\n- 目标 VLAN：600\n- 接口状态：UP\n- 目标 MAC：00:11:22:33:77:30，已学习\n- MAC 学习端口：GE0/0/30\n- MAC 学习 VLAN：600\n- 终端网关：10.60.70.1\n- 诊断代码：access_side_normal\n- 可能层级：接入侧未见明显异常\n- 置信度：0.90\n- 结论：资源关系、接口、MAC 与 VLAN 证据一致，接入侧未发现明显异常。\n- 建议：若业务仍不可用，应将现有证据转交上层网络或业务维护人员继续分析。\n- 人工审批：报告归档前需由授权人员确认。",
+    "expected_facts": ["10.60.70.30", "SW-SIM-09", "GE0/0/30", "VLAN 600", "00:11:22:33:77:30", "10.60.70.1", "0.90"],
+    "diagnosis_code": "access_side_normal",
+    "required_terms": ["证据", "结论", "建议", "人工"]
+  }
+]

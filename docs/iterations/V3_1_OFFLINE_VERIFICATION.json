@@ -1,0 +1,17 @@
+{
+  "release": "3.1.0",
+  "runtime": "container Python (without LangGraph/LangChain/FAISS/Ollama/GPU)",
+  "test_command": "python -m pytest -q tests/test_guardrail_v3_1.py tests/test_e2e_guardrail_fields_v3_1.py tests/test_report_guardrails.py tests/test_diagnosis.py tests/test_parsers.py tests/test_repository.py tests/test_document_grounding.py tests/test_grounded_testcase_tools.py tests/test_pdf_ingest.py --tb=short",
+  "result": {
+    "passed": 61,
+    "failed": 0
+  },
+  "compileall": "python -m compileall -q app scripts tests (completed)",
+  "not_run": [
+    "V3.1 full pytest requiring LangGraph/LangChain/FAISS dependencies",
+    "V3.1 real MCP stdio",
+    "V3.1 Qwen INT4 generation/GPU and E2E",
+    "V3.1 cross-process SQL recovery"
+  ],
+  "data_claim": "No new model accuracy/performance or telecom real incident data introduced."
+}

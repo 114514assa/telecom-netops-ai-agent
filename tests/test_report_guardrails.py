@@ -12,9 +12,12 @@ SOURCE = """# 报告
 """
 
 
-def test_build_request_does_not_delegate_protected_fields():
+def test_build_request_does_not_expose_protected_fields():
     request = build_auxiliary_request(SOURCE)
-    assert "诊断类型（仅供理解，不要输出）：vlan_mismatch" in request
+    assert "vlan_mismatch" not in request
+    assert "10.20.30.15" not in request
+    assert "0.96" not in request
+    assert "结论：设备侧 VLAN 与资源登记目标 VLAN 不一致。" in request
     assert "只输出一行：辅助说明" in request
 
 
@@ -161,3 +164,117 @@ def test_negated_config_change_statement_is_allowed():
     result = validate_auxiliary_output(SOURCE, output)
     assert result.passed is True
     assert result.unsafe_free is True
+
+
+def test_abnormal_case_rejects_premature_no_other_action_claim():
+    output = "辅助说明：建议人工核对资源台账与变更记录，无需进行其他操作。"
+    result = validate_auxiliary_output(SOURCE, output)
+    assert result.passed is False
+    assert "semantic_contradiction" in result.reasons
+
+
+def test_new_root_cause_expansion_is_rejected():
+    output = "辅助说明：可能的原因是配置错误，建议人工核对资源台账。"
+    result = validate_auxiliary_output(SOURCE, output)
+    assert result.passed is False
+    assert "unsupported_root_cause_expansion" in result.reasons
+
+
+def _source_for(code: str, conclusion: str, recommendation: str = "建议仅进行只读核查并由授权人员人工复核。") -> str:
+    return f"""# 报告
+- 诊断代码：{code}
+- 结论：{conclusion}
+- 建议：{recommendation}
+"""
+
+
+def test_vlan_direction_reversal_is_rejected():
+    source = _source_for("vlan_mismatch", "当前接入 VLAN 与登记 VLAN 不一致。")
+    output = "辅助说明：目标终端 MAC 学习 VLAN 与资源目标 VLAN 一致，建议只读核查。"
+    result = validate_auxiliary_output(source, output)
+    assert result.passed is False
+    assert result.direction_contradicted is True
+    assert result.contradiction_free is False
+    assert "semantic_contradiction" in result.reasons
+
+
+def test_vlan_negative_wording_is_not_misread_as_consistent():
+    source = _source_for("vlan_mismatch", "当前接入 VLAN 与登记 VLAN 不一致。")
+    output = "辅助说明：当前接入 VLAN 未与登记 VLAN 一致，建议进行只读核查并人工复核。"
+    result = validate_auxiliary_output(source, output)
+    assert result.direction_supported is True
+    assert result.direction_contradicted is False
+    assert result.contradiction_free is True
+
+
+def test_no_mac_direction_reversal_is_rejected():
+    source = _source_for("l2_no_mac", "接口已 UP，但未观察到目标终端 MAC 学习证据。")
+    output = "辅助说明：目标终端 MAC 已学习，建议继续只读核查。"
+    result = validate_auxiliary_output(source, output)
+    assert result.passed is False
+    assert result.direction_contradicted is True
+
+
+def test_interface_down_direction_reversal_is_rejected():
+    source = _source_for("physical_or_terminal_link", "登记端口当前无有效链路。")
+    output = "辅助说明：当前接口状态正常且链路已建立，建议人工复核。"
+    result = validate_auxiliary_output(source, output)
+    assert result.passed is False
+    assert result.direction_contradicted is True
+
+
+def test_resource_inconsistency_reversal_is_rejected():
+    source = _source_for("resource_inconsistency", "实际学习端口与资源登记端口不一致。")
+    output = "辅助说明：实际学习端口与资源登记端口一致，建议人工复核。"
+    result = validate_auxiliary_output(source, output)
+    assert result.passed is False
+    assert result.direction_contradicted is True
+
+
+def test_terminal_config_reversal_is_rejected():
+    source = _source_for("terminal_config", "终端默认网关与资源登记不一致。")
+    output = "辅助说明：终端网关配置与登记信息一致，建议人工复核。"
+    result = validate_auxiliary_output(source, output)
+    assert result.passed is False
+    assert result.direction_contradicted is True
+
+
+def test_link_quality_reversal_is_rejected():
+    source = _source_for("link_quality_issue", "接口错误计数较高，存在链路质量异常线索。")
+    output = "辅助说明：当前链路质量正常且接口无异常，建议人工复核。"
+    result = validate_auxiliary_output(source, output)
+    assert result.passed is False
+    assert result.direction_contradicted is True
+
+
+def test_evidence_insufficient_reversal_is_rejected():
+    source = _source_for("evidence_insufficient", "当前证据不足以定位故障层级。")
+    output = "辅助说明：当前证据已经充分并已确定故障层级，建议人工复核。"
+    result = validate_auxiliary_output(source, output)
+    assert result.passed is False
+    assert result.direction_contradicted is True
+
+
+def test_access_side_normal_reversal_is_rejected():
+    source = _source_for("access_side_normal", "接入侧未发现明显异常。", "若业务仍不可用，转交上层继续分析。")
+    output = "辅助说明：接入侧存在明显故障，建议继续核查。"
+    result = validate_auxiliary_output(source, output)
+    assert result.passed is False
+    assert result.direction_contradicted is True
+
+
+def test_uplink_case_does_not_allow_claiming_access_side_fault():
+    source = _source_for("uplink_policy_or_application", "接入侧关键证据未见明显异常，应继续核查上层网络或业务系统。")
+    output = "辅助说明：接入侧存在故障，建议人工复核。"
+    result = validate_auxiliary_output(source, output)
+    assert result.passed is False
+    assert result.direction_contradicted is True
+
+
+def test_obvious_mixed_language_and_template_echo_are_rejected():
+    source = _source_for("vlan_mismatch", "当前接入 VLAN 与登记 VLAN 不一致。")
+    output = "辅助说明：已确认结论：VLAN 不一致，仅做只Read确认。"
+    result = validate_auxiliary_output(source, output)
+    assert result.passed is False
+    assert result.text_quality_ok is False
+    assert "text_quality_violation" in result.reasons

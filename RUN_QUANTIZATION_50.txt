@@ -1,0 +1,35 @@
+Telecom NetOps AI Agent - Quantization 50 Case Experiment
+=========================================================
+
+项目目录（按你当前 GitHub 本地仓库路径）：
+D:\BaiduNetdiskDownload\妖界\360download\telecom-netops-ai-agent-github\telecom-netops-ai-agent\telecom-netops-ai-agent-github-ready
+
+1) 进入项目
+cd "D:\BaiduNetdiskDownload\妖界\360download\telecom-netops-ai-agent-github\telecom-netops-ai-agent\telecom-netops-ai-agent-github-ready"
+
+2) 激活环境
+.\.venv\Scripts\Activate.ps1
+
+3) 安装依赖
+python -m pip install -r requirements.txt
+python -m pip install -r requirements-llm.txt
+
+4) 数据集静态检查
+pytest -q tests/test_quantization_eval_50.py
+
+5) INT4 3条冒烟测试
+python -m scripts.evaluate_quantization_quality_50 --model Qwen/Qwen2.5-0.5B-Instruct --modes int4 --limit 3 --max-new-tokens 96 --seed 42
+
+6) 正式50 Case质量实验
+python -m scripts.evaluate_quantization_quality_50 --model Qwen/Qwen2.5-0.5B-Instruct --modes fp16 int8 int4 --cases data/evaluation/quantization_cases_50.json --max-new-tokens 96 --seed 42
+
+7) 正式性能实验
+python -m scripts.benchmark_quantization_v2 --model Qwen/Qwen2.5-0.5B-Instruct --modes fp16 int8 int4 --repeats 5 --warmup 2 --max-new-tokens 96
+
+8) 可选人工复核
+填写 runtime\quant_eval_50\quant_quality50_manual_review_*.csv 中 5 个 manual_* 字段，然后：
+python -m scripts.summarize_quantization_manual_review_50 runtime\quant_eval_50\quant_quality50_manual_review_<timestamp>.csv
+
+结果请打包这两个目录给我：
+runtime\quant_eval_50\
+runtime\quant_benchmark_v2\

@@ -1,0 +1,4 @@
+﻿mode,status,error,prompts,repeats,formal_runs,load_seconds,mean_latency_ms,median_latency_ms,p95_latency_ms,mean_tokens_per_second,median_tokens_per_second,memory_footprint_mb,peak_gpu_memory_mb,mean_output_tokens
+fp16,ok,,10,5,50,5.781,2409.13,2376.05,2948.61,10.651,10.537,942.29,1000.18,26.0
+int8,ok,,10,5,50,7.315,5753.82,5126.32,9543.55,4.319,4.325,601.04,660.2,24.9
+int4,ok,,10,5,50,4.869,1574.97,1572.1,2244.7,17.275,17.471,430.42,493.78,27.5

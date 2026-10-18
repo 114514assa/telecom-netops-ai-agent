@@ -1,0 +1,45 @@
+Telecom NetOps Agent - Quantization Final Fix V4
+
+适用前提：项目已经应用 Quantization 50 实验包 + Smoke Fix V1/V2/V3。
+本补丁是最后一版“实验稳定性修复”，目标不是把模型输出刷成 100%，而是保证量化实验的评测逻辑可信。
+
+本次修复：
+1. 增加 diagnosis-aware 方向检测，显式识别“VLAN 不一致 -> VLAN 一致”等方向反转。
+2. 50 个 Gold conclusion 全部通过规则覆盖测试。
+3. diagnostic_direction_preservation 不再使用“关键词相关 + 无通用矛盾”的宽松代理，改为“方向支持 + 无方向反转”。
+4. application guardrail 对明确方向反转直接拒绝并 fallback。
+5. 增加窄范围文本质量检查，捕获“只Read / 学学习 / Prompt字段回显”等明显坏文本。
+6. Prompt 简化，删除容易被 0.5B 模型复制的反例和冗长 few-shot，仅保留状态方向、最小信息和只读边界。
+7. 评测新增 direction_support_rate、direction_contradiction_rate、text_quality_pass_rate。
+
+应用后先运行：
+python -m compileall -q app scripts tests
+pytest -q tests/test_report_guardrails.py tests/test_langchain_report_chain.py tests/test_quantization_eval_50.py
+
+然后直接正式质量实验，不再根据个别样本继续调 Prompt：
+python -m scripts.evaluate_quantization_quality_50 `
+  --model Qwen/Qwen2.5-0.5B-Instruct `
+  --modes fp16 int8 int4 `
+  --cases data/evaluation/quantization_cases_50.json `
+  --max-new-tokens 96 `
+  --seed 42
+
+正式性能 Benchmark：
+python -m scripts.benchmark_quantization_v2 `
+  --model Qwen/Qwen2.5-0.5B-Instruct `
+  --modes fp16 int8 int4 `
+  --repeats 5 `
+  --warmup 2 `
+  --max-new-tokens 96
+
+正式实验后重点文件：
+runtime/quant_eval_50/quant_quality50_summary_*.csv
+runtime/quant_eval_50/quant_quality50_vs_fp16_*.csv
+runtime/quant_eval_50/quant_quality50_detail_*.csv
+runtime/quant_eval_50/quant_quality50_manual_review_*.csv
+runtime/quant_benchmark_v2/*.csv
+
+注意：
+- 不要求 application_acceptance_rate=100%。量化模型生成错误时，Guardrail拒绝并fallback本身就是实验结果。
+- diagnostic_direction_preservation_rate 是“受限辅助生成方向保持率”，不是入侵检测/故障分类准确率。
+- 不再因为单个 INT4 输出不好而继续修改 Prompt，否则会污染 FP16/INT8/INT4 的公平比较。

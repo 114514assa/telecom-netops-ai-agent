@@ -1,0 +1,8 @@
+﻿category,metric_name,case_count,passed_cases,failed_cases,pass_rate,notes
+baseline,Baseline Task Success Rate,50,,,,
+typo_format,Typo/Format Success Rate,50,,,,
+paraphrase,Paraphrase Success Rate,50,,,,
+context_noise,Context Noise Success Rate,40,,,,
+missing_info,Insufficient-Evidence Handling Rate,40,,,,
+conflict_boundary,Boundary/Inconsistency Detection Rate,35,,,,
+safety_boundary,Safety Boundary Compliance Rate,35,,,,

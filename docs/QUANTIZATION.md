@@ -1,44 +1,71 @@
-# 本地模型量化：最终工程定版
+# Local LLM Quantization
 
-本项目的量化目标不是追求研究型量化算法，而是验证一个新手可解释、可复现、可用于简历说明的本地部署方案。
+## Why quantization exists in this project
 
-## 最终范围
+The network diagnosis path is deterministic: parsers and rules decide interface/MAC/VLAN/resource consistency. The local LLM is only an optional report-language backend. Quantization is included as a reproducible engineering experiment for comparing local inference resource cost, not as a claim that a quantized model improves diagnosis accuracy.
 
-- 模型：`Qwen/Qwen2.5-0.5B-Instruct`
-- 对比：FP16 / INT8 / INT4 性能基准；实际本地部署选择 INT4
-- 业务边界：确定性解析器与规则引擎负责事实和诊断；LLM 只生成一句辅助说明
-- 生成限制：`max_new_tokens=96`，`temperature=0.0`
-- Guardrail：拦截网络标识符、诊断代码回显、危险修改建议、诊断矛盾、无关内容、超长或不完整输出
-- 回退：LLM 辅助说明未通过时，直接使用确定性诊断报告，不影响主流程
-- 质量评测：30 个模拟案例，10 类场景 × 3 个变体
+## Supported modes
 
-## 最终运行命令
+- `none`: model default precision.
+- `fp16`: half-precision CUDA inference.
+- `int8`: bitsandbytes 8-bit weight loading.
+- `int4`: bitsandbytes 4-bit NF4 weight loading with double quantization.
 
-```powershell
-pytest -q
-python -m scripts.evaluate_quantization_quality_final --model Qwen/Qwen2.5-0.5B-Instruct --modes fp16 int4 --max-new-tokens 96 --seed 42
+The implementation uses Hugging Face `AutoModelForCausalLM` and `BitsAndBytesConfig`. Actual hardware support and speedups depend on the selected model, accelerator, driver, PyTorch, Transformers and bitsandbytes versions.
+
+## Install
+
+```bash
+pip install -r requirements-llm.txt
 ```
 
-结果保存在：
+## Enable local quantized report generation
 
-```text
-runtime/quality_eval_final/
+```env
+LLM_ENABLED=true
+LLM_BACKEND=local_hf
+LOCAL_LLM_MODEL_ID=Qwen/Qwen2.5-0.5B-Instruct
+LOCAL_LLM_QUANTIZATION=int4
+LOCAL_LLM_DEVICE_MAP=auto
 ```
 
-如需人工复核，填写 `manual_review_final_*.csv` 后执行：
+Start the service normally:
 
-```powershell
-python -m scripts.summarize_manual_review_final runtime\quality_eval_final\manual_review_final_<timestamp>.csv
+```bash
+python scripts/seed_db.py
+uvicorn app.main:app --reload
 ```
 
-## 停止标准
+Inspect the non-secret model configuration:
 
-满足以下条件后不再继续迭代量化或 Guardrail：
+```bash
+curl http://127.0.0.1:8000/api/v1/system/model
+```
 
-1. INT4 可稳定加载并完成 Agent 场景生成；
-2. 性能基准可复现，显存占用明显低于 FP16；
-3. 30 条模拟场景均能完成主诊断流程；
-4. 不合格的 LLM 辅助说明能够被 Guardrail 拦截并回退到确定性报告；
-5. 不再为了提高辅助说明接受率而放宽安全边界。
+## Benchmark
 
-这套方案定位为工程实践，不作为量化算法研究成果。
+```bash
+python scripts/benchmark_quantization.py \
+  --model Qwen/Qwen2.5-0.5B-Instruct \
+  --modes fp16 int8 int4 \
+  --repeats 3
+```
+
+The script records:
+
+- mean generation latency;
+- generated tokens per second;
+- model memory footprint when available;
+- peak allocated GPU memory when available;
+- model load time;
+- unsupported-mode/error information.
+
+Results are written to `runtime/benchmarks/*.json` and `*.csv` and are intentionally ignored by Git. Keep the raw benchmark files when you need evidence for a resume/interview, and only quote values actually measured on your own hardware.
+
+## Important interpretation
+
+4-bit/8-bit quantization reduces model memory requirements, but lower precision does not guarantee lower end-to-end latency on every device. Always compare the same model, prompt, decoding settings and hardware before making a performance claim.
+
+## Quality guardrail update
+
+For the application path, quantized models no longer rewrite the deterministic report. They only generate a short auxiliary explanation. See `docs/QUALITY_EVALUATION_V2.md`.

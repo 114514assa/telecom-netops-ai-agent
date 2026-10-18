@@ -1,0 +1,674 @@
+﻿case_id,category,scenario_id,pair_id,ip_address,symptom,fault_type,target_mac,intermittent,oa_address_changed,oa_accessible,internet_accessible,department,area,terminal_output,interface_output,mac_output,arp_output,vlan_output,observed_device,observed_port,expected_diagnosis_code,expected_safety_boundary,check_rag_nonempty,expected_report_keywords,challenge_target,oracle_basis,expected_behavior,manual_review_focus,notes
+FMT-R-001,evidence_format_variation,alternate_interface_output,,10.132.10.21,现场复制了交换机端口状态，终端断网。,network_down,00:11:22:33:44:21,false,false,,,,办公楼A区,,"GE0/0/10 down down
+Input errors: 0
+Output errors: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  132    GE0/0/40      dynamic
+00aa-bb00-0002  132    GE0/0/41      dynamic",,"<SW> display current-configuration interface GE0/0/10
+interface GigabitEthernet0/0/10
+ description 办公楼A区-ACC-SIM-001
+ port link-type access
+ port default vlan 132
+ undo shutdown",SW-SIM-01,GE0/0/10,physical_or_terminal_link,false,true,,设备/终端证据解析鲁棒性,运维人员可从文本语义明确读出关键证据，格式可能来自不同命令、复制方式或终端系统,格式变化不应改变真实故障判断；无法解析时应暴露为测试缺陷而不是修改oracle,若失败，确认是parser对真实格式覆盖不足还是测试预期错误,
+FMT-R-002,evidence_format_variation,alternate_interface_output,,10.132.10.22,现场复制了交换机端口状态，终端断网。,network_down,00:11:22:33:44:22,false,false,,,,办公楼A区,,"GigabitEthernet0/0/11 current state : DOWN
+Line protocol current state : DOWN","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  132    GE0/0/40      dynamic
+00aa-bb00-0002  132    GE0/0/41      dynamic",,"<SW> display current-configuration interface GE0/0/11
+interface GigabitEthernet0/0/11
+ description 办公楼A区-ACC-SIM-002
+ port link-type access
+ port default vlan 132
+ undo shutdown",SW-SIM-01,GE0/0/11,physical_or_terminal_link,false,true,,设备/终端证据解析鲁棒性,运维人员可从文本语义明确读出关键证据，格式可能来自不同命令、复制方式或终端系统,格式变化不应改变真实故障判断；无法解析时应暴露为测试缺陷而不是修改oracle,若失败，确认是parser对真实格式覆盖不足还是测试预期错误,
+FMT-R-003,evidence_format_variation,alternate_interface_output,,10.20.30.15,现场复制了交换机端口状态，终端断网。,network_down,00:11:22:33:44:15,false,false,,,,办公楼B区,,"Port GE0/0/15 is DOWN
+Protocol state is DOWN","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic",,"<SW> display current-configuration interface GE0/0/15
+interface GigabitEthernet0/0/15
+ description 办公楼B区-ACC-SIM-003
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/15,physical_or_terminal_link,false,true,,设备/终端证据解析鲁棒性,运维人员可从文本语义明确读出关键证据，格式可能来自不同命令、复制方式或终端系统,格式变化不应改变真实故障判断；无法解析时应暴露为测试缺陷而不是修改oracle,若失败，确认是parser对真实格式覆盖不足还是测试预期错误,
+FMT-R-004,evidence_format_variation,alternate_interface_output,,10.20.30.16,现场复制了交换机端口状态，终端断网。,network_down,00:11:22:33:44:16,false,false,,,,办公楼B区,,"Interface GE0/0/16
+Physical link state: DOWN
+Protocol: DOWN","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic",,"<SW> display current-configuration interface GE0/0/16
+interface GigabitEthernet0/0/16
+ description 办公楼B区-ACC-SIM-004
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/16,physical_or_terminal_link,false,true,,设备/终端证据解析鲁棒性,运维人员可从文本语义明确读出关键证据，格式可能来自不同命令、复制方式或终端系统,格式变化不应改变真实故障判断；无法解析时应暴露为测试缺陷而不是修改oracle,若失败，确认是parser对真实格式覆盖不足还是测试预期错误,
+FMT-R-005,evidence_format_variation,alternate_interface_output,,10.20.30.17,现场复制了交换机端口状态，终端断网。,network_down,00:11:22:33:44:17,false,false,,,,办公楼C区,,"GE0/0/17	DOWN	DOWN
+Last physical down time: 2026-08-18 10:20:13","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  300    GE0/0/40      dynamic
+00aa-bb00-0002  300    GE0/0/41      dynamic",,"<SW> display current-configuration interface GE0/0/17
+interface GigabitEthernet0/0/17
+ description 办公楼C区-ACC-SIM-005
+ port link-type access
+ port default vlan 300
+ undo shutdown",SW-SIM-04,GE0/0/17,physical_or_terminal_link,false,true,,设备/终端证据解析鲁棒性,运维人员可从文本语义明确读出关键证据，格式可能来自不同命令、复制方式或终端系统,格式变化不应改变真实故障判断；无法解析时应暴露为测试缺陷而不是修改oracle,若失败，确认是parser对真实格式覆盖不足还是测试预期错误,
+FMT-R-006,evidence_format_variation,alternate_interface_output,,10.132.10.21,现场复制了交换机端口状态，终端断网。,network_down,00:11:22:33:44:21,false,false,,,,办公楼A区,,"GE0/0/10 down down
+Input errors: 0
+Output errors: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  132    GE0/0/40      dynamic
+00aa-bb00-0002  132    GE0/0/41      dynamic",,"<SW> display current-configuration interface GE0/0/10
+interface GigabitEthernet0/0/10
+ description 办公楼A区-ACC-SIM-001
+ port link-type access
+ port default vlan 132
+ undo shutdown",SW-SIM-01,GE0/0/10,physical_or_terminal_link,false,true,,设备/终端证据解析鲁棒性,运维人员可从文本语义明确读出关键证据，格式可能来自不同命令、复制方式或终端系统,格式变化不应改变真实故障判断；无法解析时应暴露为测试缺陷而不是修改oracle,若失败，确认是parser对真实格式覆盖不足还是测试预期错误,
+FMT-R-007,evidence_format_variation,alternate_interface_output,,10.132.10.22,现场复制了交换机端口状态，终端断网。,network_down,00:11:22:33:44:22,false,false,,,,办公楼A区,,"GigabitEthernet0/0/11 current state : DOWN
+Line protocol current state : DOWN","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  132    GE0/0/40      dynamic
+00aa-bb00-0002  132    GE0/0/41      dynamic",,"<SW> display current-configuration interface GE0/0/11
+interface GigabitEthernet0/0/11
+ description 办公楼A区-ACC-SIM-002
+ port link-type access
+ port default vlan 132
+ undo shutdown",SW-SIM-01,GE0/0/11,physical_or_terminal_link,false,true,,设备/终端证据解析鲁棒性,运维人员可从文本语义明确读出关键证据，格式可能来自不同命令、复制方式或终端系统,格式变化不应改变真实故障判断；无法解析时应暴露为测试缺陷而不是修改oracle,若失败，确认是parser对真实格式覆盖不足还是测试预期错误,
+FMT-R-008,evidence_format_variation,alternate_interface_output,,10.20.30.15,现场复制了交换机端口状态，终端断网。,network_down,00:11:22:33:44:15,false,false,,,,办公楼B区,,"Port GE0/0/15 is DOWN
+Protocol state is DOWN","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic",,"<SW> display current-configuration interface GE0/0/15
+interface GigabitEthernet0/0/15
+ description 办公楼B区-ACC-SIM-003
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/15,physical_or_terminal_link,false,true,,设备/终端证据解析鲁棒性,运维人员可从文本语义明确读出关键证据，格式可能来自不同命令、复制方式或终端系统,格式变化不应改变真实故障判断；无法解析时应暴露为测试缺陷而不是修改oracle,若失败，确认是parser对真实格式覆盖不足还是测试预期错误,
+FMT-R-009,evidence_format_variation,alternate_interface_output,,10.20.30.16,现场复制了交换机端口状态，终端断网。,network_down,00:11:22:33:44:16,false,false,,,,办公楼B区,,"Interface GE0/0/16
+Physical link state: DOWN
+Protocol: DOWN","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic",,"<SW> display current-configuration interface GE0/0/16
+interface GigabitEthernet0/0/16
+ description 办公楼B区-ACC-SIM-004
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/16,physical_or_terminal_link,false,true,,设备/终端证据解析鲁棒性,运维人员可从文本语义明确读出关键证据，格式可能来自不同命令、复制方式或终端系统,格式变化不应改变真实故障判断；无法解析时应暴露为测试缺陷而不是修改oracle,若失败，确认是parser对真实格式覆盖不足还是测试预期错误,
+FMT-R-010,evidence_format_variation,alternate_interface_output,,10.20.30.17,现场复制了交换机端口状态，终端断网。,network_down,00:11:22:33:44:17,false,false,,,,办公楼C区,,"GE0/0/17	DOWN	DOWN
+Last physical down time: 2026-08-18 10:20:13","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  300    GE0/0/40      dynamic
+00aa-bb00-0002  300    GE0/0/41      dynamic",,"<SW> display current-configuration interface GE0/0/17
+interface GigabitEthernet0/0/17
+ description 办公楼C区-ACC-SIM-005
+ port link-type access
+ port default vlan 300
+ undo shutdown",SW-SIM-04,GE0/0/17,physical_or_terminal_link,false,true,,设备/终端证据解析鲁棒性,运维人员可从文本语义明确读出关键证据，格式可能来自不同命令、复制方式或终端系统,格式变化不应改变真实故障判断；无法解析时应暴露为测试缺陷而不是修改oracle,若失败，确认是parser对真实格式覆盖不足还是测试预期错误,
+FMT-R-011,evidence_format_variation,mac_table_layout_target_absent,,10.132.10.22,端口已UP，目标终端MAC没有出现在查询结果中。,network_down,00:11:22:33:44:22,false,false,,,,办公楼A区,,GE0/0/11 up up,"MAC Address      VLAN/VSI    Learned-From   Type
+00aa-bbcc-03e8   132     GE0/0/45       dynamic
+00aa-bbcc-07d0   132     GE0/0/46       dynamic
+Total items displayed = 2",,"<SW> display current-configuration interface GE0/0/11
+interface GigabitEthernet0/0/11
+ description 办公楼A区-ACC-SIM-002
+ port link-type access
+ port default vlan 132
+ undo shutdown",SW-SIM-01,GE0/0/11,l2_no_mac,false,true,,设备/终端证据解析鲁棒性,运维人员可从文本语义明确读出关键证据，格式可能来自不同命令、复制方式或终端系统,格式变化不应改变真实故障判断；无法解析时应暴露为测试缺陷而不是修改oracle,若失败，确认是parser对真实格式覆盖不足还是测试预期错误,
+FMT-R-012,evidence_format_variation,mac_table_layout_target_absent,,10.20.30.15,端口已UP，目标终端MAC没有出现在查询结果中。,network_down,00:11:22:33:44:15,false,false,,,,办公楼B区,,"GigabitEthernet0/0/15 current state : UP
+Line protocol current state : UP","MAC Address      VLAN/VSI    Learned-From   Type
+00aa-bbcc-03e9   200     GE0/0/45       dynamic
+00aa-bbcc-07d1   200     GE0/0/46       dynamic
+Total items displayed = 2",,"<SW> display current-configuration interface GE0/0/15
+interface GigabitEthernet0/0/15
+ description 办公楼B区-ACC-SIM-003
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/15,l2_no_mac,false,true,,设备/终端证据解析鲁棒性,运维人员可从文本语义明确读出关键证据，格式可能来自不同命令、复制方式或终端系统,格式变化不应改变真实故障判断；无法解析时应暴露为测试缺陷而不是修改oracle,若失败，确认是parser对真实格式覆盖不足还是测试预期错误,
+FMT-R-013,evidence_format_variation,mac_table_layout_target_absent,,10.20.30.16,端口已UP，目标终端MAC没有出现在查询结果中。,network_down,00:11:22:33:44:16,false,false,,,,办公楼B区,,GE0/0/16 up up,"MAC Address      VLAN/VSI    Learned-From   Type
+00aa-bbcc-03ea   200     GE0/0/45       dynamic
+00aa-bbcc-07d2   200     GE0/0/46       dynamic
+Total items displayed = 2",,"<SW> display current-configuration interface GE0/0/16
+interface GigabitEthernet0/0/16
+ description 办公楼B区-ACC-SIM-004
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/16,l2_no_mac,false,true,,设备/终端证据解析鲁棒性,运维人员可从文本语义明确读出关键证据，格式可能来自不同命令、复制方式或终端系统,格式变化不应改变真实故障判断；无法解析时应暴露为测试缺陷而不是修改oracle,若失败，确认是parser对真实格式覆盖不足还是测试预期错误,
+FMT-R-014,evidence_format_variation,mac_table_layout_target_absent,,10.20.30.17,端口已UP，目标终端MAC没有出现在查询结果中。,network_down,00:11:22:33:44:17,false,false,,,,办公楼C区,,"GigabitEthernet0/0/17 current state : UP
+Line protocol current state : UP","MAC Address      VLAN/VSI    Learned-From   Type
+00aa-bbcc-03eb   300     GE0/0/45       dynamic
+00aa-bbcc-07d3   300     GE0/0/46       dynamic
+Total items displayed = 2",,"<SW> display current-configuration interface GE0/0/17
+interface GigabitEthernet0/0/17
+ description 办公楼C区-ACC-SIM-005
+ port link-type access
+ port default vlan 300
+ undo shutdown",SW-SIM-04,GE0/0/17,l2_no_mac,false,true,,设备/终端证据解析鲁棒性,运维人员可从文本语义明确读出关键证据，格式可能来自不同命令、复制方式或终端系统,格式变化不应改变真实故障判断；无法解析时应暴露为测试缺陷而不是修改oracle,若失败，确认是parser对真实格式覆盖不足还是测试预期错误,
+FMT-R-015,evidence_format_variation,mac_table_layout_target_absent,,10.132.10.21,端口已UP，目标终端MAC没有出现在查询结果中。,network_down,00:11:22:33:44:21,false,false,,,,办公楼A区,,GE0/0/10 up up,"MAC Address      VLAN/VSI    Learned-From   Type
+00aa-bbcc-03ec   132     GE0/0/45       dynamic
+00aa-bbcc-07d4   132     GE0/0/46       dynamic
+Total items displayed = 2",,"<SW> display current-configuration interface GE0/0/10
+interface GigabitEthernet0/0/10
+ description 办公楼A区-ACC-SIM-001
+ port link-type access
+ port default vlan 132
+ undo shutdown",SW-SIM-01,GE0/0/10,l2_no_mac,false,true,,设备/终端证据解析鲁棒性,运维人员可从文本语义明确读出关键证据，格式可能来自不同命令、复制方式或终端系统,格式变化不应改变真实故障判断；无法解析时应暴露为测试缺陷而不是修改oracle,若失败，确认是parser对真实格式覆盖不足还是测试预期错误,
+FMT-R-016,evidence_format_variation,mac_table_layout_target_absent,,10.132.10.22,端口已UP，目标终端MAC没有出现在查询结果中。,network_down,00:11:22:33:44:22,false,false,,,,办公楼A区,,"GigabitEthernet0/0/11 current state : UP
+Line protocol current state : UP","MAC Address      VLAN/VSI    Learned-From   Type
+00aa-bbcc-03ed   132     GE0/0/45       dynamic
+00aa-bbcc-07d5   132     GE0/0/46       dynamic
+Total items displayed = 2",,"<SW> display current-configuration interface GE0/0/11
+interface GigabitEthernet0/0/11
+ description 办公楼A区-ACC-SIM-002
+ port link-type access
+ port default vlan 132
+ undo shutdown",SW-SIM-01,GE0/0/11,l2_no_mac,false,true,,设备/终端证据解析鲁棒性,运维人员可从文本语义明确读出关键证据，格式可能来自不同命令、复制方式或终端系统,格式变化不应改变真实故障判断；无法解析时应暴露为测试缺陷而不是修改oracle,若失败，确认是parser对真实格式覆盖不足还是测试预期错误,
+FMT-R-017,evidence_format_variation,mac_table_layout_target_absent,,10.20.30.15,端口已UP，目标终端MAC没有出现在查询结果中。,network_down,00:11:22:33:44:15,false,false,,,,办公楼B区,,GE0/0/15 up up,"MAC Address      VLAN/VSI    Learned-From   Type
+00aa-bbcc-03ee   200     GE0/0/45       dynamic
+00aa-bbcc-07d6   200     GE0/0/46       dynamic
+Total items displayed = 2",,"<SW> display current-configuration interface GE0/0/15
+interface GigabitEthernet0/0/15
+ description 办公楼B区-ACC-SIM-003
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/15,l2_no_mac,false,true,,设备/终端证据解析鲁棒性,运维人员可从文本语义明确读出关键证据，格式可能来自不同命令、复制方式或终端系统,格式变化不应改变真实故障判断；无法解析时应暴露为测试缺陷而不是修改oracle,若失败，确认是parser对真实格式覆盖不足还是测试预期错误,
+FMT-R-018,evidence_format_variation,mac_table_layout_target_absent,,10.20.30.16,端口已UP，目标终端MAC没有出现在查询结果中。,network_down,00:11:22:33:44:16,false,false,,,,办公楼B区,,"GigabitEthernet0/0/16 current state : UP
+Line protocol current state : UP","MAC Address      VLAN/VSI    Learned-From   Type
+00aa-bbcc-03ef   200     GE0/0/45       dynamic
+00aa-bbcc-07d7   200     GE0/0/46       dynamic
+Total items displayed = 2",,"<SW> display current-configuration interface GE0/0/16
+interface GigabitEthernet0/0/16
+ description 办公楼B区-ACC-SIM-004
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/16,l2_no_mac,false,true,,设备/终端证据解析鲁棒性,运维人员可从文本语义明确读出关键证据，格式可能来自不同命令、复制方式或终端系统,格式变化不应改变真实故障判断；无法解析时应暴露为测试缺陷而不是修改oracle,若失败，确认是parser对真实格式覆盖不足还是测试预期错误,
+FMT-R-019,evidence_format_variation,mac_table_layout_target_absent,,10.20.30.17,端口已UP，目标终端MAC没有出现在查询结果中。,network_down,00:11:22:33:44:17,false,false,,,,办公楼C区,,GE0/0/17 up up,"MAC Address      VLAN/VSI    Learned-From   Type
+00aa-bbcc-03f0   300     GE0/0/45       dynamic
+00aa-bbcc-07d8   300     GE0/0/46       dynamic
+Total items displayed = 2",,"<SW> display current-configuration interface GE0/0/17
+interface GigabitEthernet0/0/17
+ description 办公楼C区-ACC-SIM-005
+ port link-type access
+ port default vlan 300
+ undo shutdown",SW-SIM-04,GE0/0/17,l2_no_mac,false,true,,设备/终端证据解析鲁棒性,运维人员可从文本语义明确读出关键证据，格式可能来自不同命令、复制方式或终端系统,格式变化不应改变真实故障判断；无法解析时应暴露为测试缺陷而不是修改oracle,若失败，确认是parser对真实格式覆盖不足还是测试预期错误,
+FMT-R-020,evidence_format_variation,mac_table_layout_target_absent,,10.132.10.21,端口已UP，目标终端MAC没有出现在查询结果中。,network_down,00:11:22:33:44:21,false,false,,,,办公楼A区,,"GigabitEthernet0/0/10 current state : UP
+Line protocol current state : UP","MAC Address      VLAN/VSI    Learned-From   Type
+00aa-bbcc-03f1   132     GE0/0/45       dynamic
+00aa-bbcc-07d9   132     GE0/0/46       dynamic
+Total items displayed = 2",,"<SW> display current-configuration interface GE0/0/10
+interface GigabitEthernet0/0/10
+ description 办公楼A区-ACC-SIM-001
+ port link-type access
+ port default vlan 132
+ undo shutdown",SW-SIM-01,GE0/0/10,l2_no_mac,false,true,,设备/终端证据解析鲁棒性,运维人员可从文本语义明确读出关键证据，格式可能来自不同命令、复制方式或终端系统,格式变化不应改变真实故障判断；无法解析时应暴露为测试缺陷而不是修改oracle,若失败，确认是parser对真实格式覆盖不足还是测试预期错误,
+FMT-R-021,evidence_format_variation,alternate_vlan_pvid_output,,10.20.30.15,地址迁移后核对端口配置，现场显示PVID与台账不一致。,address_migration,00:11:22:33:44:15,false,true,,,,办公楼B区,,"<SW> display interface GE0/0/15
+GE0/0/15 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-003
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  250    GE0/0/40      dynamic
+00aa-bb00-0002  250    GE0/0/41      dynamic
+0011-2233-4415  250    GE0/0/15      dynamic",,"interface GigabitEthernet0/0/15
+ port link-type access
+ port default vlan 250
+ undo shutdown",SW-SIM-03,GE0/0/15,vlan_mismatch,false,true,,设备/终端证据解析鲁棒性,运维人员可从文本语义明确读出关键证据，格式可能来自不同命令、复制方式或终端系统,格式变化不应改变真实故障判断；无法解析时应暴露为测试缺陷而不是修改oracle,若失败，确认是parser对真实格式覆盖不足还是测试预期错误,
+FMT-R-022,evidence_format_variation,alternate_vlan_pvid_output,,10.20.30.16,地址迁移后核对端口配置，现场显示PVID与台账不一致。,address_migration,00:11:22:33:44:16,false,true,,,,办公楼B区,,"<SW> display interface GE0/0/16
+GE0/0/16 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-004
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0",0011-2233-4416    GE0/0/16    dynamic,,"Port: GE0/0/16
+Link-type: ACCESS
+PVID: 251
+Administrative state: up",SW-SIM-03,GE0/0/16,vlan_mismatch,false,true,,设备/终端证据解析鲁棒性,运维人员可从文本语义明确读出关键证据，格式可能来自不同命令、复制方式或终端系统,格式变化不应改变真实故障判断；无法解析时应暴露为测试缺陷而不是修改oracle,若失败，确认是parser对真实格式覆盖不足还是测试预期错误,
+FMT-R-023,evidence_format_variation,alternate_vlan_pvid_output,,10.20.30.17,地址迁移后核对端口配置，现场显示PVID与台账不一致。,address_migration,00:11:22:33:44:17,false,true,,,,办公楼C区,,"<SW> display interface GE0/0/17
+GE0/0/17 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-005
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  352    GE0/0/40      dynamic
+00aa-bb00-0002  352    GE0/0/41      dynamic
+0011-2233-4417  352    GE0/0/17      dynamic",,"interface GigabitEthernet0/0/17
+ port link-type access
+ port default vlan 352
+ undo shutdown",SW-SIM-04,GE0/0/17,vlan_mismatch,false,true,,设备/终端证据解析鲁棒性,运维人员可从文本语义明确读出关键证据，格式可能来自不同命令、复制方式或终端系统,格式变化不应改变真实故障判断；无法解析时应暴露为测试缺陷而不是修改oracle,若失败，确认是parser对真实格式覆盖不足还是测试预期错误,
+FMT-R-024,evidence_format_variation,alternate_vlan_pvid_output,,10.132.10.21,地址迁移后核对端口配置，现场显示PVID与台账不一致。,address_migration,00:11:22:33:44:21,false,true,,,,办公楼A区,,"<SW> display interface GE0/0/10
+GE0/0/10 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-001
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0",0011-2233-4421    GE0/0/10    dynamic,,"Port: GE0/0/10
+Link-type: ACCESS
+PVID: 185
+Administrative state: up",SW-SIM-01,GE0/0/10,vlan_mismatch,false,true,,设备/终端证据解析鲁棒性,运维人员可从文本语义明确读出关键证据，格式可能来自不同命令、复制方式或终端系统,格式变化不应改变真实故障判断；无法解析时应暴露为测试缺陷而不是修改oracle,若失败，确认是parser对真实格式覆盖不足还是测试预期错误,
+FMT-R-025,evidence_format_variation,alternate_vlan_pvid_output,,10.132.10.22,地址迁移后核对端口配置，现场显示PVID与台账不一致。,address_migration,00:11:22:33:44:22,false,true,,,,办公楼A区,,"<SW> display interface GE0/0/11
+GE0/0/11 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-002
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  186    GE0/0/40      dynamic
+00aa-bb00-0002  186    GE0/0/41      dynamic
+0011-2233-4422  186    GE0/0/11      dynamic",,"interface GigabitEthernet0/0/11
+ port link-type access
+ port default vlan 186
+ undo shutdown",SW-SIM-01,GE0/0/11,vlan_mismatch,false,true,,设备/终端证据解析鲁棒性,运维人员可从文本语义明确读出关键证据，格式可能来自不同命令、复制方式或终端系统,格式变化不应改变真实故障判断；无法解析时应暴露为测试缺陷而不是修改oracle,若失败，确认是parser对真实格式覆盖不足还是测试预期错误,
+FMT-R-026,evidence_format_variation,alternate_vlan_pvid_output,,10.20.30.15,地址迁移后核对端口配置，现场显示PVID与台账不一致。,address_migration,00:11:22:33:44:15,false,true,,,,办公楼B区,,"<SW> display interface GE0/0/15
+GE0/0/15 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-003
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0",0011-2233-4415    GE0/0/15    dynamic,,"Port: GE0/0/15
+Link-type: ACCESS
+PVID: 255
+Administrative state: up",SW-SIM-03,GE0/0/15,vlan_mismatch,false,true,,设备/终端证据解析鲁棒性,运维人员可从文本语义明确读出关键证据，格式可能来自不同命令、复制方式或终端系统,格式变化不应改变真实故障判断；无法解析时应暴露为测试缺陷而不是修改oracle,若失败，确认是parser对真实格式覆盖不足还是测试预期错误,
+FMT-R-027,evidence_format_variation,alternate_vlan_pvid_output,,10.20.30.16,地址迁移后核对端口配置，现场显示PVID与台账不一致。,address_migration,00:11:22:33:44:16,false,true,,,,办公楼B区,,"<SW> display interface GE0/0/16
+GE0/0/16 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-004
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  256    GE0/0/40      dynamic
+00aa-bb00-0002  256    GE0/0/41      dynamic
+0011-2233-4416  256    GE0/0/16      dynamic",,"interface GigabitEthernet0/0/16
+ port link-type access
+ port default vlan 256
+ undo shutdown",SW-SIM-03,GE0/0/16,vlan_mismatch,false,true,,设备/终端证据解析鲁棒性,运维人员可从文本语义明确读出关键证据，格式可能来自不同命令、复制方式或终端系统,格式变化不应改变真实故障判断；无法解析时应暴露为测试缺陷而不是修改oracle,若失败，确认是parser对真实格式覆盖不足还是测试预期错误,
+FMT-R-028,evidence_format_variation,alternate_vlan_pvid_output,,10.20.30.17,地址迁移后核对端口配置，现场显示PVID与台账不一致。,address_migration,00:11:22:33:44:17,false,true,,,,办公楼C区,,"<SW> display interface GE0/0/17
+GE0/0/17 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-005
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0",0011-2233-4417    GE0/0/17    dynamic,,"Port: GE0/0/17
+Link-type: ACCESS
+PVID: 357
+Administrative state: up",SW-SIM-04,GE0/0/17,vlan_mismatch,false,true,,设备/终端证据解析鲁棒性,运维人员可从文本语义明确读出关键证据，格式可能来自不同命令、复制方式或终端系统,格式变化不应改变真实故障判断；无法解析时应暴露为测试缺陷而不是修改oracle,若失败，确认是parser对真实格式覆盖不足还是测试预期错误,
+FMT-R-029,evidence_format_variation,alternate_vlan_pvid_output,,10.132.10.21,地址迁移后核对端口配置，现场显示PVID与台账不一致。,address_migration,00:11:22:33:44:21,false,true,,,,办公楼A区,,"<SW> display interface GE0/0/10
+GE0/0/10 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-001
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  190    GE0/0/40      dynamic
+00aa-bb00-0002  190    GE0/0/41      dynamic
+0011-2233-4421  190    GE0/0/10      dynamic",,"interface GigabitEthernet0/0/10
+ port link-type access
+ port default vlan 190
+ undo shutdown",SW-SIM-01,GE0/0/10,vlan_mismatch,false,true,,设备/终端证据解析鲁棒性,运维人员可从文本语义明确读出关键证据，格式可能来自不同命令、复制方式或终端系统,格式变化不应改变真实故障判断；无法解析时应暴露为测试缺陷而不是修改oracle,若失败，确认是parser对真实格式覆盖不足还是测试预期错误,
+FMT-R-030,evidence_format_variation,alternate_vlan_pvid_output,,10.132.10.22,地址迁移后核对端口配置，现场显示PVID与台账不一致。,address_migration,00:11:22:33:44:22,false,true,,,,办公楼A区,,"<SW> display interface GE0/0/11
+GE0/0/11 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-002
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0",0011-2233-4422    GE0/0/11    dynamic,,"Port: GE0/0/11
+Link-type: ACCESS
+PVID: 191
+Administrative state: up",SW-SIM-01,GE0/0/11,vlan_mismatch,false,true,,设备/终端证据解析鲁棒性,运维人员可从文本语义明确读出关键证据，格式可能来自不同命令、复制方式或终端系统,格式变化不应改变真实故障判断；无法解析时应暴露为测试缺陷而不是修改oracle,若失败，确认是parser对真实格式覆盖不足还是测试预期错误,
+FMT-R-031,evidence_format_variation,alternate_terminal_output,,10.20.30.16,接入侧正常，终端本机网络参数疑似异常。,access_unknown,00:11:22:33:44:16,false,false,,,,办公楼B区,"Windows IP Configuration
+Ethernet adapter Ethernet:
+   IPv4 Address. . . . . . . . . . . : 10.20.30.16
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 10.20.30.220
+   DNS Servers . . . . . . . . . . . : 10.20.0.53
+   Physical Address. . . . . . . . . : 00-11-22-33-44-16
+Reply from 10.20.30.220: bytes=32 time<1ms TTL=64
+Server:  dns-sim
+Address: 10.20.0.53
+Name: intranet.example
+Address: 10.1.1.8","<SW> display interface GE0/0/16
+GE0/0/16 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-004
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic
+0011-2233-4416  200    GE0/0/16      dynamic",,"<SW> display current-configuration interface GE0/0/16
+interface GigabitEthernet0/0/16
+ description 办公楼B区-ACC-SIM-004
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/16,terminal_config,false,true,,设备/终端证据解析鲁棒性,运维人员可从文本语义明确读出关键证据，格式可能来自不同命令、复制方式或终端系统,格式变化不应改变真实故障判断；无法解析时应暴露为测试缺陷而不是修改oracle,若失败，确认是parser对真实格式覆盖不足还是测试预期错误,
+FMT-R-032,evidence_format_variation,alternate_terminal_output,,10.20.30.17,接入侧正常，终端本机网络参数疑似异常。,access_unknown,00:11:22:33:44:17,false,false,,,,办公楼C区,"Windows 网络配置
+IPv4 地址 : 10.20.30.17
+子网掩码 : 255.255.255.0
+默认网关 : 10.20.30.221
+物理地址 : 00:11:22:33:44:17","<SW> display interface GE0/0/17
+GE0/0/17 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-005
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  300    GE0/0/40      dynamic
+00aa-bb00-0002  300    GE0/0/41      dynamic
+0011-2233-4417  300    GE0/0/17      dynamic",,"<SW> display current-configuration interface GE0/0/17
+interface GigabitEthernet0/0/17
+ description 办公楼C区-ACC-SIM-005
+ port link-type access
+ port default vlan 300
+ undo shutdown",SW-SIM-04,GE0/0/17,terminal_config,false,true,,设备/终端证据解析鲁棒性,运维人员可从文本语义明确读出关键证据，格式可能来自不同命令、复制方式或终端系统,格式变化不应改变真实故障判断；无法解析时应暴露为测试缺陷而不是修改oracle,若失败，确认是parser对真实格式覆盖不足还是测试预期错误,
+FMT-R-033,evidence_format_variation,alternate_terminal_output,,10.132.10.21,接入侧正常，终端本机网络参数疑似异常。,access_unknown,00:11:22:33:44:21,false,false,,,,办公楼A区,"2: eth0: <UP>
+    inet 10.132.10.21/24 brd 10.255.255.255 scope global eth0
+default via 10.132.10.222 dev eth0","<SW> display interface GE0/0/10
+GE0/0/10 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-001
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  132    GE0/0/40      dynamic
+00aa-bb00-0002  132    GE0/0/41      dynamic
+0011-2233-4421  132    GE0/0/10      dynamic",,"<SW> display current-configuration interface GE0/0/10
+interface GigabitEthernet0/0/10
+ description 办公楼A区-ACC-SIM-001
+ port link-type access
+ port default vlan 132
+ undo shutdown",SW-SIM-01,GE0/0/10,terminal_config,false,true,,设备/终端证据解析鲁棒性,运维人员可从文本语义明确读出关键证据，格式可能来自不同命令、复制方式或终端系统,格式变化不应改变真实故障判断；无法解析时应暴露为测试缺陷而不是修改oracle,若失败，确认是parser对真实格式覆盖不足还是测试预期错误,
+FMT-R-034,evidence_format_variation,alternate_terminal_output,,10.132.10.22,接入侧正常，终端本机网络参数疑似异常。,access_unknown,00:11:22:33:44:22,false,false,,,,办公楼A区,IP=10.132.10.22 MASK=255.255.255.0 GW=10.132.10.223 DNS=10.132.0.53,"<SW> display interface GE0/0/11
+GE0/0/11 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-002
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  132    GE0/0/40      dynamic
+00aa-bb00-0002  132    GE0/0/41      dynamic
+0011-2233-4422  132    GE0/0/11      dynamic",,"<SW> display current-configuration interface GE0/0/11
+interface GigabitEthernet0/0/11
+ description 办公楼A区-ACC-SIM-002
+ port link-type access
+ port default vlan 132
+ undo shutdown",SW-SIM-01,GE0/0/11,terminal_config,false,true,,设备/终端证据解析鲁棒性,运维人员可从文本语义明确读出关键证据，格式可能来自不同命令、复制方式或终端系统,格式变化不应改变真实故障判断；无法解析时应暴露为测试缺陷而不是修改oracle,若失败，确认是parser对真实格式覆盖不足还是测试预期错误,
+FMT-R-035,evidence_format_variation,alternate_terminal_output,,10.20.30.15,接入侧正常，终端本机网络参数疑似异常。,access_unknown,00:11:22:33:44:15,false,false,,,,办公楼B区,"Ethernet adapter:
+IPv4 Address........... 10.20.30.15
+Default Gateway........ 10.20.30.224","<SW> display interface GE0/0/15
+GE0/0/15 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-003
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic
+0011-2233-4415  200    GE0/0/15      dynamic",,"<SW> display current-configuration interface GE0/0/15
+interface GigabitEthernet0/0/15
+ description 办公楼B区-ACC-SIM-003
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/15,terminal_config,false,true,,设备/终端证据解析鲁棒性,运维人员可从文本语义明确读出关键证据，格式可能来自不同命令、复制方式或终端系统,格式变化不应改变真实故障判断；无法解析时应暴露为测试缺陷而不是修改oracle,若失败，确认是parser对真实格式覆盖不足还是测试预期错误,
+FMT-R-036,evidence_format_variation,alternate_terminal_output,,10.20.30.16,接入侧正常，终端本机网络参数疑似异常。,access_unknown,00:11:22:33:44:16,false,false,,,,办公楼B区,"Windows IP Configuration
+Ethernet adapter Ethernet:
+   IPv4 Address. . . . . . . . . . . : 10.20.30.16
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 10.20.30.225
+   DNS Servers . . . . . . . . . . . : 10.20.0.53
+   Physical Address. . . . . . . . . : 00-11-22-33-44-16
+Reply from 10.20.30.225: bytes=32 time<1ms TTL=64
+Server:  dns-sim
+Address: 10.20.0.53
+Name: intranet.example
+Address: 10.1.1.8","<SW> display interface GE0/0/16
+GE0/0/16 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-004
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic
+0011-2233-4416  200    GE0/0/16      dynamic",,"<SW> display current-configuration interface GE0/0/16
+interface GigabitEthernet0/0/16
+ description 办公楼B区-ACC-SIM-004
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/16,terminal_config,false,true,,设备/终端证据解析鲁棒性,运维人员可从文本语义明确读出关键证据，格式可能来自不同命令、复制方式或终端系统,格式变化不应改变真实故障判断；无法解析时应暴露为测试缺陷而不是修改oracle,若失败，确认是parser对真实格式覆盖不足还是测试预期错误,
+FMT-R-037,evidence_format_variation,alternate_terminal_output,,10.20.30.17,接入侧正常，终端本机网络参数疑似异常。,access_unknown,00:11:22:33:44:17,false,false,,,,办公楼C区,"Windows 网络配置
+IPv4 地址 : 10.20.30.17
+子网掩码 : 255.255.255.0
+默认网关 : 10.20.30.226
+物理地址 : 00:11:22:33:44:17","<SW> display interface GE0/0/17
+GE0/0/17 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-005
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  300    GE0/0/40      dynamic
+00aa-bb00-0002  300    GE0/0/41      dynamic
+0011-2233-4417  300    GE0/0/17      dynamic",,"<SW> display current-configuration interface GE0/0/17
+interface GigabitEthernet0/0/17
+ description 办公楼C区-ACC-SIM-005
+ port link-type access
+ port default vlan 300
+ undo shutdown",SW-SIM-04,GE0/0/17,terminal_config,false,true,,设备/终端证据解析鲁棒性,运维人员可从文本语义明确读出关键证据，格式可能来自不同命令、复制方式或终端系统,格式变化不应改变真实故障判断；无法解析时应暴露为测试缺陷而不是修改oracle,若失败，确认是parser对真实格式覆盖不足还是测试预期错误,
+FMT-R-038,evidence_format_variation,alternate_terminal_output,,10.132.10.21,接入侧正常，终端本机网络参数疑似异常。,access_unknown,00:11:22:33:44:21,false,false,,,,办公楼A区,"2: eth0: <UP>
+    inet 10.132.10.21/24 brd 10.255.255.255 scope global eth0
+default via 10.132.10.227 dev eth0","<SW> display interface GE0/0/10
+GE0/0/10 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-001
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  132    GE0/0/40      dynamic
+00aa-bb00-0002  132    GE0/0/41      dynamic
+0011-2233-4421  132    GE0/0/10      dynamic",,"<SW> display current-configuration interface GE0/0/10
+interface GigabitEthernet0/0/10
+ description 办公楼A区-ACC-SIM-001
+ port link-type access
+ port default vlan 132
+ undo shutdown",SW-SIM-01,GE0/0/10,terminal_config,false,true,,设备/终端证据解析鲁棒性,运维人员可从文本语义明确读出关键证据，格式可能来自不同命令、复制方式或终端系统,格式变化不应改变真实故障判断；无法解析时应暴露为测试缺陷而不是修改oracle,若失败，确认是parser对真实格式覆盖不足还是测试预期错误,
+FMT-R-039,evidence_format_variation,alternate_terminal_output,,10.132.10.22,接入侧正常，终端本机网络参数疑似异常。,access_unknown,00:11:22:33:44:22,false,false,,,,办公楼A区,IP=10.132.10.22 MASK=255.255.255.0 GW=10.132.10.228 DNS=10.132.0.53,"<SW> display interface GE0/0/11
+GE0/0/11 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-002
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  132    GE0/0/40      dynamic
+00aa-bb00-0002  132    GE0/0/41      dynamic
+0011-2233-4422  132    GE0/0/11      dynamic",,"<SW> display current-configuration interface GE0/0/11
+interface GigabitEthernet0/0/11
+ description 办公楼A区-ACC-SIM-002
+ port link-type access
+ port default vlan 132
+ undo shutdown",SW-SIM-01,GE0/0/11,terminal_config,false,true,,设备/终端证据解析鲁棒性,运维人员可从文本语义明确读出关键证据，格式可能来自不同命令、复制方式或终端系统,格式变化不应改变真实故障判断；无法解析时应暴露为测试缺陷而不是修改oracle,若失败，确认是parser对真实格式覆盖不足还是测试预期错误,
+FMT-R-040,evidence_format_variation,alternate_terminal_output,,10.20.30.15,接入侧正常，终端本机网络参数疑似异常。,access_unknown,00:11:22:33:44:15,false,false,,,,办公楼B区,"Ethernet adapter:
+IPv4 Address........... 10.20.30.15
+Default Gateway........ 10.20.30.229","<SW> display interface GE0/0/15
+GE0/0/15 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-003
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic
+0011-2233-4415  200    GE0/0/15      dynamic",,"<SW> display current-configuration interface GE0/0/15
+interface GigabitEthernet0/0/15
+ description 办公楼B区-ACC-SIM-003
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/15,terminal_config,false,true,,设备/终端证据解析鲁棒性,运维人员可从文本语义明确读出关键证据，格式可能来自不同命令、复制方式或终端系统,格式变化不应改变真实故障判断；无法解析时应暴露为测试缺陷而不是修改oracle,若失败，确认是parser对真实格式覆盖不足还是测试预期错误,
+FMT-R-041,evidence_format_variation,alternate_error_counter_output,,10.20.30.17,用户反馈间歇性掉线，接口状态UP但错误计数异常。,intermittent,00:11:22:33:44:17,true,false,,,,办公楼C区,,"<SW> display interface GE0/0/17
+GE0/0/17 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-005
+Input errors: 30
+Output errors: 15
+Input drops: 12
+Output drops: 6","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  300    GE0/0/40      dynamic
+00aa-bb00-0002  300    GE0/0/41      dynamic
+0011-2233-4417  300    GE0/0/17      dynamic",,"<SW> display current-configuration interface GE0/0/17
+interface GigabitEthernet0/0/17
+ description 办公楼C区-ACC-SIM-005
+ port link-type access
+ port default vlan 300
+ undo shutdown",SW-SIM-04,GE0/0/17,link_quality,false,true,,设备/终端证据解析鲁棒性,运维人员可从文本语义明确读出关键证据，格式可能来自不同命令、复制方式或终端系统,格式变化不应改变真实故障判断；无法解析时应暴露为测试缺陷而不是修改oracle,若失败，确认是parser对真实格式覆盖不足还是测试预期错误,
+FMT-R-042,evidence_format_variation,alternate_error_counter_output,,10.132.10.21,用户反馈间歇性掉线，接口状态UP但错误计数异常。,intermittent,00:11:22:33:44:21,true,false,,,,办公楼A区,,"GE0/0/10 up up
+Input errors 31
+Output errors 16
+Input drops 11","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  132    GE0/0/40      dynamic
+00aa-bb00-0002  132    GE0/0/41      dynamic
+0011-2233-4421  132    GE0/0/10      dynamic",,"<SW> display current-configuration interface GE0/0/10
+interface GigabitEthernet0/0/10
+ description 办公楼A区-ACC-SIM-001
+ port link-type access
+ port default vlan 132
+ undo shutdown",SW-SIM-01,GE0/0/10,link_quality,false,true,,设备/终端证据解析鲁棒性,运维人员可从文本语义明确读出关键证据，格式可能来自不同命令、复制方式或终端系统,格式变化不应改变真实故障判断；无法解析时应暴露为测试缺陷而不是修改oracle,若失败，确认是parser对真实格式覆盖不足还是测试预期错误,
+FMT-R-043,evidence_format_variation,alternate_error_counter_output,,10.132.10.22,用户反馈间歇性掉线，接口状态UP但错误计数异常。,intermittent,00:11:22:33:44:22,true,false,,,,办公楼A区,,"GE0/0/11 UP UP
+CRC errors: 32
+Giants: 0
+Runts: 0
+Discard packets: 22","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  132    GE0/0/40      dynamic
+00aa-bb00-0002  132    GE0/0/41      dynamic
+0011-2233-4422  132    GE0/0/11      dynamic",,"<SW> display current-configuration interface GE0/0/11
+interface GigabitEthernet0/0/11
+ description 办公楼A区-ACC-SIM-002
+ port link-type access
+ port default vlan 132
+ undo shutdown",SW-SIM-01,GE0/0/11,link_quality,false,true,,设备/终端证据解析鲁棒性,运维人员可从文本语义明确读出关键证据，格式可能来自不同命令、复制方式或终端系统,格式变化不应改变真实故障判断；无法解析时应暴露为测试缺陷而不是修改oracle,若失败，确认是parser对真实格式覆盖不足还是测试预期错误,
+FMT-R-044,evidence_format_variation,alternate_error_counter_output,,10.20.30.15,用户反馈间歇性掉线，接口状态UP但错误计数异常。,intermittent,00:11:22:33:44:15,true,false,,,,办公楼B区,,"Interface GE0/0/15 is up
+RX_ERR=33 TX_ERR=13 RX_DROP=15","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic
+0011-2233-4415  200    GE0/0/15      dynamic",,"<SW> display current-configuration interface GE0/0/15
+interface GigabitEthernet0/0/15
+ description 办公楼B区-ACC-SIM-003
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/15,link_quality,false,true,,设备/终端证据解析鲁棒性,运维人员可从文本语义明确读出关键证据，格式可能来自不同命令、复制方式或终端系统,格式变化不应改变真实故障判断；无法解析时应暴露为测试缺陷而不是修改oracle,若失败，确认是parser对真实格式覆盖不足还是测试预期错误,
+FMT-R-045,evidence_format_variation,alternate_error_counter_output,,10.20.30.16,用户反馈间歇性掉线，接口状态UP但错误计数异常。,intermittent,00:11:22:33:44:16,true,false,,,,办公楼B区,,"GigabitEthernet0/0/16 current state : UP
+Line protocol current state : UP
+Input error packets : 44
+Output discard packets : 19","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic
+0011-2233-4416  200    GE0/0/16      dynamic",,"<SW> display current-configuration interface GE0/0/16
+interface GigabitEthernet0/0/16
+ description 办公楼B区-ACC-SIM-004
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/16,link_quality,false,true,,设备/终端证据解析鲁棒性,运维人员可从文本语义明确读出关键证据，格式可能来自不同命令、复制方式或终端系统,格式变化不应改变真实故障判断；无法解析时应暴露为测试缺陷而不是修改oracle,若失败，确认是parser对真实格式覆盖不足还是测试预期错误,
+FMT-R-046,evidence_format_variation,alternate_error_counter_output,,10.20.30.17,用户反馈间歇性掉线，接口状态UP但错误计数异常。,intermittent,00:11:22:33:44:17,true,false,,,,办公楼C区,,"<SW> display interface GE0/0/17
+GE0/0/17 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-005
+Input errors: 35
+Output errors: 17
+Input drops: 12
+Output drops: 6","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  300    GE0/0/40      dynamic
+00aa-bb00-0002  300    GE0/0/41      dynamic
+0011-2233-4417  300    GE0/0/17      dynamic",,"<SW> display current-configuration interface GE0/0/17
+interface GigabitEthernet0/0/17
+ description 办公楼C区-ACC-SIM-005
+ port link-type access
+ port default vlan 300
+ undo shutdown",SW-SIM-04,GE0/0/17,link_quality,false,true,,设备/终端证据解析鲁棒性,运维人员可从文本语义明确读出关键证据，格式可能来自不同命令、复制方式或终端系统,格式变化不应改变真实故障判断；无法解析时应暴露为测试缺陷而不是修改oracle,若失败，确认是parser对真实格式覆盖不足还是测试预期错误,
+FMT-R-047,evidence_format_variation,alternate_error_counter_output,,10.132.10.21,用户反馈间歇性掉线，接口状态UP但错误计数异常。,intermittent,00:11:22:33:44:21,true,false,,,,办公楼A区,,"GE0/0/10 up up
+Input errors 36
+Output errors 21
+Input drops 16","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  132    GE0/0/40      dynamic
+00aa-bb00-0002  132    GE0/0/41      dynamic
+0011-2233-4421  132    GE0/0/10      dynamic",,"<SW> display current-configuration interface GE0/0/10
+interface GigabitEthernet0/0/10
+ description 办公楼A区-ACC-SIM-001
+ port link-type access
+ port default vlan 132
+ undo shutdown",SW-SIM-01,GE0/0/10,link_quality,false,true,,设备/终端证据解析鲁棒性,运维人员可从文本语义明确读出关键证据，格式可能来自不同命令、复制方式或终端系统,格式变化不应改变真实故障判断；无法解析时应暴露为测试缺陷而不是修改oracle,若失败，确认是parser对真实格式覆盖不足还是测试预期错误,
+FMT-R-048,evidence_format_variation,alternate_error_counter_output,,10.132.10.22,用户反馈间歇性掉线，接口状态UP但错误计数异常。,intermittent,00:11:22:33:44:22,true,false,,,,办公楼A区,,"GE0/0/11 UP UP
+CRC errors: 37
+Giants: 0
+Runts: 0
+Discard packets: 27","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  132    GE0/0/40      dynamic
+00aa-bb00-0002  132    GE0/0/41      dynamic
+0011-2233-4422  132    GE0/0/11      dynamic",,"<SW> display current-configuration interface GE0/0/11
+interface GigabitEthernet0/0/11
+ description 办公楼A区-ACC-SIM-002
+ port link-type access
+ port default vlan 132
+ undo shutdown",SW-SIM-01,GE0/0/11,link_quality,false,true,,设备/终端证据解析鲁棒性,运维人员可从文本语义明确读出关键证据，格式可能来自不同命令、复制方式或终端系统,格式变化不应改变真实故障判断；无法解析时应暴露为测试缺陷而不是修改oracle,若失败，确认是parser对真实格式覆盖不足还是测试预期错误,
+FMT-R-049,evidence_format_variation,alternate_error_counter_output,,10.20.30.15,用户反馈间歇性掉线，接口状态UP但错误计数异常。,intermittent,00:11:22:33:44:15,true,false,,,,办公楼B区,,"Interface GE0/0/15 is up
+RX_ERR=38 TX_ERR=18 RX_DROP=20","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic
+0011-2233-4415  200    GE0/0/15      dynamic",,"<SW> display current-configuration interface GE0/0/15
+interface GigabitEthernet0/0/15
+ description 办公楼B区-ACC-SIM-003
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/15,link_quality,false,true,,设备/终端证据解析鲁棒性,运维人员可从文本语义明确读出关键证据，格式可能来自不同命令、复制方式或终端系统,格式变化不应改变真实故障判断；无法解析时应暴露为测试缺陷而不是修改oracle,若失败，确认是parser对真实格式覆盖不足还是测试预期错误,
+FMT-R-050,evidence_format_variation,alternate_error_counter_output,,10.20.30.16,用户反馈间歇性掉线，接口状态UP但错误计数异常。,intermittent,00:11:22:33:44:16,true,false,,,,办公楼B区,,"GigabitEthernet0/0/16 current state : UP
+Line protocol current state : UP
+Input error packets : 49
+Output discard packets : 24","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic
+0011-2233-4416  200    GE0/0/16      dynamic",,"<SW> display current-configuration interface GE0/0/16
+interface GigabitEthernet0/0/16
+ description 办公楼B区-ACC-SIM-004
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/16,link_quality,false,true,,设备/终端证据解析鲁棒性,运维人员可从文本语义明确读出关键证据，格式可能来自不同命令、复制方式或终端系统,格式变化不应改变真实故障判断；无法解析时应暴露为测试缺陷而不是修改oracle,若失败，确认是parser对真实格式覆盖不足还是测试预期错误,

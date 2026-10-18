@@ -1,0 +1,23 @@
+{
+  "total": 150,
+  "categories": {
+    "no_mac": 15,
+    "vlan": 15,
+    "down": 15,
+    "port": 15,
+    "upstream": 15,
+    "gateway": 15,
+    "link": 15,
+    "arp": 15,
+    "device": 15,
+    "normal": 15
+  },
+  "expression_types": {
+    "direct": 30,
+    "colloquial": 30,
+    "multi_evidence": 30,
+    "procedure": 30,
+    "noisy": 30
+  },
+  "gold_validation": "passed"
+}

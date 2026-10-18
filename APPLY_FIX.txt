@@ -1,0 +1,23 @@
+Quantization Smoke Fix V2
+
+修复两个问题：
+1. 评测结果目录使用仓库根目录解析，并在每次写文件前确保目录存在；JSON checkpoint 使用临时文件+replace，避免 runtime/quant_eval_50 缺失导致 FileNotFoundError。
+2. Prompt 要求保留核心诊断对象词（VLAN/MAC/接口/链路/资源/上层业务），减少“只读核查现有信息”这种过度泛化输出被 semantic_irrelevance 拒绝。
+
+Git 应用：
+  git apply --check telecom-quant-smoke-fix-v2.patch
+  git apply telecom-quant-smoke-fix-v2.patch
+
+或者直接覆盖：
+  app/llm/langchain_report_chain.py
+  scripts/evaluate_quantization_quality_50.py
+
+验证：
+  python -m compileall -q app scripts tests
+  pytest -q tests/test_report_guardrails.py tests/test_langchain_report_chain.py tests/test_quantization_eval_50.py
+
+重新跑 3 条 INT4：
+  python -m scripts.evaluate_quantization_quality_50 --model Qwen/Qwen2.5-0.5B-Instruct --modes int4 --limit 3 --max-new-tokens 96 --seed 42
+
+也可以先手动创建目录（即使应用补丁后通常不需要）：
+  New-Item -ItemType Directory -Force .\runtime\quant_eval_50 | Out-Null

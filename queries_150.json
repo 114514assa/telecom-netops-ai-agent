@@ -1,0 +1,3977 @@
+[
+  {
+    "case_id": "no_mac_01",
+    "category": "no_mac",
+    "category_name": "接口 UP 但无目标 MAC",
+    "expression_type": "direct",
+    "expression_name": "直接故障描述",
+    "difficulty": "easy",
+    "query": "交换机端口保持 UP，但 MAC 表中没有目标终端记录，下一步应重点核查什么？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "MAC 地址表"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "no_mac_02",
+    "category": "no_mac",
+    "category_name": "接口 UP 但无目标 MAC",
+    "expression_type": "direct",
+    "expression_name": "直接故障描述",
+    "difficulty": "easy",
+    "query": "接口物理和协议状态均正常，却没有学习到用户 MAC，这类现象通常从哪些方向排查？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "MAC 地址表"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "no_mac_03",
+    "category": "no_mac",
+    "category_name": "接口 UP 但无目标 MAC",
+    "expression_type": "direct",
+    "expression_name": "直接故障描述",
+    "difficulty": "easy",
+    "query": "已定位到接入端口且接口正常，但目标 MAC 不存在，应如何继续判断二层接入情况？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "MAC 地址表"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "no_mac_04",
+    "category": "no_mac",
+    "category_name": "接口 UP 但无目标 MAC",
+    "expression_type": "colloquial",
+    "expression_name": "口语/同义改写",
+    "difficulty": "medium",
+    "query": "交换机口看着是通的，可就是查不到这台电脑的 MAC，接下来先看哪里？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "MAC 地址表"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "no_mac_05",
+    "category": "no_mac",
+    "category_name": "接口 UP 但无目标 MAC",
+    "expression_type": "colloquial",
+    "expression_name": "口语/同义改写",
+    "difficulty": "medium",
+    "query": "端口没掉，用户也说网线插着，但 MAC 一直不上来，这种情况一般怎么查？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "MAC 地址表"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "no_mac_06",
+    "category": "no_mac",
+    "category_name": "接口 UP 但无目标 MAC",
+    "expression_type": "colloquial",
+    "expression_name": "口语/同义改写",
+    "difficulty": "medium",
+    "query": "口是亮的、状态也是 UP，就是没有终端 MAC，这能直接说交换机坏了吗？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "MAC 地址表"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "no_mac_07",
+    "category": "no_mac",
+    "category_name": "接口 UP 但无目标 MAC",
+    "expression_type": "multi_evidence",
+    "expression_name": "多证据组合",
+    "difficulty": "hard",
+    "query": "GE0/0/15 为 UP，资源登记端口一致，目标 VLAN 为 200，但 MAC 表没有目标终端，应优先补充哪些证据？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "MAC 地址表"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "no_mac_08",
+    "category": "no_mac",
+    "category_name": "接口 UP 但无目标 MAC",
+    "expression_type": "multi_evidence",
+    "expression_name": "多证据组合",
+    "difficulty": "hard",
+    "query": "接口 UP、错误计数为 0、当前端口与台账一致，但未发现目标 MAC，终端侧和 VLAN 侧分别要检查什么？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "MAC 地址表"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "no_mac_09",
+    "category": "no_mac",
+    "category_name": "接口 UP 但无目标 MAC",
+    "expression_type": "multi_evidence",
+    "expression_name": "多证据组合",
+    "difficulty": "hard",
+    "query": "端口状态正常且近期没有链路告警，目标 MAC 仍未学习，是否应同时核查终端发流、网卡状态和动态 MAC 老化？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "MAC 地址表"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "no_mac_10",
+    "category": "no_mac",
+    "category_name": "接口 UP 但无目标 MAC",
+    "expression_type": "procedure",
+    "expression_name": "排障操作询问",
+    "difficulty": "medium",
+    "query": "已经通过 IP 找到接入交换机和端口，确认 Interface 为 UP 后，如何用 MAC 表继续定位？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "MAC 地址表"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "no_mac_11",
+    "category": "no_mac",
+    "category_name": "接口 UP 但无目标 MAC",
+    "expression_type": "procedure",
+    "expression_name": "排障操作询问",
+    "difficulty": "medium",
+    "query": "排查“UP 无 MAC”时，资源关系、终端状态、端口和 VLAN 的核对顺序应该怎样安排？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "MAC 地址表"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "no_mac_12",
+    "category": "no_mac",
+    "category_name": "接口 UP 但无目标 MAC",
+    "expression_type": "procedure",
+    "expression_name": "排障操作询问",
+    "difficulty": "medium",
+    "query": "如何通过只读查询确认一个正常接口是否真正学习到了指定终端的 MAC？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "MAC 地址表"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "no_mac_13",
+    "category": "no_mac",
+    "category_name": "接口 UP 但无目标 MAC",
+    "expression_type": "noisy",
+    "expression_name": "不完整/带干扰信息",
+    "difficulty": "hard",
+    "query": "用户说网页打不开，端口是 UP 的，目前也没看到目标 MAC，但还不知道是不是 VLAN 问题，应该先补哪类证据？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "MAC 地址表"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "no_mac_14",
+    "category": "no_mac",
+    "category_name": "接口 UP 但无目标 MAC",
+    "expression_type": "noisy",
+    "expression_name": "不完整/带干扰信息",
+    "difficulty": "hard",
+    "query": "地址刚调整过，接口没有 DOWN，业务还是不通，而且暂时查不到 MAC，这时不应先做什么、应该先查什么？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "MAC 地址表"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "no_mac_15",
+    "category": "no_mac",
+    "category_name": "接口 UP 但无目标 MAC",
+    "expression_type": "noisy",
+    "expression_name": "不完整/带干扰信息",
+    "difficulty": "hard",
+    "query": "现场反馈网线“应该没问题”，交换机端口也 UP，但终端没有网络且 MAC 表为空，怎样避免直接误判设备故障？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "MAC 地址表"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "vlan_01",
+    "category": "vlan",
+    "category_name": "VLAN 证据不一致",
+    "expression_type": "direct",
+    "expression_name": "直接故障描述",
+    "difficulty": "easy",
+    "query": "资源登记的目标 VLAN 与当前 MAC 学习 VLAN 不一致时，应如何定位和处理？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "VLAN 证据"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      },
+      {
+        "source": "03_dcn_oa_network_basics.md",
+        "sections": [
+          "地址与 VLAN 一致性"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "vlan_02",
+    "category": "vlan",
+    "category_name": "VLAN 证据不一致",
+    "expression_type": "direct",
+    "expression_name": "直接故障描述",
+    "difficulty": "easy",
+    "query": "接口当前 Access VLAN 与资源台账中的目标 VLAN 不一致，这说明了什么？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "VLAN 证据"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      },
+      {
+        "source": "03_dcn_oa_network_basics.md",
+        "sections": [
+          "地址与 VLAN 一致性"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "vlan_03",
+    "category": "vlan",
+    "category_name": "VLAN 证据不一致",
+    "expression_type": "direct",
+    "expression_name": "直接故障描述",
+    "difficulty": "easy",
+    "query": "发现终端所在 VLAN 与登记网络规划不匹配，Agent 应给出怎样的只读诊断结论？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "VLAN 证据"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      },
+      {
+        "source": "03_dcn_oa_network_basics.md",
+        "sections": [
+          "地址与 VLAN 一致性"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "vlan_04",
+    "category": "vlan",
+    "category_name": "VLAN 证据不一致",
+    "expression_type": "colloquial",
+    "expression_name": "口语/同义改写",
+    "difficulty": "medium",
+    "query": "台账说该进 200，但设备上看着在 210，这种 VLAN 对不上该先查什么？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "VLAN 证据"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      },
+      {
+        "source": "03_dcn_oa_network_basics.md",
+        "sections": [
+          "地址与 VLAN 一致性"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "vlan_05",
+    "category": "vlan",
+    "category_name": "VLAN 证据不一致",
+    "expression_type": "colloquial",
+    "expression_name": "口语/同义改写",
+    "difficulty": "medium",
+    "query": "用户换了地址以后还是不通，发现交换机口的 VLAN 好像没跟着变，怎么确认？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "VLAN 证据"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      },
+      {
+        "source": "03_dcn_oa_network_basics.md",
+        "sections": [
+          "地址与 VLAN 一致性"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "vlan_06",
+    "category": "vlan",
+    "category_name": "VLAN 证据不一致",
+    "expression_type": "colloquial",
+    "expression_name": "口语/同义改写",
+    "difficulty": "medium",
+    "query": "MAC 能学到，但学在了另一个 VLAN 里，这能不能直接改配置？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "VLAN 证据"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      },
+      {
+        "source": "03_dcn_oa_network_basics.md",
+        "sections": [
+          "地址与 VLAN 一致性"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "vlan_07",
+    "category": "vlan",
+    "category_name": "VLAN 证据不一致",
+    "expression_type": "multi_evidence",
+    "expression_name": "多证据组合",
+    "difficulty": "hard",
+    "query": "接口 UP、目标 MAC 已学习，资源目标 VLAN 为 200，而 MAC VLAN 为 210，应优先判断接入关系还是直接修改端口配置？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "VLAN 证据"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      },
+      {
+        "source": "03_dcn_oa_network_basics.md",
+        "sections": [
+          "地址与 VLAN 一致性"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "vlan_08",
+    "category": "vlan",
+    "category_name": "VLAN 证据不一致",
+    "expression_type": "multi_evidence",
+    "expression_name": "多证据组合",
+    "difficulty": "hard",
+    "query": "登记设备和端口均一致，终端 IP 已调整到新网段，但接口 Access VLAN 仍属于旧网络，应如何解释这些证据？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "VLAN 证据"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      },
+      {
+        "source": "03_dcn_oa_network_basics.md",
+        "sections": [
+          "地址与 VLAN 一致性"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "vlan_09",
+    "category": "vlan",
+    "category_name": "VLAN 证据不一致",
+    "expression_type": "multi_evidence",
+    "expression_name": "多证据组合",
+    "difficulty": "hard",
+    "query": "终端可看到 MAC，ARP 暂未出现，资源 VLAN 与接口 VLAN 不一致，哪项差异应被记录为关键证据？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "VLAN 证据"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      },
+      {
+        "source": "03_dcn_oa_network_basics.md",
+        "sections": [
+          "地址与 VLAN 一致性"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "vlan_10",
+    "category": "vlan",
+    "category_name": "VLAN 证据不一致",
+    "expression_type": "procedure",
+    "expression_name": "排障操作询问",
+    "difficulty": "medium",
+    "query": "排查 VLAN 不一致时，应该如何依次核对资源记录、接口配置和 MAC 所属 VLAN？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "VLAN 证据"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      },
+      {
+        "source": "03_dcn_oa_network_basics.md",
+        "sections": [
+          "地址与 VLAN 一致性"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "vlan_11",
+    "category": "vlan",
+    "category_name": "VLAN 证据不一致",
+    "expression_type": "procedure",
+    "expression_name": "排障操作询问",
+    "difficulty": "medium",
+    "query": "地址整改后需要确认接入 VLAN 是否正确，应读取哪些设备侧信息并与什么台账字段比对？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "VLAN 证据"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      },
+      {
+        "source": "03_dcn_oa_network_basics.md",
+        "sections": [
+          "地址与 VLAN 一致性"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "vlan_12",
+    "category": "vlan",
+    "category_name": "VLAN 证据不一致",
+    "expression_type": "procedure",
+    "expression_name": "排障操作询问",
+    "difficulty": "medium",
+    "query": "如何在不执行配置变更的前提下确认终端实际 VLAN 与目标 VLAN 是否一致？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "VLAN 证据"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      },
+      {
+        "source": "03_dcn_oa_network_basics.md",
+        "sections": [
+          "地址与 VLAN 一致性"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "vlan_13",
+    "category": "vlan",
+    "category_name": "VLAN 证据不一致",
+    "expression_type": "noisy",
+    "expression_name": "不完整/带干扰信息",
+    "difficulty": "hard",
+    "query": "用户说 OA 业务不通，但接口和 MAC 都正常，只发现 VLAN 和登记值有差异，现阶段能下什么结论？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "VLAN 证据"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      },
+      {
+        "source": "03_dcn_oa_network_basics.md",
+        "sections": [
+          "地址与 VLAN 一致性"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "vlan_14",
+    "category": "vlan",
+    "category_name": "VLAN 证据不一致",
+    "expression_type": "noisy",
+    "expression_name": "不完整/带干扰信息",
+    "difficulty": "hard",
+    "query": "端口没有掉、MAC 也在，只是 VLAN 看起来不一样，同时用户刚迁过位置，这种情况先怀疑配置还是资源记录？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "VLAN 证据"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      },
+      {
+        "source": "03_dcn_oa_network_basics.md",
+        "sections": [
+          "地址与 VLAN 一致性"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "vlan_15",
+    "category": "vlan",
+    "category_name": "VLAN 证据不一致",
+    "expression_type": "noisy",
+    "expression_name": "不完整/带干扰信息",
+    "difficulty": "hard",
+    "query": "地址、网关看着都对，只有设备侧 VLAN 与规划不一致，Agent 应如何避免直接生成改 VLAN 的命令？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "VLAN 证据"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      },
+      {
+        "source": "03_dcn_oa_network_basics.md",
+        "sections": [
+          "地址与 VLAN 一致性"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "down_01",
+    "category": "down",
+    "category_name": "接口 DOWN / 物理链路异常",
+    "expression_type": "direct",
+    "expression_name": "直接故障描述",
+    "difficulty": "easy",
+    "query": "目标接入端口 Physical/Protocol 均为 DOWN 时，应优先排查哪些物理侧因素？",
+    "relevant": [
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      },
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "Interface 状态"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "常见设备和链路问题"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "down_02",
+    "category": "down",
+    "category_name": "接口 DOWN / 物理链路异常",
+    "expression_type": "direct",
+    "expression_name": "直接故障描述",
+    "difficulty": "easy",
+    "query": "交换机端口 DOWN 且没有目标 MAC，故障定位应从哪里开始？",
+    "relevant": [
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      },
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "Interface 状态"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "常见设备和链路问题"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "down_03",
+    "category": "down",
+    "category_name": "接口 DOWN / 物理链路异常",
+    "expression_type": "direct",
+    "expression_name": "直接故障描述",
+    "difficulty": "easy",
+    "query": "接口状态为 DOWN 时，为什么不能直接认定交换机设备故障？",
+    "relevant": [
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      },
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "Interface 状态"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "常见设备和链路问题"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "down_04",
+    "category": "down",
+    "category_name": "接口 DOWN / 物理链路异常",
+    "expression_type": "colloquial",
+    "expression_name": "口语/同义改写",
+    "difficulty": "medium",
+    "query": "端口直接掉了，用户也上不了网，这时候第一步是不是先查交换机？",
+    "relevant": [
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      },
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "Interface 状态"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "常见设备和链路问题"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "down_05",
+    "category": "down",
+    "category_name": "接口 DOWN / 物理链路异常",
+    "expression_type": "colloquial",
+    "expression_name": "口语/同义改写",
+    "difficulty": "medium",
+    "query": "交换机口不亮、状态 DOWN，现场应该先看电脑、网卡还是网线？",
+    "relevant": [
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      },
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "Interface 状态"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "常见设备和链路问题"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "down_06",
+    "category": "down",
+    "category_name": "接口 DOWN / 物理链路异常",
+    "expression_type": "colloquial",
+    "expression_name": "口语/同义改写",
+    "difficulty": "medium",
+    "query": "用户说突然断网，查到端口 DOWN 了，这个现象到底能说明到哪一层？",
+    "relevant": [
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      },
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "Interface 状态"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "常见设备和链路问题"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "down_07",
+    "category": "down",
+    "category_name": "接口 DOWN / 物理链路异常",
+    "expression_type": "multi_evidence",
+    "expression_name": "多证据组合",
+    "difficulty": "hard",
+    "query": "资源登记端口为 GE0/0/15，当前该端口 DOWN 且无 MAC，终端近期没有迁移记录，应补查哪些物理连接证据？",
+    "relevant": [
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      },
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "Interface 状态"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "常见设备和链路问题"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "down_08",
+    "category": "down",
+    "category_name": "接口 DOWN / 物理链路异常",
+    "expression_type": "multi_evidence",
+    "expression_name": "多证据组合",
+    "difficulty": "hard",
+    "query": "接口 DOWN、输入输出流量为 0、目标 MAC 不存在，但设备本身在线，应该如何缩小故障范围？",
+    "relevant": [
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      },
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "Interface 状态"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "常见设备和链路问题"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "down_09",
+    "category": "down",
+    "category_name": "接口 DOWN / 物理链路异常",
+    "expression_type": "multi_evidence",
+    "expression_name": "多证据组合",
+    "difficulty": "hard",
+    "query": "端口 DOWN 且用户刚移动过工位，资源记录仍指向原端口，排查时应同时验证哪些信息？",
+    "relevant": [
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      },
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "Interface 状态"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "常见设备和链路问题"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "down_10",
+    "category": "down",
+    "category_name": "接口 DOWN / 物理链路异常",
+    "expression_type": "procedure",
+    "expression_name": "排障操作询问",
+    "difficulty": "medium",
+    "query": "定位到接口 DOWN 后，终端在线状态、网卡、线缆和实际接入端口应该按什么顺序核查？",
+    "relevant": [
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      },
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "Interface 状态"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "常见设备和链路问题"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "down_11",
+    "category": "down",
+    "category_name": "接口 DOWN / 物理链路异常",
+    "expression_type": "procedure",
+    "expression_name": "排障操作询问",
+    "difficulty": "medium",
+    "query": "如何使用只读接口状态和资源记录判断“链路未起来”而不是直接判断设备损坏？",
+    "relevant": [
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      },
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "Interface 状态"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "常见设备和链路问题"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "down_12",
+    "category": "down",
+    "category_name": "接口 DOWN / 物理链路异常",
+    "expression_type": "procedure",
+    "expression_name": "排障操作询问",
+    "difficulty": "medium",
+    "query": "接口 DOWN 场景下，复测前应该记录哪些状态和证据，后续才能判断是否恢复？",
+    "relevant": [
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      },
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "Interface 状态"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "常见设备和链路问题"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "down_13",
+    "category": "down",
+    "category_name": "接口 DOWN / 物理链路异常",
+    "expression_type": "noisy",
+    "expression_name": "不完整/带干扰信息",
+    "difficulty": "hard",
+    "query": "用户说是“交换机坏了”，但目前唯一证据只是端口 DOWN，没有其他告警，应如何回复和继续排查？",
+    "relevant": [
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      },
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "Interface 状态"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "常见设备和链路问题"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "down_14",
+    "category": "down",
+    "category_name": "接口 DOWN / 物理链路异常",
+    "expression_type": "noisy",
+    "expression_name": "不完整/带干扰信息",
+    "difficulty": "hard",
+    "query": "现场说网线换过还是不通，不过资源台账可能也没更新，端口 DOWN 时怎样避免在错误端口上排障？",
+    "relevant": [
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      },
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "Interface 状态"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "常见设备和链路问题"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "down_15",
+    "category": "down",
+    "category_name": "接口 DOWN / 物理链路异常",
+    "expression_type": "noisy",
+    "expression_name": "不完整/带干扰信息",
+    "difficulty": "hard",
+    "query": "端口 DOWN、MAC 也没有，但终端是否开机还不确定，这时最合理的下一步是什么？",
+    "relevant": [
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      },
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "Interface 状态"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "常见设备和链路问题"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "port_01",
+    "category": "port",
+    "category_name": "资源登记端口与实际接入端口不一致",
+    "expression_type": "direct",
+    "expression_name": "直接故障描述",
+    "difficulty": "easy",
+    "query": "资源登记端口与目标 MAC 实际学习端口不一致时，通常应如何核对？",
+    "relevant": [
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "资源记录",
+          "常见故障判断"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "故障升级"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "port_02",
+    "category": "port",
+    "category_name": "资源登记端口与实际接入端口不一致",
+    "expression_type": "direct",
+    "expression_name": "直接故障描述",
+    "difficulty": "easy",
+    "query": "台账记录的接入端口和设备实时 MAC 位置冲突，可能有哪些原因？",
+    "relevant": [
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "资源记录",
+          "常见故障判断"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "故障升级"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "port_03",
+    "category": "port",
+    "category_name": "资源登记端口与实际接入端口不一致",
+    "expression_type": "direct",
+    "expression_name": "直接故障描述",
+    "difficulty": "easy",
+    "query": "发现终端实际接入位置与资源系统登记不一致，应如何保留证据并继续处理？",
+    "relevant": [
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "资源记录",
+          "常见故障判断"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "故障升级"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "port_04",
+    "category": "port",
+    "category_name": "资源登记端口与实际接入端口不一致",
+    "expression_type": "colloquial",
+    "expression_name": "口语/同义改写",
+    "difficulty": "medium",
+    "query": "台账写 GE0/0/15，可 MAC 跑到 GE0/0/18 了，这种情况先信哪个？",
+    "relevant": [
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "资源记录",
+          "常见故障判断"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "故障升级"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "port_05",
+    "category": "port",
+    "category_name": "资源登记端口与实际接入端口不一致",
+    "expression_type": "colloquial",
+    "expression_name": "口语/同义改写",
+    "difficulty": "medium",
+    "query": "系统里登记一个口，实际查 MAC 又在另一个口，可能是用户换位置了吗？",
+    "relevant": [
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "资源记录",
+          "常见故障判断"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "故障升级"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "port_06",
+    "category": "port",
+    "category_name": "资源登记端口与实际接入端口不一致",
+    "expression_type": "colloquial",
+    "expression_name": "口语/同义改写",
+    "difficulty": "medium",
+    "query": "按资源记录找到的口没看到用户，但别的端口学到了他的 MAC，下一步怎么查？",
+    "relevant": [
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "资源记录",
+          "常见故障判断"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "故障升级"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "port_07",
+    "category": "port",
+    "category_name": "资源登记端口与实际接入端口不一致",
+    "expression_type": "multi_evidence",
+    "expression_name": "多证据组合",
+    "difficulty": "hard",
+    "query": "登记设备一致，但登记端口 GE0/0/15、实际 MAC 端口 GE0/0/18，且接口均 UP，应如何判断资源滞后或终端迁移？",
+    "relevant": [
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "资源记录",
+          "常见故障判断"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "故障升级"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "port_08",
+    "category": "port",
+    "category_name": "资源登记端口与实际接入端口不一致",
+    "expression_type": "multi_evidence",
+    "expression_name": "多证据组合",
+    "difficulty": "hard",
+    "query": "资源记录指向旧端口，目标 MAC 在新端口且 VLAN 正确，业务可用，这类证据应如何归类？",
+    "relevant": [
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "资源记录",
+          "常见故障判断"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "故障升级"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "port_09",
+    "category": "port",
+    "category_name": "资源登记端口与实际接入端口不一致",
+    "expression_type": "multi_evidence",
+    "expression_name": "多证据组合",
+    "difficulty": "hard",
+    "query": "两个端口都为 UP，只有一个端口学习到目标 MAC，而资源台账仍指向另一个端口，应优先记录哪些事实？",
+    "relevant": [
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "资源记录",
+          "常见故障判断"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "故障升级"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "port_10",
+    "category": "port",
+    "category_name": "资源登记端口与实际接入端口不一致",
+    "expression_type": "procedure",
+    "expression_name": "排障操作询问",
+    "difficulty": "medium",
+    "query": "如何通过“资源登记端口—Interface—MAC 学习端口”三类信息交叉确认实际接入位置？",
+    "relevant": [
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "资源记录",
+          "常见故障判断"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "故障升级"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "port_11",
+    "category": "port",
+    "category_name": "资源登记端口与实际接入端口不一致",
+    "expression_type": "procedure",
+    "expression_name": "排障操作询问",
+    "difficulty": "medium",
+    "query": "遇到端口登记不一致时，怎样验证终端是否迁移、资源是否滞后以及查询对象是否正确？",
+    "relevant": [
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "资源记录",
+          "常见故障判断"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "故障升级"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "port_12",
+    "category": "port",
+    "category_name": "资源登记端口与实际接入端口不一致",
+    "expression_type": "procedure",
+    "expression_name": "排障操作询问",
+    "difficulty": "medium",
+    "query": "资源关系与实时端口冲突时，什么情况下应该升级人工复核而不是自动更新台账？",
+    "relevant": [
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "资源记录",
+          "常见故障判断"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "故障升级"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "port_13",
+    "category": "port",
+    "category_name": "资源登记端口与实际接入端口不一致",
+    "expression_type": "noisy",
+    "expression_name": "不完整/带干扰信息",
+    "difficulty": "hard",
+    "query": "用户业务暂时正常，但资源台账和实际 MAC 端口对不上，这还需要处理吗？",
+    "relevant": [
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "资源记录",
+          "常见故障判断"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "故障升级"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "port_14",
+    "category": "port",
+    "category_name": "资源登记端口与实际接入端口不一致",
+    "expression_type": "noisy",
+    "expression_name": "不完整/带干扰信息",
+    "difficulty": "hard",
+    "query": "端口位置不一致，同时终端刚换过工位，但没人确认台账是否更新，Agent 应输出什么级别的结论？",
+    "relevant": [
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "资源记录",
+          "常见故障判断"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "故障升级"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "port_15",
+    "category": "port",
+    "category_name": "资源登记端口与实际接入端口不一致",
+    "expression_type": "noisy",
+    "expression_name": "不完整/带干扰信息",
+    "difficulty": "hard",
+    "query": "系统登记口上没有 MAC，另一个口有同一 MAC，但现场信息不完整，能否直接修改资源记录？",
+    "relevant": [
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "资源记录",
+          "常见故障判断"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "故障升级"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "upstream_01",
+    "category": "upstream",
+    "category_name": "接入侧正常但业务仍异常",
+    "expression_type": "direct",
+    "expression_name": "直接故障描述",
+    "difficulty": "easy",
+    "query": "Interface、MAC 和 VLAN 均正常，但用户业务仍不可访问，下一步应检查哪些上层方向？",
+    "relevant": [
+      {
+        "source": "07_endpoint_connectivity_checks.md",
+        "sections": [
+          "典型场景",
+          "路径测试",
+          "DNS 测试"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      },
+      {
+        "source": "06_dedicated_line_business_basics.md",
+        "sections": [
+          "常见问题",
+          "云专线"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "upstream_02",
+    "category": "upstream",
+    "category_name": "接入侧正常但业务仍异常",
+    "expression_type": "direct",
+    "expression_name": "直接故障描述",
+    "difficulty": "easy",
+    "query": "二层接入没有明显异常但网页打不开，排障范围应该向哪些层次移动？",
+    "relevant": [
+      {
+        "source": "07_endpoint_connectivity_checks.md",
+        "sections": [
+          "典型场景",
+          "路径测试",
+          "DNS 测试"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      },
+      {
+        "source": "06_dedicated_line_business_basics.md",
+        "sections": [
+          "常见问题",
+          "云专线"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "upstream_03",
+    "category": "upstream",
+    "category_name": "接入侧正常但业务仍异常",
+    "expression_type": "direct",
+    "expression_name": "直接故障描述",
+    "difficulty": "easy",
+    "query": "接入交换机证据正常时，如何继续区分 DNS、路由、访问策略或业务系统问题？",
+    "relevant": [
+      {
+        "source": "07_endpoint_connectivity_checks.md",
+        "sections": [
+          "典型场景",
+          "路径测试",
+          "DNS 测试"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      },
+      {
+        "source": "06_dedicated_line_business_basics.md",
+        "sections": [
+          "常见问题",
+          "云专线"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "upstream_04",
+    "category": "upstream",
+    "category_name": "接入侧正常但业务仍异常",
+    "expression_type": "colloquial",
+    "expression_name": "口语/同义改写",
+    "difficulty": "medium",
+    "query": "交换机这边看着都正常，可用户还是打不开业务，这时候还查端口吗？",
+    "relevant": [
+      {
+        "source": "07_endpoint_connectivity_checks.md",
+        "sections": [
+          "典型场景",
+          "路径测试",
+          "DNS 测试"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      },
+      {
+        "source": "06_dedicated_line_business_basics.md",
+        "sections": [
+          "常见问题",
+          "云专线"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "upstream_05",
+    "category": "upstream",
+    "category_name": "接入侧正常但业务仍异常",
+    "expression_type": "colloquial",
+    "expression_name": "口语/同义改写",
+    "difficulty": "medium",
+    "query": "口、MAC、VLAN 都没问题，网页还是上不去，下一步往哪边查？",
+    "relevant": [
+      {
+        "source": "07_endpoint_connectivity_checks.md",
+        "sections": [
+          "典型场景",
+          "路径测试",
+          "DNS 测试"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      },
+      {
+        "source": "06_dedicated_line_business_basics.md",
+        "sections": [
+          "常见问题",
+          "云专线"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "upstream_06",
+    "category": "upstream",
+    "category_name": "接入侧正常但业务仍异常",
+    "expression_type": "colloquial",
+    "expression_name": "口语/同义改写",
+    "difficulty": "medium",
+    "query": "接入侧没毛病但业务不通，是先看 DNS、路由还是业务系统？",
+    "relevant": [
+      {
+        "source": "07_endpoint_connectivity_checks.md",
+        "sections": [
+          "典型场景",
+          "路径测试",
+          "DNS 测试"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      },
+      {
+        "source": "06_dedicated_line_business_basics.md",
+        "sections": [
+          "常见问题",
+          "云专线"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "upstream_07",
+    "category": "upstream",
+    "category_name": "接入侧正常但业务仍异常",
+    "expression_type": "multi_evidence",
+    "expression_name": "多证据组合",
+    "difficulty": "hard",
+    "query": "接口 UP、MAC 已学习、VLAN 一致、网关可达，但域名业务无法访问，应优先补充哪类终端或上层证据？",
+    "relevant": [
+      {
+        "source": "07_endpoint_connectivity_checks.md",
+        "sections": [
+          "典型场景",
+          "路径测试",
+          "DNS 测试"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      },
+      {
+        "source": "06_dedicated_line_business_basics.md",
+        "sections": [
+          "常见问题",
+          "云专线"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "upstream_08",
+    "category": "upstream",
+    "category_name": "接入侧正常但业务仍异常",
+    "expression_type": "multi_evidence",
+    "expression_name": "多证据组合",
+    "difficulty": "hard",
+    "query": "接入侧证据一致且直接访问目标 IP 正常，但域名访问失败，应将排障重点转向哪里？",
+    "relevant": [
+      {
+        "source": "07_endpoint_connectivity_checks.md",
+        "sections": [
+          "典型场景",
+          "路径测试",
+          "DNS 测试"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      },
+      {
+        "source": "06_dedicated_line_business_basics.md",
+        "sections": [
+          "常见问题",
+          "云专线"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "upstream_09",
+    "category": "upstream",
+    "category_name": "接入侧正常但业务仍异常",
+    "expression_type": "multi_evidence",
+    "expression_name": "多证据组合",
+    "difficulty": "hard",
+    "query": "终端网关可达、DNS 正常、交换机侧无异常，但指定业务仍失败，是否应继续检查上层路径或业务访问策略？",
+    "relevant": [
+      {
+        "source": "07_endpoint_connectivity_checks.md",
+        "sections": [
+          "典型场景",
+          "路径测试",
+          "DNS 测试"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      },
+      {
+        "source": "06_dedicated_line_business_basics.md",
+        "sections": [
+          "常见问题",
+          "云专线"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "upstream_10",
+    "category": "upstream",
+    "category_name": "接入侧正常但业务仍异常",
+    "expression_type": "procedure",
+    "expression_name": "排障操作询问",
+    "difficulty": "medium",
+    "query": "当接入侧检查全部通过后，如何利用 nslookup、tracert 和业务访问结果继续分层定位？",
+    "relevant": [
+      {
+        "source": "07_endpoint_connectivity_checks.md",
+        "sections": [
+          "典型场景",
+          "路径测试",
+          "DNS 测试"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      },
+      {
+        "source": "06_dedicated_line_business_basics.md",
+        "sections": [
+          "常见问题",
+          "云专线"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "upstream_11",
+    "category": "upstream",
+    "category_name": "接入侧正常但业务仍异常",
+    "expression_type": "procedure",
+    "expression_name": "排障操作询问",
+    "difficulty": "medium",
+    "query": "如何判断一个故障已经超出交换机接入侧，需要转交上层网络或业务维护？",
+    "relevant": [
+      {
+        "source": "07_endpoint_connectivity_checks.md",
+        "sections": [
+          "典型场景",
+          "路径测试",
+          "DNS 测试"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      },
+      {
+        "source": "06_dedicated_line_business_basics.md",
+        "sections": [
+          "常见问题",
+          "云专线"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "upstream_12",
+    "category": "upstream",
+    "category_name": "接入侧正常但业务仍异常",
+    "expression_type": "procedure",
+    "expression_name": "排障操作询问",
+    "difficulty": "medium",
+    "query": "接入侧正常时，终端 IP、DNS、路径和业务系统的继续核查顺序应该怎样安排？",
+    "relevant": [
+      {
+        "source": "07_endpoint_connectivity_checks.md",
+        "sections": [
+          "典型场景",
+          "路径测试",
+          "DNS 测试"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      },
+      {
+        "source": "06_dedicated_line_business_basics.md",
+        "sections": [
+          "常见问题",
+          "云专线"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "upstream_13",
+    "category": "upstream",
+    "category_name": "接入侧正常但业务仍异常",
+    "expression_type": "noisy",
+    "expression_name": "不完整/带干扰信息",
+    "difficulty": "hard",
+    "query": "用户只说“上不了系统”，端口和 VLAN 都正常，但不知道是域名、路由还是应用问题，下一步先收集什么？",
+    "relevant": [
+      {
+        "source": "07_endpoint_connectivity_checks.md",
+        "sections": [
+          "典型场景",
+          "路径测试",
+          "DNS 测试"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      },
+      {
+        "source": "06_dedicated_line_business_basics.md",
+        "sections": [
+          "常见问题",
+          "云专线"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "upstream_14",
+    "category": "upstream",
+    "category_name": "接入侧正常但业务仍异常",
+    "expression_type": "noisy",
+    "expression_name": "不完整/带干扰信息",
+    "difficulty": "hard",
+    "query": "交换机没有异常，网关也能 ping 通，但业务偶尔打不开，现有证据不足时应该怎样避免过早归因？",
+    "relevant": [
+      {
+        "source": "07_endpoint_connectivity_checks.md",
+        "sections": [
+          "典型场景",
+          "路径测试",
+          "DNS 测试"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      },
+      {
+        "source": "06_dedicated_line_business_basics.md",
+        "sections": [
+          "常见问题",
+          "云专线"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "upstream_15",
+    "category": "upstream",
+    "category_name": "接入侧正常但业务仍异常",
+    "expression_type": "noisy",
+    "expression_name": "不完整/带干扰信息",
+    "difficulty": "hard",
+    "query": "接入证据正常，用户却坚持是网络问题，而目标业务状态未知，Agent 应给出怎样的下一步建议？",
+    "relevant": [
+      {
+        "source": "07_endpoint_connectivity_checks.md",
+        "sections": [
+          "典型场景",
+          "路径测试",
+          "DNS 测试"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断"
+        ]
+      },
+      {
+        "source": "06_dedicated_line_business_basics.md",
+        "sections": [
+          "常见问题",
+          "云专线"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "gateway_01",
+    "category": "gateway",
+    "category_name": "终端 IP / 网关配置异常",
+    "expression_type": "direct",
+    "expression_name": "直接故障描述",
+    "difficulty": "easy",
+    "query": "终端地址调整后默认网关仍属于旧网络，会造成什么现象，应如何核对？",
+    "relevant": [
+      {
+        "source": "07_endpoint_connectivity_checks.md",
+        "sections": [
+          "默认网关测试",
+          "地址调整",
+          "典型场景",
+          "Windows 网络信息"
+        ]
+      },
+      {
+        "source": "03_dcn_oa_network_basics.md",
+        "sections": [
+          "地址与 VLAN 一致性",
+          "终端地址整改"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "gateway_02",
+    "category": "gateway",
+    "category_name": "终端 IP / 网关配置异常",
+    "expression_type": "direct",
+    "expression_name": "直接故障描述",
+    "difficulty": "easy",
+    "query": "IP、掩码与默认网关不属于同一目标网络时，排障应从哪些配置项检查？",
+    "relevant": [
+      {
+        "source": "07_endpoint_connectivity_checks.md",
+        "sections": [
+          "默认网关测试",
+          "地址调整",
+          "典型场景",
+          "Windows 网络信息"
+        ]
+      },
+      {
+        "source": "03_dcn_oa_network_basics.md",
+        "sections": [
+          "地址与 VLAN 一致性",
+          "终端地址整改"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "gateway_03",
+    "category": "gateway",
+    "category_name": "终端 IP / 网关配置异常",
+    "expression_type": "direct",
+    "expression_name": "直接故障描述",
+    "difficulty": "easy",
+    "query": "地址迁移后网络不通，如何判断是终端 IP/网关配置问题还是接入 VLAN 问题？",
+    "relevant": [
+      {
+        "source": "07_endpoint_connectivity_checks.md",
+        "sections": [
+          "默认网关测试",
+          "地址调整",
+          "典型场景",
+          "Windows 网络信息"
+        ]
+      },
+      {
+        "source": "03_dcn_oa_network_basics.md",
+        "sections": [
+          "地址与 VLAN 一致性",
+          "终端地址整改"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "gateway_04",
+    "category": "gateway",
+    "category_name": "终端 IP / 网关配置异常",
+    "expression_type": "colloquial",
+    "expression_name": "口语/同义改写",
+    "difficulty": "medium",
+    "query": "电脑 IP 已经改了，但网关还是原来的，为什么会直接上不了网？",
+    "relevant": [
+      {
+        "source": "07_endpoint_connectivity_checks.md",
+        "sections": [
+          "默认网关测试",
+          "地址调整",
+          "典型场景",
+          "Windows 网络信息"
+        ]
+      },
+      {
+        "source": "03_dcn_oa_network_basics.md",
+        "sections": [
+          "地址与 VLAN 一致性",
+          "终端地址整改"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "gateway_05",
+    "category": "gateway",
+    "category_name": "终端 IP / 网关配置异常",
+    "expression_type": "colloquial",
+    "expression_name": "口语/同义改写",
+    "difficulty": "medium",
+    "query": "用户换到新网段后还是不通，先看 ipconfig 里的哪些东西？",
+    "relevant": [
+      {
+        "source": "07_endpoint_connectivity_checks.md",
+        "sections": [
+          "默认网关测试",
+          "地址调整",
+          "典型场景",
+          "Windows 网络信息"
+        ]
+      },
+      {
+        "source": "03_dcn_oa_network_basics.md",
+        "sections": [
+          "地址与 VLAN 一致性",
+          "终端地址整改"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "gateway_06",
+    "category": "gateway",
+    "category_name": "终端 IP / 网关配置异常",
+    "expression_type": "colloquial",
+    "expression_name": "口语/同义改写",
+    "difficulty": "medium",
+    "query": "地址看起来是新的，可默认路由还指着旧网关，这种情况怎么确认？",
+    "relevant": [
+      {
+        "source": "07_endpoint_connectivity_checks.md",
+        "sections": [
+          "默认网关测试",
+          "地址调整",
+          "典型场景",
+          "Windows 网络信息"
+        ]
+      },
+      {
+        "source": "03_dcn_oa_network_basics.md",
+        "sections": [
+          "地址与 VLAN 一致性",
+          "终端地址整改"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "gateway_07",
+    "category": "gateway",
+    "category_name": "终端 IP / 网关配置异常",
+    "expression_type": "multi_evidence",
+    "expression_name": "多证据组合",
+    "difficulty": "hard",
+    "query": "终端 IP 已调整到 10.20.30.15，接口和 MAC 正常，但默认网关仍为旧网段地址，应如何解释故障范围？",
+    "relevant": [
+      {
+        "source": "07_endpoint_connectivity_checks.md",
+        "sections": [
+          "默认网关测试",
+          "地址调整",
+          "典型场景",
+          "Windows 网络信息"
+        ]
+      },
+      {
+        "source": "03_dcn_oa_network_basics.md",
+        "sections": [
+          "地址与 VLAN 一致性",
+          "终端地址整改"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "gateway_08",
+    "category": "gateway",
+    "category_name": "终端 IP / 网关配置异常",
+    "expression_type": "multi_evidence",
+    "expression_name": "多证据组合",
+    "difficulty": "hard",
+    "query": "交换机 VLAN 与目标规划一致，终端可以看到本地网卡，但默认网关不可达，应继续检查哪些终端和三层证据？",
+    "relevant": [
+      {
+        "source": "07_endpoint_connectivity_checks.md",
+        "sections": [
+          "默认网关测试",
+          "地址调整",
+          "典型场景",
+          "Windows 网络信息"
+        ]
+      },
+      {
+        "source": "03_dcn_oa_network_basics.md",
+        "sections": [
+          "地址与 VLAN 一致性",
+          "终端地址整改"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "gateway_09",
+    "category": "gateway",
+    "category_name": "终端 IP / 网关配置异常",
+    "expression_type": "multi_evidence",
+    "expression_name": "多证据组合",
+    "difficulty": "hard",
+    "query": "终端新 IP、掩码正确，DNS 已配置，但网关属于原网络，且业务全部不可达，哪项配置最值得优先核对？",
+    "relevant": [
+      {
+        "source": "07_endpoint_connectivity_checks.md",
+        "sections": [
+          "默认网关测试",
+          "地址调整",
+          "典型场景",
+          "Windows 网络信息"
+        ]
+      },
+      {
+        "source": "03_dcn_oa_network_basics.md",
+        "sections": [
+          "地址与 VLAN 一致性",
+          "终端地址整改"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "gateway_10",
+    "category": "gateway",
+    "category_name": "终端 IP / 网关配置异常",
+    "expression_type": "procedure",
+    "expression_name": "排障操作询问",
+    "difficulty": "medium",
+    "query": "地址整改后如何通过 ipconfig /all、route print 和 ping 网关完成终端侧核查？",
+    "relevant": [
+      {
+        "source": "07_endpoint_connectivity_checks.md",
+        "sections": [
+          "默认网关测试",
+          "地址调整",
+          "典型场景",
+          "Windows 网络信息"
+        ]
+      },
+      {
+        "source": "03_dcn_oa_network_basics.md",
+        "sections": [
+          "地址与 VLAN 一致性",
+          "终端地址整改"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "gateway_11",
+    "category": "gateway",
+    "category_name": "终端 IP / 网关配置异常",
+    "expression_type": "procedure",
+    "expression_name": "排障操作询问",
+    "difficulty": "medium",
+    "query": "检查终端 IP/网关异常时，应如何把终端配置与交换机 VLAN 证据关联起来？",
+    "relevant": [
+      {
+        "source": "07_endpoint_connectivity_checks.md",
+        "sections": [
+          "默认网关测试",
+          "地址调整",
+          "典型场景",
+          "Windows 网络信息"
+        ]
+      },
+      {
+        "source": "03_dcn_oa_network_basics.md",
+        "sections": [
+          "地址与 VLAN 一致性",
+          "终端地址整改"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "gateway_12",
+    "category": "gateway",
+    "category_name": "终端 IP / 网关配置异常",
+    "expression_type": "procedure",
+    "expression_name": "排障操作询问",
+    "difficulty": "medium",
+    "query": "网关不可达时，为什么还需要结合 IP、VLAN、ARP 和接口状态，而不能只凭一次 ping 下结论？",
+    "relevant": [
+      {
+        "source": "07_endpoint_connectivity_checks.md",
+        "sections": [
+          "默认网关测试",
+          "地址调整",
+          "典型场景",
+          "Windows 网络信息"
+        ]
+      },
+      {
+        "source": "03_dcn_oa_network_basics.md",
+        "sections": [
+          "地址与 VLAN 一致性",
+          "终端地址整改"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "gateway_13",
+    "category": "gateway",
+    "category_name": "终端 IP / 网关配置异常",
+    "expression_type": "noisy",
+    "expression_name": "不完整/带干扰信息",
+    "difficulty": "hard",
+    "query": "用户说“改完 IP 就断网了”，目前只知道交换机接口 UP，应该先让现场提供哪些终端网络信息？",
+    "relevant": [
+      {
+        "source": "07_endpoint_connectivity_checks.md",
+        "sections": [
+          "默认网关测试",
+          "地址调整",
+          "典型场景",
+          "Windows 网络信息"
+        ]
+      },
+      {
+        "source": "03_dcn_oa_network_basics.md",
+        "sections": [
+          "地址与 VLAN 一致性",
+          "终端地址整改"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "gateway_14",
+    "category": "gateway",
+    "category_name": "终端 IP / 网关配置异常",
+    "expression_type": "noisy",
+    "expression_name": "不完整/带干扰信息",
+    "difficulty": "hard",
+    "query": "新地址能看到、DNS 也填了，但业务都不通，网关配置是否正确还没确认，下一步最有效的只读检查是什么？",
+    "relevant": [
+      {
+        "source": "07_endpoint_connectivity_checks.md",
+        "sections": [
+          "默认网关测试",
+          "地址调整",
+          "典型场景",
+          "Windows 网络信息"
+        ]
+      },
+      {
+        "source": "03_dcn_oa_network_basics.md",
+        "sections": [
+          "地址与 VLAN 一致性",
+          "终端地址整改"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "gateway_15",
+    "category": "gateway",
+    "category_name": "终端 IP / 网关配置异常",
+    "expression_type": "noisy",
+    "expression_name": "不完整/带干扰信息",
+    "difficulty": "hard",
+    "query": "用户认为是 VLAN 问题，但终端默认网关明显还在旧网段，Agent 应如何组织这两类可能性？",
+    "relevant": [
+      {
+        "source": "07_endpoint_connectivity_checks.md",
+        "sections": [
+          "默认网关测试",
+          "地址调整",
+          "典型场景",
+          "Windows 网络信息"
+        ]
+      },
+      {
+        "source": "03_dcn_oa_network_basics.md",
+        "sections": [
+          "地址与 VLAN 一致性",
+          "终端地址整改"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "link_01",
+    "category": "link",
+    "category_name": "链路质量 / 错误计数异常",
+    "expression_type": "direct",
+    "expression_name": "直接故障描述",
+    "difficulty": "easy",
+    "query": "接口保持 UP 但输入错误或丢包计数持续增加，应优先检查哪些链路质量问题？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "Interface 状态"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "时延和丢包",
+          "常见设备和链路问题"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "link_02",
+    "category": "link",
+    "category_name": "链路质量 / 错误计数异常",
+    "expression_type": "direct",
+    "expression_name": "直接故障描述",
+    "difficulty": "easy",
+    "query": "网络出现间歇性丢包，同时交换机接口错误计数上升，应该如何定位？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "Interface 状态"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "时延和丢包",
+          "常见设备和链路问题"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "link_03",
+    "category": "link",
+    "category_name": "链路质量 / 错误计数异常",
+    "expression_type": "direct",
+    "expression_name": "直接故障描述",
+    "difficulty": "easy",
+    "query": "端口没有 DOWN，但错误包持续增长，这类现象能说明什么、还需要什么证据？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "Interface 状态"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "时延和丢包",
+          "常见设备和链路问题"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "link_04",
+    "category": "link",
+    "category_name": "链路质量 / 错误计数异常",
+    "expression_type": "colloquial",
+    "expression_name": "口语/同义改写",
+    "difficulty": "medium",
+    "query": "口一直是 UP 的，可网络一会儿好一会儿坏，错误包也在涨，这通常先查哪儿？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "Interface 状态"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "时延和丢包",
+          "常见设备和链路问题"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "link_05",
+    "category": "link",
+    "category_name": "链路质量 / 错误计数异常",
+    "expression_type": "colloquial",
+    "expression_name": "口语/同义改写",
+    "difficulty": "medium",
+    "query": "端口没掉线，就是老丢包，接口计数还越来越高，是不是线有问题？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "Interface 状态"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "时延和丢包",
+          "常见设备和链路问题"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "link_06",
+    "category": "link",
+    "category_name": "链路质量 / 错误计数异常",
+    "expression_type": "colloquial",
+    "expression_name": "口语/同义改写",
+    "difficulty": "medium",
+    "query": "用户说网络“卡一下又好”，交换机上看到错误计数增加，这能直接换设备吗？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "Interface 状态"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "时延和丢包",
+          "常见设备和链路问题"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "link_07",
+    "category": "link",
+    "category_name": "链路质量 / 错误计数异常",
+    "expression_type": "multi_evidence",
+    "expression_name": "多证据组合",
+    "difficulty": "hard",
+    "query": "接口 UP、目标 MAC 正常、VLAN 一致，但 input errors 持续增长且用户反馈间歇掉线，应如何缩小范围？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "Interface 状态"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "时延和丢包",
+          "常见设备和链路问题"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "link_08",
+    "category": "link",
+    "category_name": "链路质量 / 错误计数异常",
+    "expression_type": "multi_evidence",
+    "expression_name": "多证据组合",
+    "difficulty": "hard",
+    "query": "网关 ping 存在持续丢包，接口错误计数同步增加，而资源关系正常，应优先关注哪类物理或容量证据？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "Interface 状态"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "时延和丢包",
+          "常见设备和链路问题"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "link_09",
+    "category": "link",
+    "category_name": "链路质量 / 错误计数异常",
+    "expression_type": "multi_evidence",
+    "expression_name": "多证据组合",
+    "difficulty": "hard",
+    "query": "端口流量较高、错误包上升且业务时延明显增大，如何区分链路质量问题与拥塞问题？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "Interface 状态"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "时延和丢包",
+          "常见设备和链路问题"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "link_10",
+    "category": "link",
+    "category_name": "链路质量 / 错误计数异常",
+    "expression_type": "procedure",
+    "expression_name": "排障操作询问",
+    "difficulty": "medium",
+    "query": "排查间歇性链路异常时，应该记录哪些 Interface 统计并如何观察计数变化趋势？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "Interface 状态"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "时延和丢包",
+          "常见设备和链路问题"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "link_11",
+    "category": "link",
+    "category_name": "链路质量 / 错误计数异常",
+    "expression_type": "procedure",
+    "expression_name": "排障操作询问",
+    "difficulty": "medium",
+    "query": "如何结合 ping 丢包、接口错误计数和历史流量判断是否需要升级链路质量排查？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "Interface 状态"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "时延和丢包",
+          "常见设备和链路问题"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "link_12",
+    "category": "link",
+    "category_name": "链路质量 / 错误计数异常",
+    "expression_type": "procedure",
+    "expression_name": "排障操作询问",
+    "difficulty": "medium",
+    "query": "接口 UP 但质量异常时，线缆、模块、物理连接和流量拥塞应按什么思路逐步核查？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "Interface 状态"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "时延和丢包",
+          "常见设备和链路问题"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "link_13",
+    "category": "link",
+    "category_name": "链路质量 / 错误计数异常",
+    "expression_type": "noisy",
+    "expression_name": "不完整/带干扰信息",
+    "difficulty": "hard",
+    "query": "用户只说“网络不稳定”，端口没有 DOWN，但偶尔有错误计数，现阶段能否直接判断硬件故障？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "Interface 状态"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "时延和丢包",
+          "常见设备和链路问题"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "link_14",
+    "category": "link",
+    "category_name": "链路质量 / 错误计数异常",
+    "expression_type": "noisy",
+    "expression_name": "不完整/带干扰信息",
+    "difficulty": "hard",
+    "query": "业务时快时慢，接口上有少量错误包，同时上联也比较忙，Agent 应如何避免单一证据归因？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "Interface 状态"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "时延和丢包",
+          "常见设备和链路问题"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "link_15",
+    "category": "link",
+    "category_name": "链路质量 / 错误计数异常",
+    "expression_type": "noisy",
+    "expression_name": "不完整/带干扰信息",
+    "difficulty": "hard",
+    "query": "现场怀疑交换机端口坏了，但错误计数只是刚出现且没有趋势数据，下一步应补采什么证据？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "Interface 状态"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "时延和丢包",
+          "常见设备和链路问题"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "arp_01",
+    "category": "arp",
+    "category_name": "MAC 存在但 ARP 缺失 / ARP 证据异常",
+    "expression_type": "direct",
+    "expression_name": "直接故障描述",
+    "difficulty": "easy",
+    "query": "MAC 已学习但目标 IP 的 ARP 表项不存在，这能直接判定终端故障吗？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "ARP 表"
+        ]
+      },
+      {
+        "source": "05_metro_access_network_basics.md",
+        "sections": [
+          "二层与三层基本概念"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "arp_02",
+    "category": "arp",
+    "category_name": "MAC 存在但 ARP 缺失 / ARP 证据异常",
+    "expression_type": "direct",
+    "expression_name": "直接故障描述",
+    "difficulty": "easy",
+    "query": "二层 MAC 正常而 ARP 缺失时，应如何理解当前证据？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "ARP 表"
+        ]
+      },
+      {
+        "source": "05_metro_access_network_basics.md",
+        "sections": [
+          "二层与三层基本概念"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "arp_03",
+    "category": "arp",
+    "category_name": "MAC 存在但 ARP 缺失 / ARP 证据异常",
+    "expression_type": "direct",
+    "expression_name": "直接故障描述",
+    "difficulty": "easy",
+    "query": "交换机能看到目标 MAC，却没有对应 ARP，下一步应检查哪些三层信息？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "ARP 表"
+        ]
+      },
+      {
+        "source": "05_metro_access_network_basics.md",
+        "sections": [
+          "二层与三层基本概念"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "arp_04",
+    "category": "arp",
+    "category_name": "MAC 存在但 ARP 缺失 / ARP 证据异常",
+    "expression_type": "colloquial",
+    "expression_name": "口语/同义改写",
+    "difficulty": "medium",
+    "query": "MAC 都有了，为什么 ARP 还是查不到？这是不是说明 IP 有问题？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "ARP 表"
+        ]
+      },
+      {
+        "source": "05_metro_access_network_basics.md",
+        "sections": [
+          "二层与三层基本概念"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "arp_05",
+    "category": "arp",
+    "category_name": "MAC 存在但 ARP 缺失 / ARP 证据异常",
+    "expression_type": "colloquial",
+    "expression_name": "口语/同义改写",
+    "difficulty": "medium",
+    "query": "二层看着通，ARP 就是不出来，这时候应该继续看什么？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "ARP 表"
+        ]
+      },
+      {
+        "source": "05_metro_access_network_basics.md",
+        "sections": [
+          "二层与三层基本概念"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "arp_06",
+    "category": "arp",
+    "category_name": "MAC 存在但 ARP 缺失 / ARP 证据异常",
+    "expression_type": "colloquial",
+    "expression_name": "口语/同义改写",
+    "difficulty": "medium",
+    "query": "能学到 MAC 但没有 ARP，能不能直接说终端没联网？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "ARP 表"
+        ]
+      },
+      {
+        "source": "05_metro_access_network_basics.md",
+        "sections": [
+          "二层与三层基本概念"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "arp_07",
+    "category": "arp",
+    "category_name": "MAC 存在但 ARP 缺失 / ARP 证据异常",
+    "expression_type": "multi_evidence",
+    "expression_name": "多证据组合",
+    "difficulty": "hard",
+    "query": "接口 UP、MAC 已学习、VLAN 正常，但未发现目标 ARP，终端近期是否发起三层通信还不确定，应如何判断？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "ARP 表"
+        ]
+      },
+      {
+        "source": "05_metro_access_network_basics.md",
+        "sections": [
+          "二层与三层基本概念"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "arp_08",
+    "category": "arp",
+    "category_name": "MAC 存在但 ARP 缺失 / ARP 证据异常",
+    "expression_type": "multi_evidence",
+    "expression_name": "多证据组合",
+    "difficulty": "hard",
+    "query": "MAC 所在端口与资源登记一致，目标 VLAN 正确，但 ARP 缺失且网关可达性未知，下一步应补什么证据？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "ARP 表"
+        ]
+      },
+      {
+        "source": "05_metro_access_network_basics.md",
+        "sections": [
+          "二层与三层基本概念"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "arp_09",
+    "category": "arp",
+    "category_name": "MAC 存在但 ARP 缺失 / ARP 证据异常",
+    "expression_type": "multi_evidence",
+    "expression_name": "多证据组合",
+    "difficulty": "hard",
+    "query": "终端 MAC 正常、ARP 表项缺失，同时业务暂未产生流量，是否可能只是表项老化或尚未建立邻接？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "ARP 表"
+        ]
+      },
+      {
+        "source": "05_metro_access_network_basics.md",
+        "sections": [
+          "二层与三层基本概念"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "arp_10",
+    "category": "arp",
+    "category_name": "MAC 存在但 ARP 缺失 / ARP 证据异常",
+    "expression_type": "procedure",
+    "expression_name": "排障操作询问",
+    "difficulty": "medium",
+    "query": "如何通过 MAC、ARP、终端 IP 和网关信息逐步判断二层与三层邻接是否完整？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "ARP 表"
+        ]
+      },
+      {
+        "source": "05_metro_access_network_basics.md",
+        "sections": [
+          "二层与三层基本概念"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "arp_11",
+    "category": "arp",
+    "category_name": "MAC 存在但 ARP 缺失 / ARP 证据异常",
+    "expression_type": "procedure",
+    "expression_name": "排障操作询问",
+    "difficulty": "medium",
+    "query": "检查 ARP 缺失场景时，应如何确认查询设备或网络位置是否正确？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "ARP 表"
+        ]
+      },
+      {
+        "source": "05_metro_access_network_basics.md",
+        "sections": [
+          "二层与三层基本概念"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "arp_12",
+    "category": "arp",
+    "category_name": "MAC 存在但 ARP 缺失 / ARP 证据异常",
+    "expression_type": "procedure",
+    "expression_name": "排障操作询问",
+    "difficulty": "medium",
+    "query": "为什么排障时要把 ARP 放在 MAC/VLAN 之后，并与终端三层配置一起解释？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "ARP 表"
+        ]
+      },
+      {
+        "source": "05_metro_access_network_basics.md",
+        "sections": [
+          "二层与三层基本概念"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "arp_13",
+    "category": "arp",
+    "category_name": "MAC 存在但 ARP 缺失 / ARP 证据异常",
+    "expression_type": "noisy",
+    "expression_name": "不完整/带干扰信息",
+    "difficulty": "hard",
+    "query": "用户说业务不通，当前只知道 MAC 有、ARP 没有，其他证据还没收集，现阶段最安全的结论是什么？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "ARP 表"
+        ]
+      },
+      {
+        "source": "05_metro_access_network_basics.md",
+        "sections": [
+          "二层与三层基本概念"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "arp_14",
+    "category": "arp",
+    "category_name": "MAC 存在但 ARP 缺失 / ARP 证据异常",
+    "expression_type": "noisy",
+    "expression_name": "不完整/带干扰信息",
+    "difficulty": "hard",
+    "query": "ARP 表没有目标 IP，但接口和 MAC 都正常，而且终端可能刚开机，这时应先等还是补充哪些检查？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "ARP 表"
+        ]
+      },
+      {
+        "source": "05_metro_access_network_basics.md",
+        "sections": [
+          "二层与三层基本概念"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "arp_15",
+    "category": "arp",
+    "category_name": "MAC 存在但 ARP 缺失 / ARP 证据异常",
+    "expression_type": "noisy",
+    "expression_name": "不完整/带干扰信息",
+    "difficulty": "hard",
+    "query": "有人把“无 ARP”直接当成交换机故障，但没有网关和终端信息，Agent 应如何纠正这种判断？",
+    "relevant": [
+      {
+        "source": "02_switch_readonly_evidence.md",
+        "sections": [
+          "ARP 表"
+        ]
+      },
+      {
+        "source": "05_metro_access_network_basics.md",
+        "sections": [
+          "二层与三层基本概念"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "device_01",
+    "category": "device",
+    "category_name": "资源登记设备与实时核查设备不一致",
+    "expression_type": "direct",
+    "expression_name": "直接故障描述",
+    "difficulty": "easy",
+    "query": "资源台账登记设备与当前实际核查设备不一致时，应如何处理？",
+    "relevant": [
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "资源记录"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "故障升级"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "device_02",
+    "category": "device",
+    "category_name": "资源登记设备与实时核查设备不一致",
+    "expression_type": "direct",
+    "expression_name": "直接故障描述",
+    "difficulty": "easy",
+    "query": "设备侧实时证据和资源系统中的接入设备记录发生冲突，应该怎样交叉验证？",
+    "relevant": [
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "资源记录"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "故障升级"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "device_03",
+    "category": "device",
+    "category_name": "资源登记设备与实时核查设备不一致",
+    "expression_type": "direct",
+    "expression_name": "直接故障描述",
+    "difficulty": "easy",
+    "query": "发现资源关系可能已过期，如何确认当前终端究竟接在哪台设备上？",
+    "relevant": [
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "资源记录"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "故障升级"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "device_04",
+    "category": "device",
+    "category_name": "资源登记设备与实时核查设备不一致",
+    "expression_type": "colloquial",
+    "expression_name": "口语/同义改写",
+    "difficulty": "medium",
+    "query": "系统说用户在 A 交换机，可实际查到的证据像是在 B 交换机，这时候先信谁？",
+    "relevant": [
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "资源记录"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "故障升级"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "device_05",
+    "category": "device",
+    "category_name": "资源登记设备与实时核查设备不一致",
+    "expression_type": "colloquial",
+    "expression_name": "口语/同义改写",
+    "difficulty": "medium",
+    "query": "按台账找到的设备没有目标信息，另一台设备却能查到用户，怎么继续定位？",
+    "relevant": [
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "资源记录"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "故障升级"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "device_06",
+    "category": "device",
+    "category_name": "资源登记设备与实时核查设备不一致",
+    "expression_type": "colloquial",
+    "expression_name": "口语/同义改写",
+    "difficulty": "medium",
+    "query": "资源系统里的设备可能没更新，能不能直接按实时结果改台账？",
+    "relevant": [
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "资源记录"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "故障升级"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "device_07",
+    "category": "device",
+    "category_name": "资源登记设备与实时核查设备不一致",
+    "expression_type": "multi_evidence",
+    "expression_name": "多证据组合",
+    "difficulty": "hard",
+    "query": "资源登记设备 SW-SIM-01 上无目标 MAC，而 SW-SIM-02 的某端口学习到目标 MAC，且终端近期可能迁移，应如何判断？",
+    "relevant": [
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "资源记录"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "故障升级"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "device_08",
+    "category": "device",
+    "category_name": "资源登记设备与实时核查设备不一致",
+    "expression_type": "multi_evidence",
+    "expression_name": "多证据组合",
+    "difficulty": "hard",
+    "query": "登记设备和实时设备不同，但实际 MAC 端口、VLAN 与终端业务均正常，这类冲突应如何记录和升级？",
+    "relevant": [
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "资源记录"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "故障升级"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "device_09",
+    "category": "device",
+    "category_name": "资源登记设备与实时核查设备不一致",
+    "expression_type": "multi_evidence",
+    "expression_name": "多证据组合",
+    "difficulty": "hard",
+    "query": "资源台账指向旧设备，当前设备证据完整且用户可用，但迁移记录缺失，应优先确认哪些事实？",
+    "relevant": [
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "资源记录"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "故障升级"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "device_10",
+    "category": "device",
+    "category_name": "资源登记设备与实时核查设备不一致",
+    "expression_type": "procedure",
+    "expression_name": "排障操作询问",
+    "difficulty": "medium",
+    "query": "资源设备不一致时，如何使用 IP、MAC、设备、端口和 VLAN 证据重新确认接入关系？",
+    "relevant": [
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "资源记录"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "故障升级"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "device_11",
+    "category": "device",
+    "category_name": "资源登记设备与实时核查设备不一致",
+    "expression_type": "procedure",
+    "expression_name": "排障操作询问",
+    "difficulty": "medium",
+    "query": "怎样区分“资源记录滞后”“查询对象错误”和“终端迁移”这几种可能情况？",
+    "relevant": [
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "资源记录"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "故障升级"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "device_12",
+    "category": "device",
+    "category_name": "资源登记设备与实时核查设备不一致",
+    "expression_type": "procedure",
+    "expression_name": "排障操作询问",
+    "difficulty": "medium",
+    "query": "什么情况下设备登记冲突应交由人工维护人员复核，而不是让 Agent 自动修正？",
+    "relevant": [
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "资源记录"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "故障升级"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "device_13",
+    "category": "device",
+    "category_name": "资源登记设备与实时核查设备不一致",
+    "expression_type": "noisy",
+    "expression_name": "不完整/带干扰信息",
+    "difficulty": "hard",
+    "query": "现场只说“用户可能换过位置”，台账设备和实时查询结果又对不上，现阶段 Agent 应如何标记不确定性？",
+    "relevant": [
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "资源记录"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "故障升级"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "device_14",
+    "category": "device",
+    "category_name": "资源登记设备与实时核查设备不一致",
+    "expression_type": "noisy",
+    "expression_name": "不完整/带干扰信息",
+    "difficulty": "hard",
+    "query": "资源系统的数据可能是旧的，但没有正式迁移记录，实时 MAC 又出现在另一设备上，应该先做什么？",
+    "relevant": [
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "资源记录"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "故障升级"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "device_15",
+    "category": "device",
+    "category_name": "资源登记设备与实时核查设备不一致",
+    "expression_type": "noisy",
+    "expression_name": "不完整/带干扰信息",
+    "difficulty": "hard",
+    "query": "用户业务目前正常，只是设备登记关系冲突，这种问题是否仍要保留审计证据和人工确认？",
+    "relevant": [
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "资源记录"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "故障升级"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "normal_01",
+    "category": "normal",
+    "category_name": "接入证据一致 / 无明显接入侧异常",
+    "expression_type": "direct",
+    "expression_name": "直接故障描述",
+    "difficulty": "easy",
+    "query": "设备、端口、Interface、MAC 和 VLAN 证据均一致时，是否可以认为接入侧没有明显异常？",
+    "relevant": [
+      {
+        "source": "07_endpoint_connectivity_checks.md",
+        "sections": [
+          "典型场景",
+          "地址调整"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断",
+          "推荐诊断顺序"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "故障升级"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "normal_02",
+    "category": "normal",
+    "category_name": "接入证据一致 / 无明显接入侧异常",
+    "expression_type": "direct",
+    "expression_name": "直接故障描述",
+    "difficulty": "easy",
+    "query": "接入侧各项证据正常但用户仍报障，下一步应如何继续分层排查？",
+    "relevant": [
+      {
+        "source": "07_endpoint_connectivity_checks.md",
+        "sections": [
+          "典型场景",
+          "地址调整"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断",
+          "推荐诊断顺序"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "故障升级"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "normal_03",
+    "category": "normal",
+    "category_name": "接入证据一致 / 无明显接入侧异常",
+    "expression_type": "direct",
+    "expression_name": "直接故障描述",
+    "difficulty": "easy",
+    "query": "物理链路和二层证据均正常时，为什么还需要检查终端配置和上层业务？",
+    "relevant": [
+      {
+        "source": "07_endpoint_connectivity_checks.md",
+        "sections": [
+          "典型场景",
+          "地址调整"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断",
+          "推荐诊断顺序"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "故障升级"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "normal_04",
+    "category": "normal",
+    "category_name": "接入证据一致 / 无明显接入侧异常",
+    "expression_type": "colloquial",
+    "expression_name": "口语/同义改写",
+    "difficulty": "medium",
+    "query": "交换机这边从端口到 VLAN 都正常，那是不是就可以不管用户报障了？",
+    "relevant": [
+      {
+        "source": "07_endpoint_connectivity_checks.md",
+        "sections": [
+          "典型场景",
+          "地址调整"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断",
+          "推荐诊断顺序"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "故障升级"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "normal_05",
+    "category": "normal",
+    "category_name": "接入证据一致 / 无明显接入侧异常",
+    "expression_type": "colloquial",
+    "expression_name": "口语/同义改写",
+    "difficulty": "medium",
+    "query": "接入侧看不出问题，用户还是说不能用，接下来该往哪儿查？",
+    "relevant": [
+      {
+        "source": "07_endpoint_connectivity_checks.md",
+        "sections": [
+          "典型场景",
+          "地址调整"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断",
+          "推荐诊断顺序"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "故障升级"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "normal_06",
+    "category": "normal",
+    "category_name": "接入证据一致 / 无明显接入侧异常",
+    "expression_type": "colloquial",
+    "expression_name": "口语/同义改写",
+    "difficulty": "medium",
+    "query": "口、MAC、VLAN 都对得上，为什么还要看网关、DNS 和业务系统？",
+    "relevant": [
+      {
+        "source": "07_endpoint_connectivity_checks.md",
+        "sections": [
+          "典型场景",
+          "地址调整"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断",
+          "推荐诊断顺序"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "故障升级"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "normal_07",
+    "category": "normal",
+    "category_name": "接入证据一致 / 无明显接入侧异常",
+    "expression_type": "multi_evidence",
+    "expression_name": "多证据组合",
+    "difficulty": "hard",
+    "query": "资源设备与端口一致、接口 UP、目标 MAC 已学习、VLAN 正确、网关可达，但用户业务仍异常，应如何界定接入侧结论？",
+    "relevant": [
+      {
+        "source": "07_endpoint_connectivity_checks.md",
+        "sections": [
+          "典型场景",
+          "地址调整"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断",
+          "推荐诊断顺序"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "故障升级"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "normal_08",
+    "category": "normal",
+    "category_name": "接入证据一致 / 无明显接入侧异常",
+    "expression_type": "multi_evidence",
+    "expression_name": "多证据组合",
+    "difficulty": "hard",
+    "query": "Interface 无错误、MAC 和 ARP 均存在、VLAN 与规划一致，但应用访问失败，下一步应将排障范围移向哪里？",
+    "relevant": [
+      {
+        "source": "07_endpoint_connectivity_checks.md",
+        "sections": [
+          "典型场景",
+          "地址调整"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断",
+          "推荐诊断顺序"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "故障升级"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "normal_09",
+    "category": "normal",
+    "category_name": "接入证据一致 / 无明显接入侧异常",
+    "expression_type": "multi_evidence",
+    "expression_name": "多证据组合",
+    "difficulty": "hard",
+    "query": "接入侧证据完整且一致，终端 IP 配置也正常，但问题仍未恢复，应如何形成“接入侧暂未发现异常”的可追溯结论？",
+    "relevant": [
+      {
+        "source": "07_endpoint_connectivity_checks.md",
+        "sections": [
+          "典型场景",
+          "地址调整"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断",
+          "推荐诊断顺序"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "故障升级"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "normal_10",
+    "category": "normal",
+    "category_name": "接入证据一致 / 无明显接入侧异常",
+    "expression_type": "procedure",
+    "expression_name": "排障操作询问",
+    "difficulty": "medium",
+    "query": "当资源、接口、MAC、VLAN、ARP 均正常时，完整的后续排障顺序应该如何安排？",
+    "relevant": [
+      {
+        "source": "07_endpoint_connectivity_checks.md",
+        "sections": [
+          "典型场景",
+          "地址调整"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断",
+          "推荐诊断顺序"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "故障升级"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "normal_11",
+    "category": "normal",
+    "category_name": "接入证据一致 / 无明显接入侧异常",
+    "expression_type": "procedure",
+    "expression_name": "排障操作询问",
+    "difficulty": "medium",
+    "query": "如何在确认接入侧无明显异常后，继续检查 DNS、上层路由、访问策略和业务系统？",
+    "relevant": [
+      {
+        "source": "07_endpoint_connectivity_checks.md",
+        "sections": [
+          "典型场景",
+          "地址调整"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断",
+          "推荐诊断顺序"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "故障升级"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "normal_12",
+    "category": "normal",
+    "category_name": "接入证据一致 / 无明显接入侧异常",
+    "expression_type": "procedure",
+    "expression_name": "排障操作询问",
+    "difficulty": "medium",
+    "query": "什么证据满足后才适合把故障从接入层升级到上层网络或业务系统？",
+    "relevant": [
+      {
+        "source": "07_endpoint_connectivity_checks.md",
+        "sections": [
+          "典型场景",
+          "地址调整"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断",
+          "推荐诊断顺序"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "故障升级"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "normal_13",
+    "category": "normal",
+    "category_name": "接入证据一致 / 无明显接入侧异常",
+    "expression_type": "noisy",
+    "expression_name": "不完整/带干扰信息",
+    "difficulty": "hard",
+    "query": "用户坚持“就是网络问题”，但接入侧所有证据都一致且正常，Agent 应怎样表达而不是武断排除？",
+    "relevant": [
+      {
+        "source": "07_endpoint_connectivity_checks.md",
+        "sections": [
+          "典型场景",
+          "地址调整"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断",
+          "推荐诊断顺序"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "故障升级"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "normal_14",
+    "category": "normal",
+    "category_name": "接入证据一致 / 无明显接入侧异常",
+    "expression_type": "noisy",
+    "expression_name": "不完整/带干扰信息",
+    "difficulty": "hard",
+    "query": "目前接入侧没有发现异常，但目标业务偶发失败且上层信息不足，下一步应收集什么并如何记录？",
+    "relevant": [
+      {
+        "source": "07_endpoint_connectivity_checks.md",
+        "sections": [
+          "典型场景",
+          "地址调整"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断",
+          "推荐诊断顺序"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "故障升级"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "normal_15",
+    "category": "normal",
+    "category_name": "接入证据一致 / 无明显接入侧异常",
+    "expression_type": "noisy",
+    "expression_name": "不完整/带干扰信息",
+    "difficulty": "hard",
+    "query": "所有交换机侧检查都正常，可用户现场仍无法使用业务，这时最不应该做的是什么、最应该做的是什么？",
+    "relevant": [
+      {
+        "source": "07_endpoint_connectivity_checks.md",
+        "sections": [
+          "典型场景",
+          "地址调整"
+        ]
+      },
+      {
+        "source": "01_access_network_troubleshooting.md",
+        "sections": [
+          "常见故障判断",
+          "推荐诊断顺序"
+        ]
+      },
+      {
+        "source": "04_emergency_fault_handling_principles.md",
+        "sections": [
+          "故障升级"
+        ]
+      }
+    ]
+  }
+]

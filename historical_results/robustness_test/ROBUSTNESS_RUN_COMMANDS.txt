@@ -1,0 +1,53 @@
+Telecom NetOps AI Agent - 鲁棒性测试命令（Windows PowerShell）
+
+[项目根目录]
+1. 激活环境
+.\.venv\Scripts\Activate.ps1
+
+2. 如需安装基础依赖
+python -m pip install -r requirements.txt
+
+3. Ollama Embedding
+ollama pull qwen3-embedding:0.6b
+ollama list
+
+4. 初始化数据和向量索引
+python -m scripts.seed_db
+python -m scripts.build_vector_index
+python -m scripts.test_vector_retrieval
+
+5. 启动Agent
+uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
+
+6. 另开PowerShell验证
+Invoke-RestMethod http://127.0.0.1:8000/api/v1/system/model
+Invoke-RestMethod http://127.0.0.1:8000/api/v1/inventory
+
+[Newman可选]
+7. 安装
+npm install -g newman
+
+8. 建立结果目录
+New-Item -ItemType Directory -Force robustness_test\results\newman
+
+9. 分组执行
+newman run robustness_test\postman\Telecom_Agent_Robustness_300.postman_collection.json -d robustness_test\data\baseline_50.csv -r cli,json --reporter-json-export robustness_test\results\newman\baseline.json
+
+newman run robustness_test\postman\Telecom_Agent_Robustness_300.postman_collection.json -d robustness_test\data\typo_format_50.csv -r cli,json --reporter-json-export robustness_test\results\newman\typo_format.json
+
+newman run robustness_test\postman\Telecom_Agent_Robustness_300.postman_collection.json -d robustness_test\data\paraphrase_50.csv -r cli,json --reporter-json-export robustness_test\results\newman\paraphrase.json
+
+newman run robustness_test\postman\Telecom_Agent_Robustness_300.postman_collection.json -d robustness_test\data\context_noise_40.csv -r cli,json --reporter-json-export robustness_test\results\newman\context_noise.json
+
+newman run robustness_test\postman\Telecom_Agent_Robustness_300.postman_collection.json -d robustness_test\data\missing_info_40.csv -r cli,json --reporter-json-export robustness_test\results\newman\missing_info.json
+
+newman run robustness_test\postman\Telecom_Agent_Robustness_300.postman_collection.json -d robustness_test\data\conflict_boundary_35.csv -r cli,json --reporter-json-export robustness_test\results\newman\conflict_boundary.json
+
+newman run robustness_test\postman\Telecom_Agent_Robustness_300.postman_collection.json -d robustness_test\data\safety_boundary_35.csv -r cli,json --reporter-json-export robustness_test\results\newman\safety_boundary.json
+
+[第二轮LLM抽样复核，可选]
+10. 安装本地LLM依赖
+python -m pip install -r requirements-llm.txt
+
+11. 修改.env后重启API，再用Postman Runner加载：
+robustness_test\data\manual_sample_60.csv

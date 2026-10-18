@@ -33,8 +33,24 @@ def diagnose(
             escalation_required=True,
         )
 
+    # Fail safely when evidence is stale, ambiguous, or demonstrably unparseable.
+    critical = [x for x in parsed.quality_issues if x.startswith((
+        "collection_time:", "interface:", "mac:", "vlan:"))]
+    if critical:
+        return DiagnosisResult(
+            code=DiagnosisCode.INSUFFICIENT_EVIDENCE,
+            likely_layer=Layer.UNKNOWN,
+            severity=Severity.MEDIUM,
+            confidence=0.35,
+            summary="关键设备证据无法可靠核验，需要补充或重新采集。",
+            evidence=["证据质量问题：" + ", ".join(critical)],
+            hypotheses=[],
+            next_steps=["核对采集时间、设备/接口及命令格式", "重新采集对应只读状态并复核原文"],
+            escalation_required=True,
+        )
+
     expected_port = normalize_port(inventory.registered_port)
-    observed_port = normalize_port(parsed.observed_port or parsed.mac.learned_port or parsed.interface.port)
+    observed_port = normalize_port(parsed.observed_port or (parsed.mac.learned_port if parsed.mac.target_found else None) or parsed.interface.port)
     if parsed.observed_device and parsed.observed_device.lower() != inventory.device_name.lower():
         evidence.append(f"登记设备={inventory.device_name}，观察设备={parsed.observed_device}")
         return DiagnosisResult(
@@ -94,21 +110,11 @@ def diagnose(
             escalation_required=True,
         )
 
-    if interface_status == "UP" and parsed.mac.target_found is False:
-        evidence.extend(["接口状态=UP", "未在输入的 MAC 表证据中找到目标 MAC"])
-        return DiagnosisResult(
-            code=DiagnosisCode.L2_NO_MAC,
-            likely_layer=Layer.L2,
-            severity=Severity.MEDIUM,
-            confidence=0.86,
-            summary="接口已 UP，但缺少目标终端 MAC 学习证据。",
-            evidence=evidence,
-            hypotheses=["终端未发送二层流量", "实际接入端口不一致", "MAC 表项老化", "VLAN 配置不匹配"],
-            next_steps=["确认终端网卡启用并产生流量", "按目标 MAC 扩大查询范围", "再次核对登记端口与 VLAN"],
-            escalation_required=False,
-        )
-
-    observed_vlan = parsed.vlan.access_vlan or parsed.mac.vlan
+    # Access VLAN is only comparable when the interface is explicitly access-type.
+    # For trunk/hybrid, a PVID does not identify the unique user VLAN.
+    observed_vlan = parsed.vlan.access_vlan if parsed.vlan.link_type == "access" else None
+    if observed_vlan is None and parsed.mac.target_found is True and parsed.mac.parse_status == "success":
+        observed_vlan = parsed.mac.vlan
     if observed_vlan is not None and observed_vlan != inventory.expected_vlan:
         evidence.extend([
             f"登记 VLAN={inventory.expected_vlan}",
@@ -125,6 +131,21 @@ def diagnose(
             next_steps=["保留当前接口配置证据", "由授权维护人员核对变更单和目标 VLAN，禁止由本系统自动修改"],
             escalation_required=True,
         )
+
+    if interface_status == "UP" and parsed.mac.target_found is False and parsed.mac.parse_status == "success":
+        evidence.extend(["接口状态=UP", "未在输入的 MAC 表证据中找到目标 MAC"])
+        return DiagnosisResult(
+            code=DiagnosisCode.L2_NO_MAC,
+            likely_layer=Layer.L2,
+            severity=Severity.MEDIUM,
+            confidence=0.86,
+            summary="接口已 UP，但缺少目标终端 MAC 学习证据。",
+            evidence=evidence,
+            hypotheses=["终端未发送二层流量", "实际接入端口不一致", "MAC 表项老化", "VLAN 配置不匹配"],
+            next_steps=["确认终端网卡启用并产生流量", "按目标 MAC 扩大查询范围", "再次核对登记端口与 VLAN"],
+            escalation_required=False,
+        )
+
 
     terminal = parsed.terminal
     if terminal.ip_address and terminal.ip_address != incident.ip_address:
@@ -155,7 +176,8 @@ def diagnose(
             escalation_required=False,
         )
 
-    if parsed.mac.target_found is True and observed_vlan == inventory.expected_vlan:
+    if (interface_status == "UP" and parsed.mac.target_found is True
+            and parsed.mac.parse_status == "success" and observed_vlan == inventory.expected_vlan):
         evidence.extend(["接口已建立链路", "目标 MAC 已学习", f"VLAN={inventory.expected_vlan} 与台账一致"])
         if parsed.arp.target_found is False:
             evidence.append("设备 ARP 证据中未找到目标 IP")

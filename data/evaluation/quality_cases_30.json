@@ -11,7 +11,7 @@
     "scenario_family": "vlan_mismatch",
     "diagnosis_code": "vlan_mismatch",
     "variant": 2,
-    "input_report": "# 终端网络故障辅助诊断报告\n\n- 终端 IP：10.20.31.12\n- 登记设备：SW-SIM-A1\n- 登记端口：GE0/0/12\n- 目标 VLAN：160\n- 接口状态：UP\n- 目标 MAC：00:11:22:AA:00:12，已学习\n- MAC 学习 VLAN：200\n- 诊断代码：vlan_mismatch\n- 可能层级：二层接入层\n- 置信度：0.94\n- 结论：当前接入 VLAN 与登记 VLAN 不一致，存在二层接入配置差异线索。\n- 建议：复核台账、接入关系和近期变更记录，不得直接调整生产配置。\n- 人工审批：报告归档前需由授权人员确认。"
+    "input_report": "# 终端网络故障辅助诊断报告\n\n- 终端 IP：10.20.31.12\n- 登记设备：SW-SIM-A1\n- 登记端口：GE0/0/12\n- 目标 VLAN：132\n- 接口状态：UP\n- 目标 MAC：00:11:22:AA:00:12，已学习\n- MAC 学习 VLAN：200\n- 诊断代码：vlan_mismatch\n- 可能层级：二层接入层\n- 置信度：0.94\n- 结论：当前接入 VLAN 与登记 VLAN 不一致，存在二层接入配置差异线索。\n- 建议：复核台账、接入关系和近期变更记录，不得直接调整生产配置。\n- 人工审批：报告归档前需由授权人员确认。"
   },
   {
     "case_id": "vlan_mismatch_03",
@@ -25,42 +25,42 @@
     "scenario_family": "interface_down",
     "diagnosis_code": "physical_or_terminal_link",
     "variant": 1,
-    "input_report": "# 终端网络故障辅助诊断报告\n\n- 终端 IP：10.60.20.21\n- 登记设备：SW-SIM-B1\n- 登记端口：GE0/0/21\n- 目标 VLAN：160\n- 接口状态：DOWN\n- 协议状态：DOWN\n- 目标 MAC：00:11:22:BB:00:21\n- 诊断代码：physical_or_terminal_link\n- 可能层级：物理链路层\n- 置信度：0.95\n- 结论：登记端口当前无有效链路，优先核查终端、电源、网卡、线缆和实际接入位置。\n- 建议：仅进行只读核查并转交授权维护人员处理。\n- 人工审批：报告归档前需由授权人员确认。"
+    "input_report": "# 终端网络故障辅助诊断报告\n\n- 终端 IP：10.132.20.21\n- 登记设备：SW-SIM-B1\n- 登记端口：GE0/0/21\n- 目标 VLAN：132\n- 接口状态：DOWN\n- 协议状态：DOWN\n- 目标 MAC：00:11:22:BB:00:21\n- 诊断代码：physical_or_terminal_link\n- 可能层级：物理链路层\n- 置信度：0.95\n- 结论：登记端口当前无有效链路，优先核查终端、电源、网卡、线缆和实际接入位置。\n- 建议：仅进行只读核查并转交授权维护人员处理。\n- 人工审批：报告归档前需由授权人员确认。"
   },
   {
     "case_id": "interface_down_02",
     "scenario_family": "interface_down",
     "diagnosis_code": "physical_or_terminal_link",
     "variant": 2,
-    "input_report": "# 终端网络故障辅助诊断报告\n\n- 终端 IP：10.60.20.22\n- 登记设备：SW-SIM-B1\n- 登记端口：GE0/0/22\n- 目标 VLAN：160\n- 接口状态：DOWN\n- 协议状态：DOWN\n- 目标 MAC：00:11:22:BB:00:22\n- 诊断代码：physical_or_terminal_link\n- 可能层级：物理链路层\n- 置信度：0.93\n- 结论：接口与协议状态均为 DOWN，当前证据指向物理连接或终端侧。\n- 建议：人工检查终端连线、网卡状态和接入位置，不执行设备配置变更。\n- 人工审批：报告归档前需由授权人员确认。"
+    "input_report": "# 终端网络故障辅助诊断报告\n\n- 终端 IP：10.132.20.22\n- 登记设备：SW-SIM-B1\n- 登记端口：GE0/0/22\n- 目标 VLAN：132\n- 接口状态：DOWN\n- 协议状态：DOWN\n- 目标 MAC：00:11:22:BB:00:22\n- 诊断代码：physical_or_terminal_link\n- 可能层级：物理链路层\n- 置信度：0.93\n- 结论：接口与协议状态均为 DOWN，当前证据指向物理连接或终端侧。\n- 建议：人工检查终端连线、网卡状态和接入位置，不执行设备配置变更。\n- 人工审批：报告归档前需由授权人员确认。"
   },
   {
     "case_id": "interface_down_03",
     "scenario_family": "interface_down",
     "diagnosis_code": "physical_or_terminal_link",
     "variant": 3,
-    "input_report": "# 终端网络故障辅助诊断报告\n\n- 终端 IP：10.60.20.23\n- 登记设备：SW-SIM-B2\n- 登记端口：GE0/0/23\n- 目标 VLAN：200\n- 接口状态：DOWN\n- 协议状态：DOWN\n- 目标 MAC：00:11:22:BB:00:23\n- 诊断代码：physical_or_terminal_link\n- 可能层级：物理链路层\n- 置信度：0.91\n- 结论：资源登记端口未建立链路，需要先确认终端和物理接入条件。\n- 建议：补充现场连接状态并交由授权人员继续核查。\n- 人工审批：报告归档前需由授权人员确认。"
+    "input_report": "# 终端网络故障辅助诊断报告\n\n- 终端 IP：10.132.20.23\n- 登记设备：SW-SIM-B2\n- 登记端口：GE0/0/23\n- 目标 VLAN：200\n- 接口状态：DOWN\n- 协议状态：DOWN\n- 目标 MAC：00:11:22:BB:00:23\n- 诊断代码：physical_or_terminal_link\n- 可能层级：物理链路层\n- 置信度：0.91\n- 结论：资源登记端口未建立链路，需要先确认终端和物理接入条件。\n- 建议：补充现场连接状态并交由授权人员继续核查。\n- 人工审批：报告归档前需由授权人员确认。"
   },
   {
     "case_id": "no_mac_01",
     "scenario_family": "no_mac",
     "diagnosis_code": "l2_no_mac",
     "variant": 1,
-    "input_report": "# 终端网络故障辅助诊断报告\n\n- 终端 IP：10.60.30.31\n- 登记设备：SW-SIM-C1\n- 登记端口：GE0/0/31\n- 目标 VLAN：160\n- 接口状态：UP\n- 目标 MAC：00:11:22:CC:00:31，未学习\n- 诊断代码：l2_no_mac\n- 可能层级：二层接入层\n- 置信度：0.88\n- 结论：接口已 UP，但未观察到目标终端 MAC 学习证据。\n- 建议：核查实际接入端口、终端是否产生流量以及 VLAN 是否与登记一致。\n- 人工审批：报告归档前需由授权人员确认。"
+    "input_report": "# 终端网络故障辅助诊断报告\n\n- 终端 IP：10.132.30.31\n- 登记设备：SW-SIM-C1\n- 登记端口：GE0/0/31\n- 目标 VLAN：132\n- 接口状态：UP\n- 目标 MAC：00:11:22:CC:00:31，未学习\n- 诊断代码：l2_no_mac\n- 可能层级：二层接入层\n- 置信度：0.88\n- 结论：接口已 UP，但未观察到目标终端 MAC 学习证据。\n- 建议：核查实际接入端口、终端是否产生流量以及 VLAN 是否与登记一致。\n- 人工审批：报告归档前需由授权人员确认。"
   },
   {
     "case_id": "no_mac_02",
     "scenario_family": "no_mac",
     "diagnosis_code": "l2_no_mac",
     "variant": 2,
-    "input_report": "# 终端网络故障辅助诊断报告\n\n- 终端 IP：10.60.30.32\n- 登记设备：SW-SIM-C1\n- 登记端口：GE0/0/32\n- 目标 VLAN：160\n- 接口状态：UP\n- 目标 MAC：00:11:22:CC:00:32，未学习\n- 诊断代码：l2_no_mac\n- 可能层级：二层接入层\n- 置信度：0.86\n- 结论：物理链路正常，但当前 MAC 表中没有目标终端记录。\n- 建议：人工确认终端接入、业务流量和二层学习情况，仅做只读查询。\n- 人工审批：报告归档前需由授权人员确认。"
+    "input_report": "# 终端网络故障辅助诊断报告\n\n- 终端 IP：10.132.30.32\n- 登记设备：SW-SIM-C1\n- 登记端口：GE0/0/32\n- 目标 VLAN：132\n- 接口状态：UP\n- 目标 MAC：00:11:22:CC:00:32，未学习\n- 诊断代码：l2_no_mac\n- 可能层级：二层接入层\n- 置信度：0.86\n- 结论：物理链路正常，但当前 MAC 表中没有目标终端记录。\n- 建议：人工确认终端接入、业务流量和二层学习情况，仅做只读查询。\n- 人工审批：报告归档前需由授权人员确认。"
   },
   {
     "case_id": "no_mac_03",
     "scenario_family": "no_mac",
     "diagnosis_code": "l2_no_mac",
     "variant": 3,
-    "input_report": "# 终端网络故障辅助诊断报告\n\n- 终端 IP：10.60.30.33\n- 登记设备：SW-SIM-C2\n- 登记端口：GE0/0/33\n- 目标 VLAN：200\n- 接口状态：UP\n- 目标 MAC：00:11:22:CC:00:33，未学习\n- 诊断代码：l2_no_mac\n- 可能层级：二层接入层\n- 置信度：0.84\n- 结论：端口处于 UP 状态，仍缺少目标 MAC 的学习证据。\n- 建议：复核终端是否发流、接入端口及 VLAN 登记关系。\n- 人工审批：报告归档前需由授权人员确认。"
+    "input_report": "# 终端网络故障辅助诊断报告\n\n- 终端 IP：10.132.30.33\n- 登记设备：SW-SIM-C2\n- 登记端口：GE0/0/33\n- 目标 VLAN：200\n- 接口状态：UP\n- 目标 MAC：00:11:22:CC:00:33，未学习\n- 诊断代码：l2_no_mac\n- 可能层级：二层接入层\n- 置信度：0.84\n- 结论：端口处于 UP 状态，仍缺少目标 MAC 的学习证据。\n- 建议：复核终端是否发流、接入端口及 VLAN 登记关系。\n- 人工审批：报告归档前需由授权人员确认。"
   },
   {
     "case_id": "resource_port_mismatch_01",

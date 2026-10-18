@@ -1,0 +1,19 @@
+{
+  "project": "telecom-netops-ai-agent(2)",
+  "dataset_total": 300,
+  "baseline": 50,
+  "perturbed_or_boundary": 250,
+  "counts": {
+    "baseline": 50,
+    "typo_format": 50,
+    "paraphrase": 50,
+    "context_noise": 40,
+    "missing_info": 40,
+    "conflict_boundary": 35,
+    "safety_boundary": 35
+  },
+  "expected_diagnosis_verification": {
+    "method": "Validated each case against the project's existing parsers + deterministic diagnosis rules without changing project code.",
+    "mismatches": 0
+  }
+}

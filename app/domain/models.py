@@ -1,5 +1,5 @@
 from datetime import datetime, timezone
-from typing import Any
+from typing import Any, Literal
 
 from pydantic import BaseModel, Field, field_validator
 
@@ -34,6 +34,11 @@ class EvidenceInput(BaseModel):
     vlan_output: str = Field(default="", max_length=50_000)
     observed_device: str | None = Field(default=None, max_length=100)
     observed_port: str | None = Field(default=None, max_length=100)
+    # No device login happens in the demo. Collection mode uses a local fixture adapter.
+    evidence_mode: Literal["provided_evidence", "simulated_collection"] = "provided_evidence"
+    collected_at: datetime | None = None
+    vendor: str | None = Field(default=None, max_length=80)
+    source_system: str | None = Field(default=None, max_length=80)
 
 
 class StartIncidentRequest(BaseModel):
@@ -69,6 +74,7 @@ class ParsedInterface(BaseModel):
     output_errors: int | None = None
     input_drops: int | None = None
     output_drops: int | None = None
+    parse_status: Literal["unknown", "success", "failed", "ambiguous"] = "unknown"
 
 
 class ParsedMac(BaseModel):
@@ -78,6 +84,7 @@ class ParsedMac(BaseModel):
     vlan: int | None = None
     entry_type: str | None = None
     total_entries: int = 0
+    parse_status: Literal["unknown", "success", "failed", "ambiguous"] = "unknown"
 
 
 class ParsedArp(BaseModel):
@@ -87,6 +94,7 @@ class ParsedArp(BaseModel):
     interface: str | None = None
     entry_type: str | None = None
     total_entries: int = 0
+    parse_status: Literal["unknown", "success", "failed", "ambiguous"] = "unknown"
 
 
 class ParsedVlan(BaseModel):
@@ -95,6 +103,8 @@ class ParsedVlan(BaseModel):
     trunk_vlans: list[int] = Field(default_factory=list)
     interface_shutdown: bool | None = None
     description: str | None = None
+    port: str | None = None
+    parse_status: Literal["unknown", "success", "failed", "ambiguous"] = "unknown"
 
 
 class ParsedTerminal(BaseModel):
@@ -115,6 +125,11 @@ class ParsedEvidence(BaseModel):
     terminal: ParsedTerminal = Field(default_factory=ParsedTerminal)
     observed_device: str | None = None
     observed_port: str | None = None
+    collected_at: datetime | None = None
+    source_system: str | None = None
+    vendor: str | None = None
+    evidence_mode: str = "provided_evidence"
+    quality_issues: list[str] = Field(default_factory=list)
 
 
 class DiagnosisResult(BaseModel):

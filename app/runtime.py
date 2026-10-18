@@ -22,6 +22,11 @@ class ApplicationRuntime:
     def start(self) -> None:
         if self.graph is not None:
             return
+        if self.settings.app_env != "development":
+            if not self.settings.demo_auth_enabled or not self.settings.demo_reader_token or not self.settings.demo_approver_token:
+                raise RuntimeError("Non-development mode requires explicit read/approver tokens; demo token auth is not enterprise IAM")
+            if not self.settings.require_approval:
+                raise RuntimeError("Non-development mode requires human approval")
         self.settings.ensure_directories()
         self.repository.initialize(self.settings.data_dir / "inventory.csv")
         self.knowledge_base.load()

@@ -1,0 +1,92 @@
+diff --git a/app/llm/langchain_report_chain.py b/app/llm/langchain_report_chain.py
+index c288910..c50a6ed 100644
+--- a/app/llm/langchain_report_chain.py
++++ b/app/llm/langchain_report_chain.py
+@@ -33,6 +33,7 @@ class LangChainReportAssistant:
+ 
+ 要求：
+ - 只改写已有结论和处理方向，不要解释“为什么”，不得补充新的可能原因或根因。
++- 辅助说明必须保留已确认结论中的核心诊断对象词，例如 VLAN、MAC、接口、链路、资源/台账或上层业务；可以省略具体编号，但不能只写“相关信息”“现有情况”等泛化表述。
+ - 不得使用“无需其他操作”“已经完全确认”“可以排除其他问题”等超出已有证据的绝对化表述。
+ - 不得输出任何内部字段、诊断代码、置信度、具体地址、设备编号、端口、VLAN编号或MAC。
+ - 不得给出配置修改、设备操作或生产变更指令。
+diff --git a/scripts/evaluate_quantization_quality_50.py b/scripts/evaluate_quantization_quality_50.py
+index a3a2f89..f794f91 100644
+--- a/scripts/evaluate_quantization_quality_50.py
++++ b/scripts/evaluate_quantization_quality_50.py
+@@ -15,6 +15,27 @@ from app.llm.langchain_report_chain import LangChainReportAssistant
+ from app.llm.report_guardrails import validate_auxiliary_output
+ 
+ 
++PROJECT_ROOT = Path(__file__).resolve().parents[1]
++
++
++def resolve_output_dir(value: str) -> Path:
++    """Resolve relative output paths against the repository root and create them."""
++    path = Path(value).expanduser()
++    if not path.is_absolute():
++        path = PROJECT_ROOT / path
++    path = path.resolve()
++    path.mkdir(parents=True, exist_ok=True)
++    return path
++
++
++def write_json_atomic(path: Path, payload: object) -> None:
++    """Write JSON safely; recreate the parent in case it was removed mid-run."""
++    path.parent.mkdir(parents=True, exist_ok=True)
++    tmp = path.with_suffix(path.suffix + ".tmp")
++    tmp.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
++    tmp.replace(path)
++
++
+ def release_backend(backend: LocalHFBackend | None) -> None:
+     if backend is None:
+         return
+@@ -287,6 +308,7 @@ def compare_to_baseline(summaries: list[dict], baseline_mode: str) -> list[dict]
+ def write_csv(path: Path, rows: list[dict]) -> None:
+     if not rows:
+         return
++    path.parent.mkdir(parents=True, exist_ok=True)
+     fields: list[str] = []
+     for row in rows:
+         for key in row:
+@@ -318,8 +340,8 @@ def main() -> None:
+     if not cases:
+         raise SystemExit("No evaluation cases found")
+ 
+-    output_dir = Path(args.output_dir)
+-    output_dir.mkdir(parents=True, exist_ok=True)
++    output_dir = resolve_output_dir(args.output_dir)
++    print(f"Output directory: {output_dir}", flush=True)
+     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+ 
+     all_rows: list[dict] = []
+@@ -329,8 +351,9 @@ def main() -> None:
+         all_rows.extend(rows)
+         summaries.append(summary)
+         # Per-mode checkpoint so an interrupted later mode does not erase completed results.
+-        (output_dir / f"quant_quality50_partial_{stamp}_{mode}.json").write_text(
+-            json.dumps({"summary": summary, "rows": rows}, ensure_ascii=False, indent=2), encoding="utf-8"
++        write_json_atomic(
++            output_dir / f"quant_quality50_partial_{stamp}_{mode}.json",
++            {"summary": summary, "rows": rows},
+         )
+ 
+     family = grouped_summaries(all_rows, "scenario_family")
+@@ -357,7 +380,7 @@ def main() -> None:
+         "rows": all_rows,
+     }
+     json_path = output_dir / f"quant_quality50_{stamp}.json"
+-    json_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
++    write_json_atomic(json_path, payload)
+ 
+     write_csv(output_dir / f"quant_quality50_summary_{stamp}.csv", summaries)
+     write_csv(output_dir / f"quant_quality50_vs_{args.baseline_mode}_{stamp}.csv", comparisons)
+@@ -372,6 +395,7 @@ def main() -> None:
+         "output_tokens", "memory_footprint_mb", "peak_gpu_memory_mb", "load_seconds", "guardrail_reasons",
+         "candidate_text", "auxiliary_text", "raw_output",
+     ]
++    output_dir.mkdir(parents=True, exist_ok=True)
+     with (output_dir / f"quant_quality50_detail_{stamp}.csv").open("w", encoding="utf-8-sig", newline="") as handle:
+         writer = csv.DictWriter(handle, fieldnames=detail_fields)
+         writer.writeheader()

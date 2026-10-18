@@ -1,0 +1,6 @@
+Supplied filesystem MCP server (source reference only, ISC per package.json).
+
+It handles UTF-8 file reads/writes, does NOT parse PDFs, and contains write/move tools.
+This directory is NOT invoked or wired to app.mcp_server.
+For PDF upload use the new read-only extract_pdf_document MCP tool and FastAPI PDF endpoints.
+No node_modules, .git, compiled binaries, or user files are included.

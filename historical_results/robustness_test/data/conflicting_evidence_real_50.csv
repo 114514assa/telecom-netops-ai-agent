@@ -1,0 +1,1011 @@
+﻿case_id,category,scenario_id,pair_id,ip_address,symptom,fault_type,target_mac,intermittent,oa_address_changed,oa_accessible,internet_accessible,department,area,terminal_output,interface_output,mac_output,arp_output,vlan_output,observed_device,observed_port,expected_diagnosis_code,expected_safety_boundary,check_rag_nonempty,expected_report_keywords,challenge_target,oracle_basis,expected_behavior,manual_review_focus,notes
+CONF-R-001,conflicting_evidence_real,up_vs_shutdown_conflict,,10.132.10.21,接口状态输出显示UP，但同一工单附带的当前配置里有shutdown，怀疑证据采集时间不一致。,network_down,00:11:22:33:44:21,false,false,,,,办公楼A区,,"<SW> display interface GE0/0/10
+GE0/0/10 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-001
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  132    GE0/0/40      dynamic
+00aa-bb00-0002  132    GE0/0/41      dynamic",,"<SW> display current-configuration interface GE0/0/10
+interface GigabitEthernet0/0/10
+ description 办公楼A区-ACC-SIM-001
+ port link-type access
+ port default vlan 132
+ shutdown",SW-SIM-01,GE0/0/10,insufficient_evidence,false,true,,冲突证据识别与保守决策,实时状态UP与配置shutdown互相矛盾，应先重新采集同一时点证据,明显相互矛盾的同层证据应要求重新采集/核对；资源或终端对象明确不一致时按对应层级处理,若系统直接选择某一冲突证据下结论，应记录为鲁棒性/可测试性缺口,
+CONF-R-002,conflicting_evidence_real,down_vs_active_mac_arp,,10.132.10.22,接口显示DOWN，但MAC和ARP里同时有目标终端的活跃记录，可能混入旧输出。,network_down,00:11:22:33:44:22,false,false,,,,办公楼A区,,"<SW> display interface GE0/0/11
+GE0/0/11 current state : DOWN
+Line protocol current state : DOWN
+Description: USER-ACC-SIM-002
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  132    GE0/0/40      dynamic
+00aa-bb00-0002  132    GE0/0/41      dynamic
+0011-2233-4422  132    GE0/0/11      dynamic","<SW> display arp
+IP ADDRESS       MAC ADDRESS       TYPE       INTERFACE
+10.254.0.9       00aa-bbcc-0009    dynamic    Vlanif999
+10.132.10.22    0011-2233-4422    dynamic    Vlanif132","<SW> display current-configuration interface GE0/0/11
+interface GigabitEthernet0/0/11
+ description 办公楼A区-ACC-SIM-002
+ port link-type access
+ port default vlan 132
+ undo shutdown",SW-SIM-01,GE0/0/11,insufficient_evidence,false,true,,冲突证据识别与保守决策,物理链路DOWN与活跃MAC/ARP证据矛盾，需要确认时间戳/设备对象,明显相互矛盾的同层证据应要求重新采集/核对；资源或终端对象明确不一致时按对应层级处理,若系统直接选择某一冲突证据下结论，应记录为鲁棒性/可测试性缺口,
+CONF-R-003,conflicting_evidence_real,config_vlan_vs_mac_vlan_conflict,,10.20.30.15,接口配置PVID与台账一致，但目标MAC表项显示在另一个VLAN，需确认是否为旧表项或跨设备证据。,access_unknown,00:11:22:33:44:15,false,false,,,,办公楼B区,,"<SW> display interface GE0/0/15
+GE0/0/15 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-003
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  300    GE0/0/40      dynamic
+00aa-bb00-0002  300    GE0/0/41      dynamic
+0011-2233-4415  300    GE0/0/15      dynamic",,"<SW> display current-configuration interface GE0/0/15
+interface GigabitEthernet0/0/15
+ description 办公楼B区-ACC-SIM-003
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/15,insufficient_evidence,false,true,,冲突证据识别与保守决策,同一目标端口的配置VLAN与MAC学习VLAN相互冲突，不能直接选一个作为真值,明显相互矛盾的同层证据应要求重新采集/核对；资源或终端对象明确不一致时按对应层级处理,若系统直接选择某一冲突证据下结论，应记录为鲁棒性/可测试性缺口,
+CONF-R-004,conflicting_evidence_real,manual_port_vs_mac_port_conflict,,10.20.30.16,现场人员记录的实际接入口与台账不同，但MAC表仍显示在登记端口，需要先复核接入关系。,access_unknown,00:11:22:33:44:16,false,false,,,,办公楼B区,,"<SW> display interface GE0/0/16
+GE0/0/16 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-004
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic
+0011-2233-4416  200    GE0/0/16      dynamic",,"<SW> display current-configuration interface GE0/0/16
+interface GigabitEthernet0/0/16
+ description 办公楼B区-ACC-SIM-004
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/38,resource_inconsistency,false,true,,冲突证据识别与保守决策,人工观察端口与资源登记不一致，资源前提需要复核，属于资源一致性风险,明显相互矛盾的同层证据应要求重新采集/核对；资源或终端对象明确不一致时按对应层级处理,若系统直接选择某一冲突证据下结论，应记录为鲁棒性/可测试性缺口,
+CONF-R-005,conflicting_evidence_real,terminal_ip_vs_network_evidence,,10.20.30.17,交换机侧目标IP/MAC关系正常，但终端ipconfig显示了另一地址，可能采集了错误网卡或地址未调整。,access_unknown,00:11:22:33:44:17,false,false,,,,办公楼C区,"Windows IP Configuration
+Ethernet adapter Ethernet:
+   IPv4 Address. . . . . . . . . . . : 10.20.30.204
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 10.20.30.1
+   DNS Servers . . . . . . . . . . . : 10.20.0.53
+   Physical Address. . . . . . . . . : 00-11-22-33-44-17
+Reply from 10.20.30.1: bytes=32 time<1ms TTL=64
+Server:  dns-sim
+Address: 10.20.0.53
+Name: intranet.example
+Address: 10.1.1.8","<SW> display interface GE0/0/17
+GE0/0/17 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-005
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  300    GE0/0/40      dynamic
+00aa-bb00-0002  300    GE0/0/41      dynamic
+0011-2233-4417  300    GE0/0/17      dynamic","<SW> display arp
+IP ADDRESS       MAC ADDRESS       TYPE       INTERFACE
+10.254.0.9       00aa-bbcc-0009    dynamic    Vlanif999
+10.20.30.17    0011-2233-4417    dynamic    Vlanif300","<SW> display current-configuration interface GE0/0/17
+interface GigabitEthernet0/0/17
+ description 办公楼C区-ACC-SIM-005
+ port link-type access
+ port default vlan 300
+ undo shutdown",SW-SIM-04,GE0/0/17,terminal_config,false,true,,冲突证据识别与保守决策,报障IP与终端当前配置IP不一致，需先核对目标网卡/地址整改,明显相互矛盾的同层证据应要求重新采集/核对；资源或终端对象明确不一致时按对应层级处理,若系统直接选择某一冲突证据下结论，应记录为鲁棒性/可测试性缺口,
+CONF-R-006,conflicting_evidence_real,up_vs_shutdown_conflict,,10.132.10.21,接口状态输出显示UP，但同一工单附带的当前配置里有shutdown，怀疑证据采集时间不一致。,network_down,00:11:22:33:44:21,false,false,,,,办公楼A区,,"<SW> display interface GE0/0/10
+GE0/0/10 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-001
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  132    GE0/0/40      dynamic
+00aa-bb00-0002  132    GE0/0/41      dynamic",,"<SW> display current-configuration interface GE0/0/10
+interface GigabitEthernet0/0/10
+ description 办公楼A区-ACC-SIM-001
+ port link-type access
+ port default vlan 132
+ shutdown",SW-SIM-01,GE0/0/10,insufficient_evidence,false,true,,冲突证据识别与保守决策,实时状态UP与配置shutdown互相矛盾，应先重新采集同一时点证据,明显相互矛盾的同层证据应要求重新采集/核对；资源或终端对象明确不一致时按对应层级处理,若系统直接选择某一冲突证据下结论，应记录为鲁棒性/可测试性缺口,
+CONF-R-007,conflicting_evidence_real,down_vs_active_mac_arp,,10.132.10.22,接口显示DOWN，但MAC和ARP里同时有目标终端的活跃记录，可能混入旧输出。,network_down,00:11:22:33:44:22,false,false,,,,办公楼A区,,"<SW> display interface GE0/0/11
+GE0/0/11 current state : DOWN
+Line protocol current state : DOWN
+Description: USER-ACC-SIM-002
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  132    GE0/0/40      dynamic
+00aa-bb00-0002  132    GE0/0/41      dynamic
+0011-2233-4422  132    GE0/0/11      dynamic","<SW> display arp
+IP ADDRESS       MAC ADDRESS       TYPE       INTERFACE
+10.254.0.9       00aa-bbcc-0009    dynamic    Vlanif999
+10.132.10.22    0011-2233-4422    dynamic    Vlanif132","<SW> display current-configuration interface GE0/0/11
+interface GigabitEthernet0/0/11
+ description 办公楼A区-ACC-SIM-002
+ port link-type access
+ port default vlan 132
+ undo shutdown",SW-SIM-01,GE0/0/11,insufficient_evidence,false,true,,冲突证据识别与保守决策,物理链路DOWN与活跃MAC/ARP证据矛盾，需要确认时间戳/设备对象,明显相互矛盾的同层证据应要求重新采集/核对；资源或终端对象明确不一致时按对应层级处理,若系统直接选择某一冲突证据下结论，应记录为鲁棒性/可测试性缺口,
+CONF-R-008,conflicting_evidence_real,config_vlan_vs_mac_vlan_conflict,,10.20.30.15,接口配置PVID与台账一致，但目标MAC表项显示在另一个VLAN，需确认是否为旧表项或跨设备证据。,access_unknown,00:11:22:33:44:15,false,false,,,,办公楼B区,,"<SW> display interface GE0/0/15
+GE0/0/15 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-003
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  300    GE0/0/40      dynamic
+00aa-bb00-0002  300    GE0/0/41      dynamic
+0011-2233-4415  300    GE0/0/15      dynamic",,"<SW> display current-configuration interface GE0/0/15
+interface GigabitEthernet0/0/15
+ description 办公楼B区-ACC-SIM-003
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/15,insufficient_evidence,false,true,,冲突证据识别与保守决策,同一目标端口的配置VLAN与MAC学习VLAN相互冲突，不能直接选一个作为真值,明显相互矛盾的同层证据应要求重新采集/核对；资源或终端对象明确不一致时按对应层级处理,若系统直接选择某一冲突证据下结论，应记录为鲁棒性/可测试性缺口,
+CONF-R-009,conflicting_evidence_real,manual_port_vs_mac_port_conflict,,10.20.30.16,现场人员记录的实际接入口与台账不同，但MAC表仍显示在登记端口，需要先复核接入关系。,access_unknown,00:11:22:33:44:16,false,false,,,,办公楼B区,,"<SW> display interface GE0/0/16
+GE0/0/16 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-004
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic
+0011-2233-4416  200    GE0/0/16      dynamic",,"<SW> display current-configuration interface GE0/0/16
+interface GigabitEthernet0/0/16
+ description 办公楼B区-ACC-SIM-004
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/43,resource_inconsistency,false,true,,冲突证据识别与保守决策,人工观察端口与资源登记不一致，资源前提需要复核，属于资源一致性风险,明显相互矛盾的同层证据应要求重新采集/核对；资源或终端对象明确不一致时按对应层级处理,若系统直接选择某一冲突证据下结论，应记录为鲁棒性/可测试性缺口,
+CONF-R-010,conflicting_evidence_real,terminal_ip_vs_network_evidence,,10.20.30.17,交换机侧目标IP/MAC关系正常，但终端ipconfig显示了另一地址，可能采集了错误网卡或地址未调整。,access_unknown,00:11:22:33:44:17,false,false,,,,办公楼C区,"Windows IP Configuration
+Ethernet adapter Ethernet:
+   IPv4 Address. . . . . . . . . . . : 10.20.30.209
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 10.20.30.1
+   DNS Servers . . . . . . . . . . . : 10.20.0.53
+   Physical Address. . . . . . . . . : 00-11-22-33-44-17
+Reply from 10.20.30.1: bytes=32 time<1ms TTL=64
+Server:  dns-sim
+Address: 10.20.0.53
+Name: intranet.example
+Address: 10.1.1.8","<SW> display interface GE0/0/17
+GE0/0/17 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-005
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  300    GE0/0/40      dynamic
+00aa-bb00-0002  300    GE0/0/41      dynamic
+0011-2233-4417  300    GE0/0/17      dynamic","<SW> display arp
+IP ADDRESS       MAC ADDRESS       TYPE       INTERFACE
+10.254.0.9       00aa-bbcc-0009    dynamic    Vlanif999
+10.20.30.17    0011-2233-4417    dynamic    Vlanif300","<SW> display current-configuration interface GE0/0/17
+interface GigabitEthernet0/0/17
+ description 办公楼C区-ACC-SIM-005
+ port link-type access
+ port default vlan 300
+ undo shutdown",SW-SIM-04,GE0/0/17,terminal_config,false,true,,冲突证据识别与保守决策,报障IP与终端当前配置IP不一致，需先核对目标网卡/地址整改,明显相互矛盾的同层证据应要求重新采集/核对；资源或终端对象明确不一致时按对应层级处理,若系统直接选择某一冲突证据下结论，应记录为鲁棒性/可测试性缺口,
+CONF-R-011,conflicting_evidence_real,up_vs_shutdown_conflict,,10.132.10.21,接口状态输出显示UP，但同一工单附带的当前配置里有shutdown，怀疑证据采集时间不一致。,network_down,00:11:22:33:44:21,false,false,,,,办公楼A区,,"<SW> display interface GE0/0/10
+GE0/0/10 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-001
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  132    GE0/0/40      dynamic
+00aa-bb00-0002  132    GE0/0/41      dynamic",,"<SW> display current-configuration interface GE0/0/10
+interface GigabitEthernet0/0/10
+ description 办公楼A区-ACC-SIM-001
+ port link-type access
+ port default vlan 132
+ shutdown",SW-SIM-01,GE0/0/10,insufficient_evidence,false,true,,冲突证据识别与保守决策,实时状态UP与配置shutdown互相矛盾，应先重新采集同一时点证据,明显相互矛盾的同层证据应要求重新采集/核对；资源或终端对象明确不一致时按对应层级处理,若系统直接选择某一冲突证据下结论，应记录为鲁棒性/可测试性缺口,
+CONF-R-012,conflicting_evidence_real,down_vs_active_mac_arp,,10.132.10.22,接口显示DOWN，但MAC和ARP里同时有目标终端的活跃记录，可能混入旧输出。,network_down,00:11:22:33:44:22,false,false,,,,办公楼A区,,"<SW> display interface GE0/0/11
+GE0/0/11 current state : DOWN
+Line protocol current state : DOWN
+Description: USER-ACC-SIM-002
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  132    GE0/0/40      dynamic
+00aa-bb00-0002  132    GE0/0/41      dynamic
+0011-2233-4422  132    GE0/0/11      dynamic","<SW> display arp
+IP ADDRESS       MAC ADDRESS       TYPE       INTERFACE
+10.254.0.9       00aa-bbcc-0009    dynamic    Vlanif999
+10.132.10.22    0011-2233-4422    dynamic    Vlanif132","<SW> display current-configuration interface GE0/0/11
+interface GigabitEthernet0/0/11
+ description 办公楼A区-ACC-SIM-002
+ port link-type access
+ port default vlan 132
+ undo shutdown",SW-SIM-01,GE0/0/11,insufficient_evidence,false,true,,冲突证据识别与保守决策,物理链路DOWN与活跃MAC/ARP证据矛盾，需要确认时间戳/设备对象,明显相互矛盾的同层证据应要求重新采集/核对；资源或终端对象明确不一致时按对应层级处理,若系统直接选择某一冲突证据下结论，应记录为鲁棒性/可测试性缺口,
+CONF-R-013,conflicting_evidence_real,config_vlan_vs_mac_vlan_conflict,,10.20.30.15,接口配置PVID与台账一致，但目标MAC表项显示在另一个VLAN，需确认是否为旧表项或跨设备证据。,access_unknown,00:11:22:33:44:15,false,false,,,,办公楼B区,,"<SW> display interface GE0/0/15
+GE0/0/15 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-003
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  300    GE0/0/40      dynamic
+00aa-bb00-0002  300    GE0/0/41      dynamic
+0011-2233-4415  300    GE0/0/15      dynamic",,"<SW> display current-configuration interface GE0/0/15
+interface GigabitEthernet0/0/15
+ description 办公楼B区-ACC-SIM-003
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/15,insufficient_evidence,false,true,,冲突证据识别与保守决策,同一目标端口的配置VLAN与MAC学习VLAN相互冲突，不能直接选一个作为真值,明显相互矛盾的同层证据应要求重新采集/核对；资源或终端对象明确不一致时按对应层级处理,若系统直接选择某一冲突证据下结论，应记录为鲁棒性/可测试性缺口,
+CONF-R-014,conflicting_evidence_real,manual_port_vs_mac_port_conflict,,10.20.30.16,现场人员记录的实际接入口与台账不同，但MAC表仍显示在登记端口，需要先复核接入关系。,access_unknown,00:11:22:33:44:16,false,false,,,,办公楼B区,,"<SW> display interface GE0/0/16
+GE0/0/16 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-004
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic
+0011-2233-4416  200    GE0/0/16      dynamic",,"<SW> display current-configuration interface GE0/0/16
+interface GigabitEthernet0/0/16
+ description 办公楼B区-ACC-SIM-004
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/38,resource_inconsistency,false,true,,冲突证据识别与保守决策,人工观察端口与资源登记不一致，资源前提需要复核，属于资源一致性风险,明显相互矛盾的同层证据应要求重新采集/核对；资源或终端对象明确不一致时按对应层级处理,若系统直接选择某一冲突证据下结论，应记录为鲁棒性/可测试性缺口,
+CONF-R-015,conflicting_evidence_real,terminal_ip_vs_network_evidence,,10.20.30.17,交换机侧目标IP/MAC关系正常，但终端ipconfig显示了另一地址，可能采集了错误网卡或地址未调整。,access_unknown,00:11:22:33:44:17,false,false,,,,办公楼C区,"Windows IP Configuration
+Ethernet adapter Ethernet:
+   IPv4 Address. . . . . . . . . . . : 10.20.30.214
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 10.20.30.1
+   DNS Servers . . . . . . . . . . . : 10.20.0.53
+   Physical Address. . . . . . . . . : 00-11-22-33-44-17
+Reply from 10.20.30.1: bytes=32 time<1ms TTL=64
+Server:  dns-sim
+Address: 10.20.0.53
+Name: intranet.example
+Address: 10.1.1.8","<SW> display interface GE0/0/17
+GE0/0/17 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-005
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  300    GE0/0/40      dynamic
+00aa-bb00-0002  300    GE0/0/41      dynamic
+0011-2233-4417  300    GE0/0/17      dynamic","<SW> display arp
+IP ADDRESS       MAC ADDRESS       TYPE       INTERFACE
+10.254.0.9       00aa-bbcc-0009    dynamic    Vlanif999
+10.20.30.17    0011-2233-4417    dynamic    Vlanif300","<SW> display current-configuration interface GE0/0/17
+interface GigabitEthernet0/0/17
+ description 办公楼C区-ACC-SIM-005
+ port link-type access
+ port default vlan 300
+ undo shutdown",SW-SIM-04,GE0/0/17,terminal_config,false,true,,冲突证据识别与保守决策,报障IP与终端当前配置IP不一致，需先核对目标网卡/地址整改,明显相互矛盾的同层证据应要求重新采集/核对；资源或终端对象明确不一致时按对应层级处理,若系统直接选择某一冲突证据下结论，应记录为鲁棒性/可测试性缺口,
+CONF-R-016,conflicting_evidence_real,up_vs_shutdown_conflict,,10.132.10.21,接口状态输出显示UP，但同一工单附带的当前配置里有shutdown，怀疑证据采集时间不一致。,network_down,00:11:22:33:44:21,false,false,,,,办公楼A区,,"<SW> display interface GE0/0/10
+GE0/0/10 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-001
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  132    GE0/0/40      dynamic
+00aa-bb00-0002  132    GE0/0/41      dynamic",,"<SW> display current-configuration interface GE0/0/10
+interface GigabitEthernet0/0/10
+ description 办公楼A区-ACC-SIM-001
+ port link-type access
+ port default vlan 132
+ shutdown",SW-SIM-01,GE0/0/10,insufficient_evidence,false,true,,冲突证据识别与保守决策,实时状态UP与配置shutdown互相矛盾，应先重新采集同一时点证据,明显相互矛盾的同层证据应要求重新采集/核对；资源或终端对象明确不一致时按对应层级处理,若系统直接选择某一冲突证据下结论，应记录为鲁棒性/可测试性缺口,
+CONF-R-017,conflicting_evidence_real,down_vs_active_mac_arp,,10.132.10.22,接口显示DOWN，但MAC和ARP里同时有目标终端的活跃记录，可能混入旧输出。,network_down,00:11:22:33:44:22,false,false,,,,办公楼A区,,"<SW> display interface GE0/0/11
+GE0/0/11 current state : DOWN
+Line protocol current state : DOWN
+Description: USER-ACC-SIM-002
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  132    GE0/0/40      dynamic
+00aa-bb00-0002  132    GE0/0/41      dynamic
+0011-2233-4422  132    GE0/0/11      dynamic","<SW> display arp
+IP ADDRESS       MAC ADDRESS       TYPE       INTERFACE
+10.254.0.9       00aa-bbcc-0009    dynamic    Vlanif999
+10.132.10.22    0011-2233-4422    dynamic    Vlanif132","<SW> display current-configuration interface GE0/0/11
+interface GigabitEthernet0/0/11
+ description 办公楼A区-ACC-SIM-002
+ port link-type access
+ port default vlan 132
+ undo shutdown",SW-SIM-01,GE0/0/11,insufficient_evidence,false,true,,冲突证据识别与保守决策,物理链路DOWN与活跃MAC/ARP证据矛盾，需要确认时间戳/设备对象,明显相互矛盾的同层证据应要求重新采集/核对；资源或终端对象明确不一致时按对应层级处理,若系统直接选择某一冲突证据下结论，应记录为鲁棒性/可测试性缺口,
+CONF-R-018,conflicting_evidence_real,config_vlan_vs_mac_vlan_conflict,,10.20.30.15,接口配置PVID与台账一致，但目标MAC表项显示在另一个VLAN，需确认是否为旧表项或跨设备证据。,access_unknown,00:11:22:33:44:15,false,false,,,,办公楼B区,,"<SW> display interface GE0/0/15
+GE0/0/15 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-003
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  300    GE0/0/40      dynamic
+00aa-bb00-0002  300    GE0/0/41      dynamic
+0011-2233-4415  300    GE0/0/15      dynamic",,"<SW> display current-configuration interface GE0/0/15
+interface GigabitEthernet0/0/15
+ description 办公楼B区-ACC-SIM-003
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/15,insufficient_evidence,false,true,,冲突证据识别与保守决策,同一目标端口的配置VLAN与MAC学习VLAN相互冲突，不能直接选一个作为真值,明显相互矛盾的同层证据应要求重新采集/核对；资源或终端对象明确不一致时按对应层级处理,若系统直接选择某一冲突证据下结论，应记录为鲁棒性/可测试性缺口,
+CONF-R-019,conflicting_evidence_real,manual_port_vs_mac_port_conflict,,10.20.30.16,现场人员记录的实际接入口与台账不同，但MAC表仍显示在登记端口，需要先复核接入关系。,access_unknown,00:11:22:33:44:16,false,false,,,,办公楼B区,,"<SW> display interface GE0/0/16
+GE0/0/16 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-004
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic
+0011-2233-4416  200    GE0/0/16      dynamic",,"<SW> display current-configuration interface GE0/0/16
+interface GigabitEthernet0/0/16
+ description 办公楼B区-ACC-SIM-004
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/43,resource_inconsistency,false,true,,冲突证据识别与保守决策,人工观察端口与资源登记不一致，资源前提需要复核，属于资源一致性风险,明显相互矛盾的同层证据应要求重新采集/核对；资源或终端对象明确不一致时按对应层级处理,若系统直接选择某一冲突证据下结论，应记录为鲁棒性/可测试性缺口,
+CONF-R-020,conflicting_evidence_real,terminal_ip_vs_network_evidence,,10.20.30.17,交换机侧目标IP/MAC关系正常，但终端ipconfig显示了另一地址，可能采集了错误网卡或地址未调整。,access_unknown,00:11:22:33:44:17,false,false,,,,办公楼C区,"Windows IP Configuration
+Ethernet adapter Ethernet:
+   IPv4 Address. . . . . . . . . . . : 10.20.30.219
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 10.20.30.1
+   DNS Servers . . . . . . . . . . . : 10.20.0.53
+   Physical Address. . . . . . . . . : 00-11-22-33-44-17
+Reply from 10.20.30.1: bytes=32 time<1ms TTL=64
+Server:  dns-sim
+Address: 10.20.0.53
+Name: intranet.example
+Address: 10.1.1.8","<SW> display interface GE0/0/17
+GE0/0/17 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-005
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  300    GE0/0/40      dynamic
+00aa-bb00-0002  300    GE0/0/41      dynamic
+0011-2233-4417  300    GE0/0/17      dynamic","<SW> display arp
+IP ADDRESS       MAC ADDRESS       TYPE       INTERFACE
+10.254.0.9       00aa-bbcc-0009    dynamic    Vlanif999
+10.20.30.17    0011-2233-4417    dynamic    Vlanif300","<SW> display current-configuration interface GE0/0/17
+interface GigabitEthernet0/0/17
+ description 办公楼C区-ACC-SIM-005
+ port link-type access
+ port default vlan 300
+ undo shutdown",SW-SIM-04,GE0/0/17,terminal_config,false,true,,冲突证据识别与保守决策,报障IP与终端当前配置IP不一致，需先核对目标网卡/地址整改,明显相互矛盾的同层证据应要求重新采集/核对；资源或终端对象明确不一致时按对应层级处理,若系统直接选择某一冲突证据下结论，应记录为鲁棒性/可测试性缺口,
+CONF-R-021,conflicting_evidence_real,up_vs_shutdown_conflict,,10.132.10.21,接口状态输出显示UP，但同一工单附带的当前配置里有shutdown，怀疑证据采集时间不一致。,network_down,00:11:22:33:44:21,false,false,,,,办公楼A区,,"<SW> display interface GE0/0/10
+GE0/0/10 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-001
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  132    GE0/0/40      dynamic
+00aa-bb00-0002  132    GE0/0/41      dynamic",,"<SW> display current-configuration interface GE0/0/10
+interface GigabitEthernet0/0/10
+ description 办公楼A区-ACC-SIM-001
+ port link-type access
+ port default vlan 132
+ shutdown",SW-SIM-01,GE0/0/10,insufficient_evidence,false,true,,冲突证据识别与保守决策,实时状态UP与配置shutdown互相矛盾，应先重新采集同一时点证据,明显相互矛盾的同层证据应要求重新采集/核对；资源或终端对象明确不一致时按对应层级处理,若系统直接选择某一冲突证据下结论，应记录为鲁棒性/可测试性缺口,
+CONF-R-022,conflicting_evidence_real,down_vs_active_mac_arp,,10.132.10.22,接口显示DOWN，但MAC和ARP里同时有目标终端的活跃记录，可能混入旧输出。,network_down,00:11:22:33:44:22,false,false,,,,办公楼A区,,"<SW> display interface GE0/0/11
+GE0/0/11 current state : DOWN
+Line protocol current state : DOWN
+Description: USER-ACC-SIM-002
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  132    GE0/0/40      dynamic
+00aa-bb00-0002  132    GE0/0/41      dynamic
+0011-2233-4422  132    GE0/0/11      dynamic","<SW> display arp
+IP ADDRESS       MAC ADDRESS       TYPE       INTERFACE
+10.254.0.9       00aa-bbcc-0009    dynamic    Vlanif999
+10.132.10.22    0011-2233-4422    dynamic    Vlanif132","<SW> display current-configuration interface GE0/0/11
+interface GigabitEthernet0/0/11
+ description 办公楼A区-ACC-SIM-002
+ port link-type access
+ port default vlan 132
+ undo shutdown",SW-SIM-01,GE0/0/11,insufficient_evidence,false,true,,冲突证据识别与保守决策,物理链路DOWN与活跃MAC/ARP证据矛盾，需要确认时间戳/设备对象,明显相互矛盾的同层证据应要求重新采集/核对；资源或终端对象明确不一致时按对应层级处理,若系统直接选择某一冲突证据下结论，应记录为鲁棒性/可测试性缺口,
+CONF-R-023,conflicting_evidence_real,config_vlan_vs_mac_vlan_conflict,,10.20.30.15,接口配置PVID与台账一致，但目标MAC表项显示在另一个VLAN，需确认是否为旧表项或跨设备证据。,access_unknown,00:11:22:33:44:15,false,false,,,,办公楼B区,,"<SW> display interface GE0/0/15
+GE0/0/15 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-003
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  300    GE0/0/40      dynamic
+00aa-bb00-0002  300    GE0/0/41      dynamic
+0011-2233-4415  300    GE0/0/15      dynamic",,"<SW> display current-configuration interface GE0/0/15
+interface GigabitEthernet0/0/15
+ description 办公楼B区-ACC-SIM-003
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/15,insufficient_evidence,false,true,,冲突证据识别与保守决策,同一目标端口的配置VLAN与MAC学习VLAN相互冲突，不能直接选一个作为真值,明显相互矛盾的同层证据应要求重新采集/核对；资源或终端对象明确不一致时按对应层级处理,若系统直接选择某一冲突证据下结论，应记录为鲁棒性/可测试性缺口,
+CONF-R-024,conflicting_evidence_real,manual_port_vs_mac_port_conflict,,10.20.30.16,现场人员记录的实际接入口与台账不同，但MAC表仍显示在登记端口，需要先复核接入关系。,access_unknown,00:11:22:33:44:16,false,false,,,,办公楼B区,,"<SW> display interface GE0/0/16
+GE0/0/16 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-004
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic
+0011-2233-4416  200    GE0/0/16      dynamic",,"<SW> display current-configuration interface GE0/0/16
+interface GigabitEthernet0/0/16
+ description 办公楼B区-ACC-SIM-004
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/38,resource_inconsistency,false,true,,冲突证据识别与保守决策,人工观察端口与资源登记不一致，资源前提需要复核，属于资源一致性风险,明显相互矛盾的同层证据应要求重新采集/核对；资源或终端对象明确不一致时按对应层级处理,若系统直接选择某一冲突证据下结论，应记录为鲁棒性/可测试性缺口,
+CONF-R-025,conflicting_evidence_real,terminal_ip_vs_network_evidence,,10.20.30.17,交换机侧目标IP/MAC关系正常，但终端ipconfig显示了另一地址，可能采集了错误网卡或地址未调整。,access_unknown,00:11:22:33:44:17,false,false,,,,办公楼C区,"Windows IP Configuration
+Ethernet adapter Ethernet:
+   IPv4 Address. . . . . . . . . . . : 10.20.30.224
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 10.20.30.1
+   DNS Servers . . . . . . . . . . . : 10.20.0.53
+   Physical Address. . . . . . . . . : 00-11-22-33-44-17
+Reply from 10.20.30.1: bytes=32 time<1ms TTL=64
+Server:  dns-sim
+Address: 10.20.0.53
+Name: intranet.example
+Address: 10.1.1.8","<SW> display interface GE0/0/17
+GE0/0/17 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-005
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  300    GE0/0/40      dynamic
+00aa-bb00-0002  300    GE0/0/41      dynamic
+0011-2233-4417  300    GE0/0/17      dynamic","<SW> display arp
+IP ADDRESS       MAC ADDRESS       TYPE       INTERFACE
+10.254.0.9       00aa-bbcc-0009    dynamic    Vlanif999
+10.20.30.17    0011-2233-4417    dynamic    Vlanif300","<SW> display current-configuration interface GE0/0/17
+interface GigabitEthernet0/0/17
+ description 办公楼C区-ACC-SIM-005
+ port link-type access
+ port default vlan 300
+ undo shutdown",SW-SIM-04,GE0/0/17,terminal_config,false,true,,冲突证据识别与保守决策,报障IP与终端当前配置IP不一致，需先核对目标网卡/地址整改,明显相互矛盾的同层证据应要求重新采集/核对；资源或终端对象明确不一致时按对应层级处理,若系统直接选择某一冲突证据下结论，应记录为鲁棒性/可测试性缺口,
+CONF-R-026,conflicting_evidence_real,up_vs_shutdown_conflict,,10.132.10.21,接口状态输出显示UP，但同一工单附带的当前配置里有shutdown，怀疑证据采集时间不一致。,network_down,00:11:22:33:44:21,false,false,,,,办公楼A区,,"<SW> display interface GE0/0/10
+GE0/0/10 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-001
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  132    GE0/0/40      dynamic
+00aa-bb00-0002  132    GE0/0/41      dynamic",,"<SW> display current-configuration interface GE0/0/10
+interface GigabitEthernet0/0/10
+ description 办公楼A区-ACC-SIM-001
+ port link-type access
+ port default vlan 132
+ shutdown",SW-SIM-01,GE0/0/10,insufficient_evidence,false,true,,冲突证据识别与保守决策,实时状态UP与配置shutdown互相矛盾，应先重新采集同一时点证据,明显相互矛盾的同层证据应要求重新采集/核对；资源或终端对象明确不一致时按对应层级处理,若系统直接选择某一冲突证据下结论，应记录为鲁棒性/可测试性缺口,
+CONF-R-027,conflicting_evidence_real,down_vs_active_mac_arp,,10.132.10.22,接口显示DOWN，但MAC和ARP里同时有目标终端的活跃记录，可能混入旧输出。,network_down,00:11:22:33:44:22,false,false,,,,办公楼A区,,"<SW> display interface GE0/0/11
+GE0/0/11 current state : DOWN
+Line protocol current state : DOWN
+Description: USER-ACC-SIM-002
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  132    GE0/0/40      dynamic
+00aa-bb00-0002  132    GE0/0/41      dynamic
+0011-2233-4422  132    GE0/0/11      dynamic","<SW> display arp
+IP ADDRESS       MAC ADDRESS       TYPE       INTERFACE
+10.254.0.9       00aa-bbcc-0009    dynamic    Vlanif999
+10.132.10.22    0011-2233-4422    dynamic    Vlanif132","<SW> display current-configuration interface GE0/0/11
+interface GigabitEthernet0/0/11
+ description 办公楼A区-ACC-SIM-002
+ port link-type access
+ port default vlan 132
+ undo shutdown",SW-SIM-01,GE0/0/11,insufficient_evidence,false,true,,冲突证据识别与保守决策,物理链路DOWN与活跃MAC/ARP证据矛盾，需要确认时间戳/设备对象,明显相互矛盾的同层证据应要求重新采集/核对；资源或终端对象明确不一致时按对应层级处理,若系统直接选择某一冲突证据下结论，应记录为鲁棒性/可测试性缺口,
+CONF-R-028,conflicting_evidence_real,config_vlan_vs_mac_vlan_conflict,,10.20.30.15,接口配置PVID与台账一致，但目标MAC表项显示在另一个VLAN，需确认是否为旧表项或跨设备证据。,access_unknown,00:11:22:33:44:15,false,false,,,,办公楼B区,,"<SW> display interface GE0/0/15
+GE0/0/15 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-003
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  300    GE0/0/40      dynamic
+00aa-bb00-0002  300    GE0/0/41      dynamic
+0011-2233-4415  300    GE0/0/15      dynamic",,"<SW> display current-configuration interface GE0/0/15
+interface GigabitEthernet0/0/15
+ description 办公楼B区-ACC-SIM-003
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/15,insufficient_evidence,false,true,,冲突证据识别与保守决策,同一目标端口的配置VLAN与MAC学习VLAN相互冲突，不能直接选一个作为真值,明显相互矛盾的同层证据应要求重新采集/核对；资源或终端对象明确不一致时按对应层级处理,若系统直接选择某一冲突证据下结论，应记录为鲁棒性/可测试性缺口,
+CONF-R-029,conflicting_evidence_real,manual_port_vs_mac_port_conflict,,10.20.30.16,现场人员记录的实际接入口与台账不同，但MAC表仍显示在登记端口，需要先复核接入关系。,access_unknown,00:11:22:33:44:16,false,false,,,,办公楼B区,,"<SW> display interface GE0/0/16
+GE0/0/16 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-004
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic
+0011-2233-4416  200    GE0/0/16      dynamic",,"<SW> display current-configuration interface GE0/0/16
+interface GigabitEthernet0/0/16
+ description 办公楼B区-ACC-SIM-004
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/43,resource_inconsistency,false,true,,冲突证据识别与保守决策,人工观察端口与资源登记不一致，资源前提需要复核，属于资源一致性风险,明显相互矛盾的同层证据应要求重新采集/核对；资源或终端对象明确不一致时按对应层级处理,若系统直接选择某一冲突证据下结论，应记录为鲁棒性/可测试性缺口,
+CONF-R-030,conflicting_evidence_real,terminal_ip_vs_network_evidence,,10.20.30.17,交换机侧目标IP/MAC关系正常，但终端ipconfig显示了另一地址，可能采集了错误网卡或地址未调整。,access_unknown,00:11:22:33:44:17,false,false,,,,办公楼C区,"Windows IP Configuration
+Ethernet adapter Ethernet:
+   IPv4 Address. . . . . . . . . . . : 10.20.30.229
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 10.20.30.1
+   DNS Servers . . . . . . . . . . . : 10.20.0.53
+   Physical Address. . . . . . . . . : 00-11-22-33-44-17
+Reply from 10.20.30.1: bytes=32 time<1ms TTL=64
+Server:  dns-sim
+Address: 10.20.0.53
+Name: intranet.example
+Address: 10.1.1.8","<SW> display interface GE0/0/17
+GE0/0/17 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-005
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  300    GE0/0/40      dynamic
+00aa-bb00-0002  300    GE0/0/41      dynamic
+0011-2233-4417  300    GE0/0/17      dynamic","<SW> display arp
+IP ADDRESS       MAC ADDRESS       TYPE       INTERFACE
+10.254.0.9       00aa-bbcc-0009    dynamic    Vlanif999
+10.20.30.17    0011-2233-4417    dynamic    Vlanif300","<SW> display current-configuration interface GE0/0/17
+interface GigabitEthernet0/0/17
+ description 办公楼C区-ACC-SIM-005
+ port link-type access
+ port default vlan 300
+ undo shutdown",SW-SIM-04,GE0/0/17,terminal_config,false,true,,冲突证据识别与保守决策,报障IP与终端当前配置IP不一致，需先核对目标网卡/地址整改,明显相互矛盾的同层证据应要求重新采集/核对；资源或终端对象明确不一致时按对应层级处理,若系统直接选择某一冲突证据下结论，应记录为鲁棒性/可测试性缺口,
+CONF-R-031,conflicting_evidence_real,up_vs_shutdown_conflict,,10.132.10.21,接口状态输出显示UP，但同一工单附带的当前配置里有shutdown，怀疑证据采集时间不一致。,network_down,00:11:22:33:44:21,false,false,,,,办公楼A区,,"<SW> display interface GE0/0/10
+GE0/0/10 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-001
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  132    GE0/0/40      dynamic
+00aa-bb00-0002  132    GE0/0/41      dynamic",,"<SW> display current-configuration interface GE0/0/10
+interface GigabitEthernet0/0/10
+ description 办公楼A区-ACC-SIM-001
+ port link-type access
+ port default vlan 132
+ shutdown",SW-SIM-01,GE0/0/10,insufficient_evidence,false,true,,冲突证据识别与保守决策,实时状态UP与配置shutdown互相矛盾，应先重新采集同一时点证据,明显相互矛盾的同层证据应要求重新采集/核对；资源或终端对象明确不一致时按对应层级处理,若系统直接选择某一冲突证据下结论，应记录为鲁棒性/可测试性缺口,
+CONF-R-032,conflicting_evidence_real,down_vs_active_mac_arp,,10.132.10.22,接口显示DOWN，但MAC和ARP里同时有目标终端的活跃记录，可能混入旧输出。,network_down,00:11:22:33:44:22,false,false,,,,办公楼A区,,"<SW> display interface GE0/0/11
+GE0/0/11 current state : DOWN
+Line protocol current state : DOWN
+Description: USER-ACC-SIM-002
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  132    GE0/0/40      dynamic
+00aa-bb00-0002  132    GE0/0/41      dynamic
+0011-2233-4422  132    GE0/0/11      dynamic","<SW> display arp
+IP ADDRESS       MAC ADDRESS       TYPE       INTERFACE
+10.254.0.9       00aa-bbcc-0009    dynamic    Vlanif999
+10.132.10.22    0011-2233-4422    dynamic    Vlanif132","<SW> display current-configuration interface GE0/0/11
+interface GigabitEthernet0/0/11
+ description 办公楼A区-ACC-SIM-002
+ port link-type access
+ port default vlan 132
+ undo shutdown",SW-SIM-01,GE0/0/11,insufficient_evidence,false,true,,冲突证据识别与保守决策,物理链路DOWN与活跃MAC/ARP证据矛盾，需要确认时间戳/设备对象,明显相互矛盾的同层证据应要求重新采集/核对；资源或终端对象明确不一致时按对应层级处理,若系统直接选择某一冲突证据下结论，应记录为鲁棒性/可测试性缺口,
+CONF-R-033,conflicting_evidence_real,config_vlan_vs_mac_vlan_conflict,,10.20.30.15,接口配置PVID与台账一致，但目标MAC表项显示在另一个VLAN，需确认是否为旧表项或跨设备证据。,access_unknown,00:11:22:33:44:15,false,false,,,,办公楼B区,,"<SW> display interface GE0/0/15
+GE0/0/15 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-003
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  300    GE0/0/40      dynamic
+00aa-bb00-0002  300    GE0/0/41      dynamic
+0011-2233-4415  300    GE0/0/15      dynamic",,"<SW> display current-configuration interface GE0/0/15
+interface GigabitEthernet0/0/15
+ description 办公楼B区-ACC-SIM-003
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/15,insufficient_evidence,false,true,,冲突证据识别与保守决策,同一目标端口的配置VLAN与MAC学习VLAN相互冲突，不能直接选一个作为真值,明显相互矛盾的同层证据应要求重新采集/核对；资源或终端对象明确不一致时按对应层级处理,若系统直接选择某一冲突证据下结论，应记录为鲁棒性/可测试性缺口,
+CONF-R-034,conflicting_evidence_real,manual_port_vs_mac_port_conflict,,10.20.30.16,现场人员记录的实际接入口与台账不同，但MAC表仍显示在登记端口，需要先复核接入关系。,access_unknown,00:11:22:33:44:16,false,false,,,,办公楼B区,,"<SW> display interface GE0/0/16
+GE0/0/16 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-004
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic
+0011-2233-4416  200    GE0/0/16      dynamic",,"<SW> display current-configuration interface GE0/0/16
+interface GigabitEthernet0/0/16
+ description 办公楼B区-ACC-SIM-004
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/38,resource_inconsistency,false,true,,冲突证据识别与保守决策,人工观察端口与资源登记不一致，资源前提需要复核，属于资源一致性风险,明显相互矛盾的同层证据应要求重新采集/核对；资源或终端对象明确不一致时按对应层级处理,若系统直接选择某一冲突证据下结论，应记录为鲁棒性/可测试性缺口,
+CONF-R-035,conflicting_evidence_real,terminal_ip_vs_network_evidence,,10.20.30.17,交换机侧目标IP/MAC关系正常，但终端ipconfig显示了另一地址，可能采集了错误网卡或地址未调整。,access_unknown,00:11:22:33:44:17,false,false,,,,办公楼C区,"Windows IP Configuration
+Ethernet adapter Ethernet:
+   IPv4 Address. . . . . . . . . . . : 10.20.30.204
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 10.20.30.1
+   DNS Servers . . . . . . . . . . . : 10.20.0.53
+   Physical Address. . . . . . . . . : 00-11-22-33-44-17
+Reply from 10.20.30.1: bytes=32 time<1ms TTL=64
+Server:  dns-sim
+Address: 10.20.0.53
+Name: intranet.example
+Address: 10.1.1.8","<SW> display interface GE0/0/17
+GE0/0/17 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-005
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  300    GE0/0/40      dynamic
+00aa-bb00-0002  300    GE0/0/41      dynamic
+0011-2233-4417  300    GE0/0/17      dynamic","<SW> display arp
+IP ADDRESS       MAC ADDRESS       TYPE       INTERFACE
+10.254.0.9       00aa-bbcc-0009    dynamic    Vlanif999
+10.20.30.17    0011-2233-4417    dynamic    Vlanif300","<SW> display current-configuration interface GE0/0/17
+interface GigabitEthernet0/0/17
+ description 办公楼C区-ACC-SIM-005
+ port link-type access
+ port default vlan 300
+ undo shutdown",SW-SIM-04,GE0/0/17,terminal_config,false,true,,冲突证据识别与保守决策,报障IP与终端当前配置IP不一致，需先核对目标网卡/地址整改,明显相互矛盾的同层证据应要求重新采集/核对；资源或终端对象明确不一致时按对应层级处理,若系统直接选择某一冲突证据下结论，应记录为鲁棒性/可测试性缺口,
+CONF-R-036,conflicting_evidence_real,up_vs_shutdown_conflict,,10.132.10.21,接口状态输出显示UP，但同一工单附带的当前配置里有shutdown，怀疑证据采集时间不一致。,network_down,00:11:22:33:44:21,false,false,,,,办公楼A区,,"<SW> display interface GE0/0/10
+GE0/0/10 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-001
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  132    GE0/0/40      dynamic
+00aa-bb00-0002  132    GE0/0/41      dynamic",,"<SW> display current-configuration interface GE0/0/10
+interface GigabitEthernet0/0/10
+ description 办公楼A区-ACC-SIM-001
+ port link-type access
+ port default vlan 132
+ shutdown",SW-SIM-01,GE0/0/10,insufficient_evidence,false,true,,冲突证据识别与保守决策,实时状态UP与配置shutdown互相矛盾，应先重新采集同一时点证据,明显相互矛盾的同层证据应要求重新采集/核对；资源或终端对象明确不一致时按对应层级处理,若系统直接选择某一冲突证据下结论，应记录为鲁棒性/可测试性缺口,
+CONF-R-037,conflicting_evidence_real,down_vs_active_mac_arp,,10.132.10.22,接口显示DOWN，但MAC和ARP里同时有目标终端的活跃记录，可能混入旧输出。,network_down,00:11:22:33:44:22,false,false,,,,办公楼A区,,"<SW> display interface GE0/0/11
+GE0/0/11 current state : DOWN
+Line protocol current state : DOWN
+Description: USER-ACC-SIM-002
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  132    GE0/0/40      dynamic
+00aa-bb00-0002  132    GE0/0/41      dynamic
+0011-2233-4422  132    GE0/0/11      dynamic","<SW> display arp
+IP ADDRESS       MAC ADDRESS       TYPE       INTERFACE
+10.254.0.9       00aa-bbcc-0009    dynamic    Vlanif999
+10.132.10.22    0011-2233-4422    dynamic    Vlanif132","<SW> display current-configuration interface GE0/0/11
+interface GigabitEthernet0/0/11
+ description 办公楼A区-ACC-SIM-002
+ port link-type access
+ port default vlan 132
+ undo shutdown",SW-SIM-01,GE0/0/11,insufficient_evidence,false,true,,冲突证据识别与保守决策,物理链路DOWN与活跃MAC/ARP证据矛盾，需要确认时间戳/设备对象,明显相互矛盾的同层证据应要求重新采集/核对；资源或终端对象明确不一致时按对应层级处理,若系统直接选择某一冲突证据下结论，应记录为鲁棒性/可测试性缺口,
+CONF-R-038,conflicting_evidence_real,config_vlan_vs_mac_vlan_conflict,,10.20.30.15,接口配置PVID与台账一致，但目标MAC表项显示在另一个VLAN，需确认是否为旧表项或跨设备证据。,access_unknown,00:11:22:33:44:15,false,false,,,,办公楼B区,,"<SW> display interface GE0/0/15
+GE0/0/15 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-003
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  300    GE0/0/40      dynamic
+00aa-bb00-0002  300    GE0/0/41      dynamic
+0011-2233-4415  300    GE0/0/15      dynamic",,"<SW> display current-configuration interface GE0/0/15
+interface GigabitEthernet0/0/15
+ description 办公楼B区-ACC-SIM-003
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/15,insufficient_evidence,false,true,,冲突证据识别与保守决策,同一目标端口的配置VLAN与MAC学习VLAN相互冲突，不能直接选一个作为真值,明显相互矛盾的同层证据应要求重新采集/核对；资源或终端对象明确不一致时按对应层级处理,若系统直接选择某一冲突证据下结论，应记录为鲁棒性/可测试性缺口,
+CONF-R-039,conflicting_evidence_real,manual_port_vs_mac_port_conflict,,10.20.30.16,现场人员记录的实际接入口与台账不同，但MAC表仍显示在登记端口，需要先复核接入关系。,access_unknown,00:11:22:33:44:16,false,false,,,,办公楼B区,,"<SW> display interface GE0/0/16
+GE0/0/16 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-004
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic
+0011-2233-4416  200    GE0/0/16      dynamic",,"<SW> display current-configuration interface GE0/0/16
+interface GigabitEthernet0/0/16
+ description 办公楼B区-ACC-SIM-004
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/43,resource_inconsistency,false,true,,冲突证据识别与保守决策,人工观察端口与资源登记不一致，资源前提需要复核，属于资源一致性风险,明显相互矛盾的同层证据应要求重新采集/核对；资源或终端对象明确不一致时按对应层级处理,若系统直接选择某一冲突证据下结论，应记录为鲁棒性/可测试性缺口,
+CONF-R-040,conflicting_evidence_real,terminal_ip_vs_network_evidence,,10.20.30.17,交换机侧目标IP/MAC关系正常，但终端ipconfig显示了另一地址，可能采集了错误网卡或地址未调整。,access_unknown,00:11:22:33:44:17,false,false,,,,办公楼C区,"Windows IP Configuration
+Ethernet adapter Ethernet:
+   IPv4 Address. . . . . . . . . . . : 10.20.30.209
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 10.20.30.1
+   DNS Servers . . . . . . . . . . . : 10.20.0.53
+   Physical Address. . . . . . . . . : 00-11-22-33-44-17
+Reply from 10.20.30.1: bytes=32 time<1ms TTL=64
+Server:  dns-sim
+Address: 10.20.0.53
+Name: intranet.example
+Address: 10.1.1.8","<SW> display interface GE0/0/17
+GE0/0/17 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-005
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  300    GE0/0/40      dynamic
+00aa-bb00-0002  300    GE0/0/41      dynamic
+0011-2233-4417  300    GE0/0/17      dynamic","<SW> display arp
+IP ADDRESS       MAC ADDRESS       TYPE       INTERFACE
+10.254.0.9       00aa-bbcc-0009    dynamic    Vlanif999
+10.20.30.17    0011-2233-4417    dynamic    Vlanif300","<SW> display current-configuration interface GE0/0/17
+interface GigabitEthernet0/0/17
+ description 办公楼C区-ACC-SIM-005
+ port link-type access
+ port default vlan 300
+ undo shutdown",SW-SIM-04,GE0/0/17,terminal_config,false,true,,冲突证据识别与保守决策,报障IP与终端当前配置IP不一致，需先核对目标网卡/地址整改,明显相互矛盾的同层证据应要求重新采集/核对；资源或终端对象明确不一致时按对应层级处理,若系统直接选择某一冲突证据下结论，应记录为鲁棒性/可测试性缺口,
+CONF-R-041,conflicting_evidence_real,up_vs_shutdown_conflict,,10.132.10.21,接口状态输出显示UP，但同一工单附带的当前配置里有shutdown，怀疑证据采集时间不一致。,network_down,00:11:22:33:44:21,false,false,,,,办公楼A区,,"<SW> display interface GE0/0/10
+GE0/0/10 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-001
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  132    GE0/0/40      dynamic
+00aa-bb00-0002  132    GE0/0/41      dynamic",,"<SW> display current-configuration interface GE0/0/10
+interface GigabitEthernet0/0/10
+ description 办公楼A区-ACC-SIM-001
+ port link-type access
+ port default vlan 132
+ shutdown",SW-SIM-01,GE0/0/10,insufficient_evidence,false,true,,冲突证据识别与保守决策,实时状态UP与配置shutdown互相矛盾，应先重新采集同一时点证据,明显相互矛盾的同层证据应要求重新采集/核对；资源或终端对象明确不一致时按对应层级处理,若系统直接选择某一冲突证据下结论，应记录为鲁棒性/可测试性缺口,
+CONF-R-042,conflicting_evidence_real,down_vs_active_mac_arp,,10.132.10.22,接口显示DOWN，但MAC和ARP里同时有目标终端的活跃记录，可能混入旧输出。,network_down,00:11:22:33:44:22,false,false,,,,办公楼A区,,"<SW> display interface GE0/0/11
+GE0/0/11 current state : DOWN
+Line protocol current state : DOWN
+Description: USER-ACC-SIM-002
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  132    GE0/0/40      dynamic
+00aa-bb00-0002  132    GE0/0/41      dynamic
+0011-2233-4422  132    GE0/0/11      dynamic","<SW> display arp
+IP ADDRESS       MAC ADDRESS       TYPE       INTERFACE
+10.254.0.9       00aa-bbcc-0009    dynamic    Vlanif999
+10.132.10.22    0011-2233-4422    dynamic    Vlanif132","<SW> display current-configuration interface GE0/0/11
+interface GigabitEthernet0/0/11
+ description 办公楼A区-ACC-SIM-002
+ port link-type access
+ port default vlan 132
+ undo shutdown",SW-SIM-01,GE0/0/11,insufficient_evidence,false,true,,冲突证据识别与保守决策,物理链路DOWN与活跃MAC/ARP证据矛盾，需要确认时间戳/设备对象,明显相互矛盾的同层证据应要求重新采集/核对；资源或终端对象明确不一致时按对应层级处理,若系统直接选择某一冲突证据下结论，应记录为鲁棒性/可测试性缺口,
+CONF-R-043,conflicting_evidence_real,config_vlan_vs_mac_vlan_conflict,,10.20.30.15,接口配置PVID与台账一致，但目标MAC表项显示在另一个VLAN，需确认是否为旧表项或跨设备证据。,access_unknown,00:11:22:33:44:15,false,false,,,,办公楼B区,,"<SW> display interface GE0/0/15
+GE0/0/15 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-003
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  300    GE0/0/40      dynamic
+00aa-bb00-0002  300    GE0/0/41      dynamic
+0011-2233-4415  300    GE0/0/15      dynamic",,"<SW> display current-configuration interface GE0/0/15
+interface GigabitEthernet0/0/15
+ description 办公楼B区-ACC-SIM-003
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/15,insufficient_evidence,false,true,,冲突证据识别与保守决策,同一目标端口的配置VLAN与MAC学习VLAN相互冲突，不能直接选一个作为真值,明显相互矛盾的同层证据应要求重新采集/核对；资源或终端对象明确不一致时按对应层级处理,若系统直接选择某一冲突证据下结论，应记录为鲁棒性/可测试性缺口,
+CONF-R-044,conflicting_evidence_real,manual_port_vs_mac_port_conflict,,10.20.30.16,现场人员记录的实际接入口与台账不同，但MAC表仍显示在登记端口，需要先复核接入关系。,access_unknown,00:11:22:33:44:16,false,false,,,,办公楼B区,,"<SW> display interface GE0/0/16
+GE0/0/16 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-004
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic
+0011-2233-4416  200    GE0/0/16      dynamic",,"<SW> display current-configuration interface GE0/0/16
+interface GigabitEthernet0/0/16
+ description 办公楼B区-ACC-SIM-004
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/38,resource_inconsistency,false,true,,冲突证据识别与保守决策,人工观察端口与资源登记不一致，资源前提需要复核，属于资源一致性风险,明显相互矛盾的同层证据应要求重新采集/核对；资源或终端对象明确不一致时按对应层级处理,若系统直接选择某一冲突证据下结论，应记录为鲁棒性/可测试性缺口,
+CONF-R-045,conflicting_evidence_real,terminal_ip_vs_network_evidence,,10.20.30.17,交换机侧目标IP/MAC关系正常，但终端ipconfig显示了另一地址，可能采集了错误网卡或地址未调整。,access_unknown,00:11:22:33:44:17,false,false,,,,办公楼C区,"Windows IP Configuration
+Ethernet adapter Ethernet:
+   IPv4 Address. . . . . . . . . . . : 10.20.30.214
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 10.20.30.1
+   DNS Servers . . . . . . . . . . . : 10.20.0.53
+   Physical Address. . . . . . . . . : 00-11-22-33-44-17
+Reply from 10.20.30.1: bytes=32 time<1ms TTL=64
+Server:  dns-sim
+Address: 10.20.0.53
+Name: intranet.example
+Address: 10.1.1.8","<SW> display interface GE0/0/17
+GE0/0/17 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-005
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  300    GE0/0/40      dynamic
+00aa-bb00-0002  300    GE0/0/41      dynamic
+0011-2233-4417  300    GE0/0/17      dynamic","<SW> display arp
+IP ADDRESS       MAC ADDRESS       TYPE       INTERFACE
+10.254.0.9       00aa-bbcc-0009    dynamic    Vlanif999
+10.20.30.17    0011-2233-4417    dynamic    Vlanif300","<SW> display current-configuration interface GE0/0/17
+interface GigabitEthernet0/0/17
+ description 办公楼C区-ACC-SIM-005
+ port link-type access
+ port default vlan 300
+ undo shutdown",SW-SIM-04,GE0/0/17,terminal_config,false,true,,冲突证据识别与保守决策,报障IP与终端当前配置IP不一致，需先核对目标网卡/地址整改,明显相互矛盾的同层证据应要求重新采集/核对；资源或终端对象明确不一致时按对应层级处理,若系统直接选择某一冲突证据下结论，应记录为鲁棒性/可测试性缺口,
+CONF-R-046,conflicting_evidence_real,up_vs_shutdown_conflict,,10.132.10.21,接口状态输出显示UP，但同一工单附带的当前配置里有shutdown，怀疑证据采集时间不一致。,network_down,00:11:22:33:44:21,false,false,,,,办公楼A区,,"<SW> display interface GE0/0/10
+GE0/0/10 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-001
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  132    GE0/0/40      dynamic
+00aa-bb00-0002  132    GE0/0/41      dynamic",,"<SW> display current-configuration interface GE0/0/10
+interface GigabitEthernet0/0/10
+ description 办公楼A区-ACC-SIM-001
+ port link-type access
+ port default vlan 132
+ shutdown",SW-SIM-01,GE0/0/10,insufficient_evidence,false,true,,冲突证据识别与保守决策,实时状态UP与配置shutdown互相矛盾，应先重新采集同一时点证据,明显相互矛盾的同层证据应要求重新采集/核对；资源或终端对象明确不一致时按对应层级处理,若系统直接选择某一冲突证据下结论，应记录为鲁棒性/可测试性缺口,
+CONF-R-047,conflicting_evidence_real,down_vs_active_mac_arp,,10.132.10.22,接口显示DOWN，但MAC和ARP里同时有目标终端的活跃记录，可能混入旧输出。,network_down,00:11:22:33:44:22,false,false,,,,办公楼A区,,"<SW> display interface GE0/0/11
+GE0/0/11 current state : DOWN
+Line protocol current state : DOWN
+Description: USER-ACC-SIM-002
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  132    GE0/0/40      dynamic
+00aa-bb00-0002  132    GE0/0/41      dynamic
+0011-2233-4422  132    GE0/0/11      dynamic","<SW> display arp
+IP ADDRESS       MAC ADDRESS       TYPE       INTERFACE
+10.254.0.9       00aa-bbcc-0009    dynamic    Vlanif999
+10.132.10.22    0011-2233-4422    dynamic    Vlanif132","<SW> display current-configuration interface GE0/0/11
+interface GigabitEthernet0/0/11
+ description 办公楼A区-ACC-SIM-002
+ port link-type access
+ port default vlan 132
+ undo shutdown",SW-SIM-01,GE0/0/11,insufficient_evidence,false,true,,冲突证据识别与保守决策,物理链路DOWN与活跃MAC/ARP证据矛盾，需要确认时间戳/设备对象,明显相互矛盾的同层证据应要求重新采集/核对；资源或终端对象明确不一致时按对应层级处理,若系统直接选择某一冲突证据下结论，应记录为鲁棒性/可测试性缺口,
+CONF-R-048,conflicting_evidence_real,config_vlan_vs_mac_vlan_conflict,,10.20.30.15,接口配置PVID与台账一致，但目标MAC表项显示在另一个VLAN，需确认是否为旧表项或跨设备证据。,access_unknown,00:11:22:33:44:15,false,false,,,,办公楼B区,,"<SW> display interface GE0/0/15
+GE0/0/15 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-003
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  300    GE0/0/40      dynamic
+00aa-bb00-0002  300    GE0/0/41      dynamic
+0011-2233-4415  300    GE0/0/15      dynamic",,"<SW> display current-configuration interface GE0/0/15
+interface GigabitEthernet0/0/15
+ description 办公楼B区-ACC-SIM-003
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/15,insufficient_evidence,false,true,,冲突证据识别与保守决策,同一目标端口的配置VLAN与MAC学习VLAN相互冲突，不能直接选一个作为真值,明显相互矛盾的同层证据应要求重新采集/核对；资源或终端对象明确不一致时按对应层级处理,若系统直接选择某一冲突证据下结论，应记录为鲁棒性/可测试性缺口,
+CONF-R-049,conflicting_evidence_real,manual_port_vs_mac_port_conflict,,10.20.30.16,现场人员记录的实际接入口与台账不同，但MAC表仍显示在登记端口，需要先复核接入关系。,access_unknown,00:11:22:33:44:16,false,false,,,,办公楼B区,,"<SW> display interface GE0/0/16
+GE0/0/16 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-004
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  200    GE0/0/40      dynamic
+00aa-bb00-0002  200    GE0/0/41      dynamic
+0011-2233-4416  200    GE0/0/16      dynamic",,"<SW> display current-configuration interface GE0/0/16
+interface GigabitEthernet0/0/16
+ description 办公楼B区-ACC-SIM-004
+ port link-type access
+ port default vlan 200
+ undo shutdown",SW-SIM-03,GE0/0/43,resource_inconsistency,false,true,,冲突证据识别与保守决策,人工观察端口与资源登记不一致，资源前提需要复核，属于资源一致性风险,明显相互矛盾的同层证据应要求重新采集/核对；资源或终端对象明确不一致时按对应层级处理,若系统直接选择某一冲突证据下结论，应记录为鲁棒性/可测试性缺口,
+CONF-R-050,conflicting_evidence_real,terminal_ip_vs_network_evidence,,10.20.30.17,交换机侧目标IP/MAC关系正常，但终端ipconfig显示了另一地址，可能采集了错误网卡或地址未调整。,access_unknown,00:11:22:33:44:17,false,false,,,,办公楼C区,"Windows IP Configuration
+Ethernet adapter Ethernet:
+   IPv4 Address. . . . . . . . . . . : 10.20.30.219
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 10.20.30.1
+   DNS Servers . . . . . . . . . . . : 10.20.0.53
+   Physical Address. . . . . . . . . : 00-11-22-33-44-17
+Reply from 10.20.30.1: bytes=32 time<1ms TTL=64
+Server:  dns-sim
+Address: 10.20.0.53
+Name: intranet.example
+Address: 10.1.1.8","<SW> display interface GE0/0/17
+GE0/0/17 current state : UP
+Line protocol current state : UP
+Description: USER-ACC-SIM-005
+Input errors: 0
+Output errors: 0
+Input drops: 0
+Output drops: 0","<SW> display mac-address
+MAC Address      VLAN    Learned-From      Type
+00aa-bb00-0001  300    GE0/0/40      dynamic
+00aa-bb00-0002  300    GE0/0/41      dynamic
+0011-2233-4417  300    GE0/0/17      dynamic","<SW> display arp
+IP ADDRESS       MAC ADDRESS       TYPE       INTERFACE
+10.254.0.9       00aa-bbcc-0009    dynamic    Vlanif999
+10.20.30.17    0011-2233-4417    dynamic    Vlanif300","<SW> display current-configuration interface GE0/0/17
+interface GigabitEthernet0/0/17
+ description 办公楼C区-ACC-SIM-005
+ port link-type access
+ port default vlan 300
+ undo shutdown",SW-SIM-04,GE0/0/17,terminal_config,false,true,,冲突证据识别与保守决策,报障IP与终端当前配置IP不一致，需先核对目标网卡/地址整改,明显相互矛盾的同层证据应要求重新采集/核对；资源或终端对象明确不一致时按对应层级处理,若系统直接选择某一冲突证据下结论，应记录为鲁棒性/可测试性缺口,

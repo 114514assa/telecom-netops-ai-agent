@@ -6,12 +6,9 @@ from app.llm.report_guardrails import AUX_SYSTEM_PROMPT, extract_constraints
 
 
 class LangChainReportAssistant:
-    """Compose the auxiliary-generation prompt with LangChain.
+    """Generate one tightly-scoped auxiliary sentence from deterministic results."""
 
-    The chain receives only already-confirmed diagnostic fields. It does not expose any API
-    that can replace ``DiagnosisResult``; the generated sentence still has to pass the
-    application guardrail before it can be appended to a report.
-    """
+    SAFE_FALLBACK_DIRECTION = "仅进行只读核查、人工复核、补充证据或转交授权维护人员。"
 
     def __init__(self, backend) -> None:
         self.backend = backend
@@ -20,15 +17,19 @@ class LangChainReportAssistant:
                 ("system", AUX_SYSTEM_PROMPT),
                 (
                     "human",
-                    """根据下面已经确认的诊断信息生成一句辅助说明。
+                    """请将下面两项整理成一句自然中文辅助说明。
 
-诊断类型（仅供理解，不要输出）：{diagnosis_code}
-已确认结论：{conclusion}
-允许参考的处理方向：{recommendation}
+结论：{conclusion}
+处理方向：{recommendation}
 
-不要复述具体地址、设备编号、端口、VLAN编号、MAC、置信度或诊断代码。
-不要重新判断原因，不要给出任何配置修改或设备操作命令。
-只输出一行：辅助说明：<最多80个中文字符的只读核查/人工复核/转交说明>。""",
+规则：
+- 保持结论语义和状态方向不变；不一致、未学习、DOWN、证据不足、未见异常等含义不能改成相反含义。
+- 只转述已有结论和处理方向，不新增原因、事实或修复结果。
+- 只建议只读核查、人工复核、补充证据或转交授权人员。
+- 不输出具体标识、数值、诊断代码、字段名、配置修改命令或额外段落。
+- 使用自然完整中文，标准缩写 VLAN、MAC、ARP、Interface 可保留。
+
+只输出：辅助说明：<最多80个中文字符的完整句子>。""",
                 ),
             ]
         )
@@ -37,9 +38,8 @@ class LangChainReportAssistant:
         constraints = extract_constraints(source_report)
         prompt_value = self.prompt.invoke(
             {
-                "diagnosis_code": constraints.get("diagnosis_code") or "未提供",
-                "conclusion": constraints.get("conclusion") or "未提供",
-                "recommendation": constraints.get("recommendation") or "仅进行只读核查并转交授权人员",
+                "conclusion": constraints.get("conclusion") or "当前证据不足，需要继续核查。",
+                "recommendation": constraints.get("recommendation") or self.SAFE_FALLBACK_DIRECTION,
             }
         )
         messages: list[dict[str, str]] = []
@@ -48,4 +48,6 @@ class LangChainReportAssistant:
             messages.append({"role": role, "content": str(message.content)})
         result = self.backend.generate_chat(messages)
         result.extra["prompt_framework"] = "langchain-chat-prompt-template"
+        result.extra["llm_input_scope"] = "confirmed-conclusion-and-readonly-direction-only"
+        result.extra["prompt_version"] = "netops-aux-v4-final-quant"
         return result

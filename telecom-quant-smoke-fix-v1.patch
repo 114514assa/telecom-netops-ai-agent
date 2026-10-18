@@ -1,0 +1,298 @@
+--- a/app/llm/langchain_report_chain.py
++++ b/app/llm/langchain_report_chain.py
+@@ -1,51 +1,63 @@
+-from __future__ import annotations
+-
+-from langchain_core.prompts import ChatPromptTemplate
+-
+-from app.llm.report_guardrails import AUX_SYSTEM_PROMPT, extract_constraints
+-
+-
+-class LangChainReportAssistant:
+-    """Compose the auxiliary-generation prompt with LangChain.
+-
+-    The chain receives only already-confirmed diagnostic fields. It does not expose any API
+-    that can replace ``DiagnosisResult``; the generated sentence still has to pass the
+-    application guardrail before it can be appended to a report.
+-    """
+-
+-    def __init__(self, backend) -> None:
+-        self.backend = backend
+-        self.prompt = ChatPromptTemplate.from_messages(
+-            [
+-                ("system", AUX_SYSTEM_PROMPT),
+-                (
+-                    "human",
+-                    """根据下面已经确认的诊断信息生成一句辅助说明。
+-
+-诊断类型（仅供理解，不要输出）：{diagnosis_code}
+-已确认结论：{conclusion}
+-允许参考的处理方向：{recommendation}
+-
+-不要复述具体地址、设备编号、端口、VLAN编号、MAC、置信度或诊断代码。
+-不要重新判断原因，不要给出任何配置修改或设备操作命令。
+-只输出一行：辅助说明：<最多80个中文字符的只读核查/人工复核/转交说明>。""",
+-                ),
+-            ]
+-        )
+-
+-    def generate(self, source_report: str):
+-        constraints = extract_constraints(source_report)
+-        prompt_value = self.prompt.invoke(
+-            {
+-                "diagnosis_code": constraints.get("diagnosis_code") or "未提供",
+-                "conclusion": constraints.get("conclusion") or "未提供",
+-                "recommendation": constraints.get("recommendation") or "仅进行只读核查并转交授权人员",
+-            }
+-        )
+-        messages: list[dict[str, str]] = []
+-        for message in prompt_value.to_messages():
+-            role = "system" if message.type == "system" else "user"
+-            messages.append({"role": role, "content": str(message.content)})
+-        result = self.backend.generate_chat(messages)
+-        result.extra["prompt_framework"] = "langchain-chat-prompt-template"
+-        return result
++from __future__ import annotations
++
++from langchain_core.prompts import ChatPromptTemplate
++
++from app.llm.report_guardrails import AUX_SYSTEM_PROMPT, extract_constraints
++
++
++class LangChainReportAssistant:
++    """Compose a tightly scoped auxiliary-generation prompt with LangChain.
++
++    The model receives only the already-confirmed conclusion and a read-only handling
++    direction. Internal diagnosis codes, confidence values, IP/MAC/VLAN/port identifiers
++    and the original report are deliberately not exposed to the model.
++
++    This keeps the LLM on the presentation layer: the deterministic diagnosis remains the
++    source of truth, and the generated sentence still has to pass application guardrails
++    before it can be appended to a report.
++    """
++
++    SAFE_FALLBACK_DIRECTION = "仅进行只读核查、人工复核、补充证据或转交授权维护人员。"
++
++    def __init__(self, backend) -> None:
++        self.backend = backend
++        self.prompt = ChatPromptTemplate.from_messages(
++            [
++                ("system", AUX_SYSTEM_PROMPT),
++                (
++                    "human",
++                    """根据下面已经确认的信息生成一句辅助说明。
++
++已确认结论：{conclusion}
++允许参考的处理方向：{recommendation}
++
++要求：
++- 只改写已有结论和处理方向，不要解释“为什么”，不得补充新的可能原因或根因。
++- 不得使用“无需其他操作”“已经完全确认”“可以排除其他问题”等超出已有证据的绝对化表述。
++- 不得输出任何内部字段、诊断代码、置信度、具体地址、设备编号、端口、VLAN编号或MAC。
++- 不得给出配置修改、设备操作或生产变更指令。
++- 证据或处理方向不足时，只能写“建议进一步只读核查/人工复核/转交授权人员”等保守表述。
++
++只输出一行：辅助说明：<最多80个中文字符的只读核查/人工复核/转交说明>。""",
++                ),
++            ]
++        )
++
++    def generate(self, source_report: str):
++        constraints = extract_constraints(source_report)
++        # Defense-in-depth: diagnosis_code/confidence/identifiers stay in the deterministic
++        # report and guardrail layer, but are not included in the LLM prompt.
++        prompt_value = self.prompt.invoke(
++            {
++                "conclusion": constraints.get("conclusion") or "当前证据不足，需要继续核查。",
++                "recommendation": constraints.get("recommendation") or self.SAFE_FALLBACK_DIRECTION,
++            }
++        )
++        messages: list[dict[str, str]] = []
++        for message in prompt_value.to_messages():
++            role = "system" if message.type == "system" else "user"
++            messages.append({"role": role, "content": str(message.content)})
++        result = self.backend.generate_chat(messages)
++        result.extra["prompt_framework"] = "langchain-chat-prompt-template"
++        result.extra["llm_input_scope"] = "confirmed-conclusion-and-readonly-direction-only"
++        return result
+--- a/app/llm/report_guardrails.py
++++ b/app/llm/report_guardrails.py
+@@ -13,10 +13,11 @@
+ 2. 最多 80 个中文字符，句末使用句号。
+ 3. 不得输出或复述任何 IP、MAC、端口号、VLAN 编号、置信度、百分比或其他具体数值。
+ 4. 不得输出诊断代码，不得重新计算或改变诊断结论。
+-5. 不得新增输入中没有的故障原因、设备状态、修复结果或网络事实。
+-6. 只能建议只读核查、人工复核、补充证据或转交授权维护人员；不得建议任何修改、调整、修正、变更、下发或写入操作。
+-7. 禁止建议修改配置、调整策略/VLAN/路由、修正地址或资源、shutdown/undo shutdown、reboot/reset、重启/关闭/复位设备或端口。
+-8. 不输出标题、表格、原始报告、推导、编号列表或额外段落。
++5. 不得新增输入中没有的故障原因、设备状态、修复结果或网络事实；不得使用“可能的原因是”“可能由于”“根因是”等扩展根因表述。
++6. 不得使用“无需其他操作”“已经完全确认”“可以排除其他问题”等超出已有证据的绝对化表述。
++7. 只能建议只读核查、人工复核、补充证据或转交授权维护人员；不得建议任何修改、调整、修正、变更、下发或写入操作。
++8. 禁止建议修改配置、调整策略/VLAN/路由、修正地址或资源、shutdown/undo shutdown、reboot/reset、重启/关闭/复位设备或端口。
++9. 不输出标题、表格、原始报告、推导、编号列表或额外段落。
+ """
+ 
+ IP_RE = re.compile(r"(?<!\d)(?:\d{1,3}\.){3}\d{1,3}(?!\d)")
+@@ -64,8 +65,16 @@
+ # checked only against the auxiliary sentence that would actually be appended.
+ ABNORMAL_CONTRADICTIONS = [
+     re.compile(r"(?:未发现|没有|不存在)(?:明显)?异常"),
+-    re.compile(r"(?:无需|不需要)(?:处理|核查|复核|转交|排查)"),
++    # Reject premature closure such as “无需进行其他操作” for unresolved/abnormal cases.
++    re.compile(r"(?:无需|不需要|不必).{0,10}(?:其他|额外|进一步)?(?:操作|处理|核查|复核|转交|排查)"),
+     re.compile(r"(?:已经|已)(?:恢复|修复|解决)"),
++    re.compile(r"(?:可以|可).{0,6}排除.{0,12}(?:其他|其余)?(?:问题|故障|原因)"),
++]
++
++UNSUPPORTED_ROOT_CAUSE_PATTERNS = [
++    re.compile(r"(?:可能|疑似|推测).{0,6}(?:原因|根因).{0,6}(?:是|为|包括|涉及)"),
++    re.compile(r"(?:原因|根因).{0,4}(?:可能)?(?:是|为|包括|涉及)"),
++    re.compile(r"(?:可能由于|可能由|疑似由).{1,24}(?:导致|引起|造成)"),
+ ]
+ NORMAL_CONTRADICTIONS = [
+     re.compile(r"(?:确认|表明|说明).{0,8}(?:存在|发现).{0,8}(?:故障|异常)"),
+@@ -152,15 +161,15 @@
+ 
+ def build_auxiliary_request(source_report: str) -> str:
+     constraints = extract_constraints(source_report)
+-    code = constraints.get("diagnosis_code") or "未提供"
+-    conclusion = constraints.get("conclusion") or "未提供"
+-    recommendation = constraints.get("recommendation") or "仅进行只读核查并转交授权人员"
+-    return f"""根据下面已经确认的诊断信息生成一句辅助说明。
++    conclusion = constraints.get("conclusion") or "当前证据不足，需要继续核查。"
++    recommendation = constraints.get("recommendation") or "仅进行只读核查、人工复核、补充证据或转交授权维护人员。"
++    return f"""根据下面已经确认的信息生成一句辅助说明。
+ 
+-诊断类型（仅供理解，不要输出）：{code}
+ 已确认结论：{conclusion}
+ 允许参考的处理方向：{recommendation}
+ 
++只改写已有结论和处理方向，不得补充新的可能原因或根因。
++不得使用“无需其他操作”“已经完全确认”“可以排除其他问题”等超出已有证据的绝对化表述。
+ 不要复述具体地址、设备编号、端口、VLAN编号、MAC、置信度或诊断代码。
+ 不要重新判断原因，不要给出任何配置修改或设备操作命令。
+ 只输出一行：辅助说明：<最多80个中文字符的只读核查/人工复核/转交说明>。
+@@ -205,6 +214,7 @@
+     ignored_extra_lines: int = 0
+     unsafe_patterns: list[str] = field(default_factory=list)
+     contradiction_patterns: list[str] = field(default_factory=list)
++    unsupported_root_cause_patterns: list[str] = field(default_factory=list)
+     identifiers_in_auxiliary: dict[str, list[str]] = field(default_factory=dict)
+     confidence_like_values: list[str] = field(default_factory=list)
+     reasons: list[str] = field(default_factory=list)
+@@ -229,6 +239,7 @@
+             "ignored_extra_lines": self.ignored_extra_lines,
+             "unsafe_patterns": self.unsafe_patterns,
+             "contradiction_patterns": self.contradiction_patterns,
++            "unsupported_root_cause_patterns": self.unsupported_root_cause_patterns,
+             "identifiers_in_auxiliary": self.identifiers_in_auxiliary,
+             "confidence_like_values": self.confidence_like_values,
+             "reasons": self.reasons,
+@@ -287,6 +298,9 @@
+     contradiction_hits = [pattern.pattern for pattern in contradiction_patterns if pattern.search(auxiliary)]
+     contradiction_free = not contradiction_hits
+     semantic_relevant = diagnosis_relevance(diagnosis_code, auxiliary)
++    unsupported_root_cause_hits = [
++        pattern.pattern for pattern in UNSUPPORTED_ROOT_CAUSE_PATTERNS if pattern.search(auxiliary)
++    ]
+     normalized_code = diagnosis_code.lower().strip()
+     diagnosis_code_free = not normalized_code or normalized_code not in auxiliary.lower()
+ 
+@@ -303,6 +317,8 @@
+         reasons.append("semantic_contradiction")
+     if not semantic_relevant:
+         reasons.append("semantic_irrelevance")
++    if unsupported_root_cause_hits:
++        reasons.append("unsupported_root_cause_expansion")
+     if not diagnosis_code_free:
+         reasons.append("diagnosis_code_echo")
+     if not length_ok:
+@@ -326,6 +342,7 @@
+         ignored_extra_lines=ignored_extra_lines,
+         unsafe_patterns=unsafe_hits,
+         contradiction_patterns=contradiction_hits,
++        unsupported_root_cause_patterns=unsupported_root_cause_hits,
+         identifiers_in_auxiliary=identifiers_flat,
+         confidence_like_values=confidence_hits,
+         reasons=reasons,
+--- a/tests/test_report_guardrails.py
++++ b/tests/test_report_guardrails.py
+@@ -12,9 +12,12 @@
+ """
+ 
+ 
+-def test_build_request_does_not_delegate_protected_fields():
++def test_build_request_does_not_expose_protected_fields():
+     request = build_auxiliary_request(SOURCE)
+-    assert "诊断类型（仅供理解，不要输出）：vlan_mismatch" in request
++    assert "vlan_mismatch" not in request
++    assert "10.20.30.15" not in request
++    assert "0.96" not in request
++    assert "已确认结论：设备侧 VLAN 与资源登记目标 VLAN 不一致。" in request
+     assert "只输出一行：辅助说明" in request
+ 
+ 
+@@ -161,3 +164,17 @@
+     result = validate_auxiliary_output(SOURCE, output)
+     assert result.passed is True
+     assert result.unsafe_free is True
++
++
++def test_abnormal_case_rejects_premature_no_other_action_claim():
++    output = "辅助说明：建议人工核对资源台账与变更记录，无需进行其他操作。"
++    result = validate_auxiliary_output(SOURCE, output)
++    assert result.passed is False
++    assert "semantic_contradiction" in result.reasons
++
++
++def test_new_root_cause_expansion_is_rejected():
++    output = "辅助说明：可能的原因是配置错误，建议人工核对资源台账。"
++    result = validate_auxiliary_output(SOURCE, output)
++    assert result.passed is False
++    assert "unsupported_root_cause_expansion" in result.reasons
+--- /dev/null
++++ b/tests/test_langchain_report_chain.py
+@@ -0,0 +1,43 @@
++from app.llm.backends import GenerationResult
++from app.llm.langchain_report_chain import LangChainReportAssistant
++
++
++SOURCE = """# 报告
++- 终端 IP：10.20.30.15
++- 登记设备：SW-SIM-03
++- 登记端口：GE0/0/12
++- 目标 VLAN：200
++- 诊断代码：vlan_mismatch
++- 置信度：0.96
++- 结论：设备侧 VLAN 与资源登记目标 VLAN 不一致。
++- 建议：人工核对资源台账与正式变更记录，仅做只读确认。
++"""
++
++
++class CaptureBackend:
++    def __init__(self):
++        self.messages = None
++
++    def generate_chat(self, messages):
++        self.messages = messages
++        return GenerationResult(
++            text="辅助说明：建议人工核对资源台账与正式变更记录，并由授权人员复核。",
++            backend="test",
++            model="capture",
++        )
++
++
++def test_langchain_prompt_uses_minimum_safe_context_only():
++    backend = CaptureBackend()
++    assistant = LangChainReportAssistant(backend)
++    result = assistant.generate(SOURCE)
++
++    joined = "\n".join(message["content"] for message in backend.messages)
++    assert "设备侧 VLAN 与资源登记目标 VLAN 不一致" in joined
++    assert "人工核对资源台账与正式变更记录" in joined
++    assert "vlan_mismatch" not in joined
++    assert "10.20.30.15" not in joined
++    assert "SW-SIM-03" not in joined
++    assert "GE0/0/12" not in joined
++    assert "0.96" not in joined
++    assert result.extra["llm_input_scope"] == "confirmed-conclusion-and-readonly-direction-only"

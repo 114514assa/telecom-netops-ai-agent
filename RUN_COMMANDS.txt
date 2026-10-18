@@ -1,0 +1,13 @@
+RAG-150 快速执行命令（在项目根目录执行）
+
+1) .\.venv\Scripts\Activate.ps1
+2) 确认 .env：RAG_KNOWLEDGE_DIR=knowledge/sanitized
+3) ollama list
+4) python -m scripts.build_vector_index
+5) python -m scripts.test_vector_retrieval
+6) 快速验证：
+   python -m scripts.evaluate_rag_retrieval_150 --dataset data/rag_eval/queries_150.json --top-k 5 --repeats 1 --warmup 1
+7) 检查 runtime/rag_eval_150/rag150_hit1_errors_*.csv 并人工审核 Gold
+8) 正式实验：
+   python -m scripts.evaluate_rag_retrieval_150 --dataset data/rag_eval/queries_150.json --top-k 5 --repeats 3 --warmup 3
+9) 将 summary/per_category/per_expression/hit1_errors 结果发回分析。

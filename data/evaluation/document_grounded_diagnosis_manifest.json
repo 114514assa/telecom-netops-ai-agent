@@ -1,0 +1,47 @@
+[
+  {
+    "fixture": "interface_down.json",
+    "expected_code": "physical_or_terminal_link",
+    "source_page": 7,
+    "source_section": "二、9 情况一：交换机接口DOWN",
+    "basis": "DOWN先排查终端网卡、线缆、物理链路和端口状态",
+    "source_document": "网络运维系统及接入交换机故障定位工作.pdf",
+    "sample_data_type": "existing_sanitized_synthetic_fixture_not_production_incident"
+  },
+  {
+    "fixture": "no_mac.json",
+    "expected_code": "l2_no_mac",
+    "source_page": 8,
+    "source_section": "二、9 情况二：UP但没有学习到MAC",
+    "basis": "接口UP而目标MAC未发现，应核对终端流量、接口和老化",
+    "source_document": "网络运维系统及接入交换机故障定位工作.pdf",
+    "sample_data_type": "existing_sanitized_synthetic_fixture_not_production_incident"
+  },
+  {
+    "fixture": "vlan_mismatch.json",
+    "expected_code": "vlan_mismatch",
+    "source_page": 6,
+    "source_section": "二、7 核查接口VLAN",
+    "basis": "OA地址调整需交叉核查接入端口VLAN与资源规划",
+    "source_document": "网络运维系统及接入交换机故障定位工作.pdf",
+    "sample_data_type": "existing_sanitized_synthetic_fixture_not_production_incident"
+  },
+  {
+    "fixture": "resource_mismatch.json",
+    "expected_code": "resource_inconsistency",
+    "source_page": 9,
+    "source_section": "二、9 情况四：MSE资源与交换机实际信息不一致",
+    "basis": "资源登记端口与实际学习端口可能存在差异",
+    "source_document": "网络运维系统及接入交换机故障定位工作.pdf",
+    "sample_data_type": "existing_sanitized_synthetic_fixture_not_production_incident"
+  },
+  {
+    "fixture": "upstream.json",
+    "expected_code": "uplink_policy_or_application",
+    "source_page": 8,
+    "source_section": "二、9 情况三：UP且存在MAC但业务不可访问",
+    "basis": "接入侧证据基本正常，继续核查IP/网关/DNS或上层路径",
+    "source_document": "网络运维系统及接入交换机故障定位工作.pdf",
+    "sample_data_type": "existing_sanitized_synthetic_fixture_not_production_incident"
+  }
+]
