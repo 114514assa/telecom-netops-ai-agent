@@ -16,7 +16,6 @@ V2 的本地 INT4 完整 Agent 端到端压测为 180/180 工作流完成，但�
 
 源文件 `app/llm/report_guardrails.py`：在 `_mask_negated_unsafe_actions` 的否定前缀范围新增「避免」「切勿」，对应“避免直接调整生产 VLAN 配置”属于禁止修改，而不是建议修改；不会改变“请修改/重启/下发”等主动危险建议的拒绝规则。新回归测试覆盖正确否定句、直接危险命令、否定后另有危险操作、诊断方向反转。
 
-**不宣称此修复能解决所有误报。** 当前仅对明确的禁止性短句做保守改动。
 
 ## 修改二：结构化 Guardrail 审计
 
@@ -29,7 +28,7 @@ V2 的本地 INT4 完整 Agent 端到端压测为 180/180 工作流完成，但�
 
 - 整包解压根目录 `telecom-netops-ai-agent-v3.1.0`，不与 V2 同名。
 - `RUN_V3_1_ENV.ps1` 可以指向 V2 的 `.venv\Scripts\python.exe`，不需复制或重建旧环境。
-- `runtime_v3_1` 下独立保存 SQLite Checkpoint、inventory、report、audit、FAISS index、测试结果；**不会将 V3.1 的结果写到 V2 `runtime`。**
+- `runtime_v3_1` 下独立保存 SQLite Checkpoint、inventory、report、audit、FAISS index、测试结果；
 - 新版 `app/core/config.py` 默认知识目录由无文件的 `knowledge/demo` 修正为随项目存在的 `knowledge/sanitized`；覆盖环境变量仍优先。
 
 ## 保持原样
@@ -41,8 +40,4 @@ V2 的本地 INT4 完整 Agent 端到端压测为 180/180 工作流完成，但�
 - 仅离线 Guardrail/Parser/规则及相关测试在构建环境运行通过，完整集成及 GPU 实验因没有全部 LangGraph、LangChain、FAISS、Ollama/CUDA 依赖无法执行。
 - V3.1 引入的日志观察功能需由用户 Windows 上开启 `LLM_ENABLED=true` 且真实运行后才能形成拒绝原因分布。
 - 未来主要验收指标：相同 5 类模拟 E2E 用例上的接受率、拒绝原因频次、安全违规漏检率、P50/P95、吞吐量。质量、安全和延迟必须同时比较。
-- **不能把新增测试通过等同于新的模型接受率提升，更不能把 180 次重复模拟案例等同于真实电信故障诊断准确率。**
 
-## 面试展开方式（已实施 vs 待验证）
-
-“我先在 180 次 E2E 压测中发现了 60% 的辅助输出回退，但工作流没有失败，这说明安全兜底有效、模型有效使用率较低。V3.1 我先增加拒绝原因审计，避免凭主观感受放松 Guardrail，同时针对已确认的否定表达误判加了保守修复，并在独立目录保留 V2 的性能基线。是否真正降低回退率，我还需要在同样场景和硬件上做 A/B 对照。”
