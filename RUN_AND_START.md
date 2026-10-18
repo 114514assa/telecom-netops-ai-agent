@@ -1,10 +1,7 @@
 # 接入网故障诊断 Agent 加固版｜运行与启动指令
 
-> 对象：Windows PowerShell / Linux 或 macOS，推荐 Python 3.11 或 3.12。请在解压后的项目根目录执行。全部样例为**模拟、脱敏**数据，不得输入真实生产资产或凭证。
+> 对象：Windows PowerShell / Linux 或 macOS，推荐 Python 3.11 或 3.12。请在解压后的项目根目录执行。
 
-## 0. 本版新增能力
-
-保留原有 LangGraph、MCP、RAG、Qwen 量化、Guardrail/HITL 与历史实验。新增解析质量治理、可选 `collect` 模拟证据采集、访问/审批演示令牌、节点耗时审计和 34 条原始电信文档可追溯 Query。
 
 ## 1. 安装依赖
 
@@ -181,6 +178,4 @@ pytest -q tests/test_hardening_network.py tests/test_document_grounding.py tests
 - 升级后旧任务无法恢复：State Schema 已变化，使用全新的 `runtime/`，不要直接搬运历史 SQLite/WAL。
 - Docker 启动：`docker compose up --build`；已将端口绑定到本机回环地址；若开启 RAG 需要另行处理容器访问 Ollama 的网络地址。
 
-## 9. 运行安全边界
 
-此版本**仍是脱敏模拟诊断原型**，不支持生产设备自动登录、写配置、真实 MSE 查询、生产 IAM 和多实例 HA。不要把源码或测试报告表述为已经生产部署。先运行离线测试、再运行 RAG 和模型，最后才做性能复测。
